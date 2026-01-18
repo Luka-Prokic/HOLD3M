@@ -21,7 +21,6 @@ export default function Layout() {
               headerStyle: {
                 backgroundColor: theme.background,
               },
-
               headerShadowVisible: false,
               contentStyle: {
                 backgroundColor: theme.background,
@@ -40,7 +39,7 @@ export default function Layout() {
             <Stack.Screen
               name="hand"
               options={{
-                presentation: 'transparentModal',
+                presentation: "fullScreenModal",
               }}
             />
             <Stack.Screen

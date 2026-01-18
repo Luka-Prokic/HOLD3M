@@ -8,9 +8,11 @@ export default function Layout() {
       screenOptions={{
         headerBackButtonDisplayMode: 'minimal',
         headerTitleAlign: 'center',
+        title: '',
         headerStyle: {
           backgroundColor: theme.background,
         },
+        headerShadowVisible: false,
         contentStyle: {
           backgroundColor: theme.background,
         },
@@ -18,7 +20,12 @@ export default function Layout() {
     >
       <Stack.Screen
         name="index"
-        options={{ title: 'Settings' }}
+      />
+      <Stack.Screen
+        name="accent-tint"
+        options={{
+          presentation: "modal",
+        }}
       />
     </Stack>
   );

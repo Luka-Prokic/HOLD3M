@@ -1,19 +1,19 @@
 import { Fragment } from "react";
 import { router, Stack } from "expo-router";
 import { ScreenContent } from "@/components/ui/utils/ScreenContent";
-import { AceButton } from "@/components/ui/buttons/AceButton";
-import { HandBackground } from "@/components/backgrounds/HandBackground";
+import { HandBackground } from "@/components/ui/backgrounds/HandBackground";
+import { HeaderButton } from "@/components/ui/buttons/HeaderButton";
 
 export default function Page() {
   return (
     <Fragment>
       <Stack.Screen
         options={{
-          headerLeft: () => <AceButton title="Deck" onPress={() => router.dismissTo("/")} />,
-          headerRight: () => <AceButton title="Burn" onPress={() => { }} />,
+          headerLeft: () => <HeaderButton title="Deck" onPress={() => router.dismissTo("/")} />,
+          headerRight: () => <HeaderButton title="Burn" onPress={() => { }} />,
         }} />
 
-      <ScreenContent style={{ backgroundColor: "red" }} scroll={false}>
+      <ScreenContent scroll={false}>
         <HandBackground />
       </ScreenContent>
     </Fragment >
