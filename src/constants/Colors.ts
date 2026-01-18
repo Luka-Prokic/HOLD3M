@@ -1,55 +1,49 @@
 export default {
   light: {
     // Text
-    text: "#000000", // primary label
-    textSecondary: "#3C3C4399", // secondary label (60% opacity)
-    textMuted: "#3C3C434D", // tertiary label (30% opacity)
+    text: "#2A2723",
+    textInverted: "#F1EFEA",
 
     // Backgrounds
-    background: "#FFFFFF", // main background
-    surface: "#F2F2F7", // cards / sheets
-    surfaceSecondary: "#E5E5EA", // subtle raised areas
-    surfaceTertiary: "#D1D1D6", // deeper layered background
+    background: "#E5E5EA",
+    surface: "#12110F",
+    surfaceSecondary: "#D6D6D6",
 
-    // Accents
-    accent: "#0A84FF", // system blue
-    accentSoft: "#60A5FA", // softer blue
-    tint: "#32D74B", // green for interactive elements
+    lightSurface: "#D6D6D6",
+    darkSurface: "#2A2723",
 
-    // UI
-    border: "#C6C6C8", // separator / borders
+    // UI - not set
+    border: "#C6C6C8",
     divider: "#C6C6C8",
     input: "#FFFFFF",
     handle: "#AEAEB2",
 
     // Effects
-    shadow: "#00000033", // subtle shadow
-    glow: "#F2F2F7", // soft glow / highlight
+    shadow: "#00000033",
+    glow: "#F2F2F7",
+    select: "#FFD3A5",
 
     // States
-    highlight: "#D9D9F0", // selection / active background
+    highlight: "#D9D9F0",
     warning: "#FFD60A",
     error: "#FF3B30",
   },
 
   dark: {
     // Text
-    text: "#FFFFFF",
-    textSecondary: "#EBEBF599",
-    textMuted: "#EBEBF54D",
+    text: "#F1EFEA",
+    textInverted: "#0D0D0D",
 
     // Backgrounds
-    background: "#1C1C1E", // system dark background
-    surface: "#2C2C2E", // cards / sheets
-    surfaceSecondary: "#3A3A3C", // subtle raised areas
-    surfaceTertiary: "#48484A", // deeper layered background
+    background: "#2A2723",
+    surface: "#2C2C2E",
+    surfaceSecondary: "#12110F",
+    surfaceTertiary: "#48484A",
 
-    // Accents
-    accent: "#0A84FF",
-    accentSoft: "#5AC8FA",
-    tint: "#32D74B",
+    lightSurface: "#D6D6D6",
+    darkSurface: "#2A2723",
 
-    // UI
+    // UI - not set
     border: "#3A3A3C",
     divider: "#3A3A3C",
     input: "#2C2C2E",
@@ -58,6 +52,7 @@ export default {
     // Effects
     shadow: "#00000066",
     glow: "#3A3A3C",
+    select: "#FFD3A5",
 
     // States
     highlight: "#5E5E63",
