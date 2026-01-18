@@ -28,6 +28,7 @@ export function AceButton({
     return (
         <Pressable
             {...pressableProps}
+            hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             style={{
                 height: 64,
                 minWidth: 64,

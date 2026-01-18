@@ -1,8 +1,10 @@
 import { Fragment } from "react";
 import { router, Stack } from "expo-router";
 import { ScreenContent } from "@/components/ui/utils/ScreenContent";
-import { HandBackground } from "@/components/ui/backgrounds/HandBackground";
+import { HandScreenBackground } from "@/components/ui/backgrounds/HandScreenBackground";
 import { HeaderButton } from "@/components/ui/buttons/HeaderButton";
+import { CurrentHand } from "@/components/hand/CurrentHand";
+import { View } from "react-native";
 
 export default function Page() {
   return (
@@ -14,7 +16,10 @@ export default function Page() {
         }} />
 
       <ScreenContent scroll={false}>
-        <HandBackground />
+        <HandScreenBackground />
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} >
+          <CurrentHand />
+        </View>
       </ScreenContent>
     </Fragment >
   );

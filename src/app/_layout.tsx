@@ -6,7 +6,7 @@ import { useThemeStore } from '@/stores/themeStore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Layout() {
-  const { theme, themeName } = useThemeStore();
+  const { themeName } = useThemeStore();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -19,11 +19,12 @@ export default function Layout() {
               headerTitleAlign: 'center',
               headerTitle: '',
               headerStyle: {
-                backgroundColor: theme.background,
+                backgroundColor: "transparent",
               },
               headerShadowVisible: false,
+              headerTransparent: true,
               contentStyle: {
-                backgroundColor: theme.background,
+                backgroundColor: "transparent",
               },
             }}
           >
@@ -39,11 +40,14 @@ export default function Layout() {
             <Stack.Screen
               name="hand"
               options={{
-                presentation: "fullScreenModal",
+                presentation: "transparentModal",
               }}
             />
             <Stack.Screen
               name="card"
+              options={{
+                presentation: "transparentModal",
+              }}
             />
           </Stack>
 
