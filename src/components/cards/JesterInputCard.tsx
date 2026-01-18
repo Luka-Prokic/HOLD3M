@@ -1,12 +1,15 @@
 import { useThemeStore } from "@/stores/themeStore";
+import { WIDTH } from "@/utils/Dimensions";
 import { View, Text } from "react-native";
 
 export function JesterInputCard() {
-    const { accentColor, tintColor } = useThemeStore();
+    const { accentColor, tintColor, cardBackground, cardText } = useThemeStore();
+    const cardHeight = (WIDTH - 48) * 1.4;
+    const cardWidth = WIDTH - 48;
 
     return (
-        <View style={{ width: 64, height: 64, backgroundColor: tintColor }}>
-            <Text style={{ fontSize: 24, fontWeight: "bold", color: accentColor }}>J</Text>
+        <View style={{ width: cardWidth, height: cardHeight, borderRadius: 16, padding: 8, backgroundColor: cardBackground }}>
+            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>J</Text>
         </View>
     );
 }

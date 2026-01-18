@@ -10,6 +10,7 @@ interface AceButtonProps extends PressableProps {
     buttonStyle?: ViewStyle | ViewStyle[];
     textStyle?: TextStyle | TextStyle[];
     themeType?: ButtonThemeType;
+    children?: React.ReactNode;
 }
 
 export function AceButton({
@@ -20,6 +21,7 @@ export function AceButton({
     textStyle,
     disabled = false,
     themeType = "theme",
+    children,
     ...pressableProps
 }: AceButtonProps) {
     const bColor = getButtonColor(themeType, buttonColor);
@@ -41,9 +43,10 @@ export function AceButton({
                 ...buttonStyle,
             }}
         >
-            <Text style={{ color: tColor, fontSize: 24, fontWeight: "600", ...textStyle }}>
+            {children ? children : <Text style={{ color: tColor, fontSize: 24, fontWeight: "600", ...textStyle }}>
                 {title}
             </Text>
+            }
         </Pressable>
     );
 }
