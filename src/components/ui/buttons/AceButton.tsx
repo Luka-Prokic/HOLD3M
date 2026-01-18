@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/store/themeStore";
+import { useThemeStore } from "@/stores/themeStore";
 import { Pressable, Text, ViewStyle, TextStyle, PressableProps } from "react-native";
 
 export type ButtonThemeType = "theme" | "tint" | "accent" | "custom";

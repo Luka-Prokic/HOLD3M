@@ -36,7 +36,7 @@ export default {
 
     // Backgrounds
     background: "#2A2723",
-    surface: "#2C2C2E",
+    surface: "#D6D6D6",
     surfaceSecondary: "#12110F",
     surfaceTertiary: "#48484A",
 

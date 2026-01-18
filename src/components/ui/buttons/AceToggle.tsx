@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/store/themeStore";
+import { useThemeStore } from "@/stores/themeStore";
 import { Pressable, Text, ViewStyle, TextStyle, PressableProps } from "react-native";
 import { useState } from "react";
 
