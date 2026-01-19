@@ -18,7 +18,7 @@ export function FocusCard({ card }: FocusCardProps) {
 
     return (
         <Pressable style={{ width: cardWidth, height: cardHeight, borderRadius: 16, padding: 8, backgroundColor: cardBackground }} >
-            <Text style={{ fontSize: 24, fontWeight: "bold", color: cardText }}>{rank}</Text>
+            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>{rank}</Text>
             <Text style={{ fontSize: 24, color: cardText }}>{card.text}</Text>
         </Pressable>
     );

@@ -17,7 +17,7 @@ export function JesterFocusCard() {
     function handleLongPress() {
         setFocus(false);
         addCard(text);
-        router.dismissTo("/hand");
+        // router.dismissTo("/hand");
     }
 
     return (
