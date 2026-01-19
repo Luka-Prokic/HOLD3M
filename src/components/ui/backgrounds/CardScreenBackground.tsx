@@ -9,7 +9,7 @@ export function CardScreenBackground() {
     const { theme, tintColor } = useThemeStore();
     const { fontFamily } = useBalletFont();
     return (
-        <BlurView intensity={16} style={{
+        <BlurView intensity={32} style={{
             flex: 1, position: "absolute", top: 0, left: 0, bottom: 0, right: 0, justifyContent: "flex-end",
             alignItems: "center"
         }}>
