@@ -6,7 +6,7 @@ import { Card } from "@/stores/types";
 import { router } from "expo-router";
 
 export function CurrentHand() {
-    const { currentHand, setCurrentCardIndex } = useGameStore();
+    const { currentHand, setCurrentCardIndex, currentCardIndex } = useGameStore();
 
     // Always render 5 cards, fill with jesters if needed
     const cardsToShow = [...currentHand];
@@ -19,6 +19,8 @@ export function CurrentHand() {
         router.push("/card");
     }
 
+
+    if (currentCardIndex !== -1) return null;
     return (
         <View style={{ flexDirection: "row", paddingBottom: 128, width: "100%", justifyContent: "space-between", paddingHorizontal: 8 }}>
             {cardsToShow.map((card, index) =>

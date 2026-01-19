@@ -9,14 +9,12 @@ import { View } from "react-native";
 
 export default function Page() {
   const { theme } = useThemeStore();
-  const { finalizeHand, startNewHand, deck } = useGameStore();
+  const { finalizeHand, startNewHand } = useGameStore();
 
   function handleEndDay() {
     finalizeHand();
     setTimeout(() => {
       startNewHand();
-      console.log("Deck", deck.length);
-      console.log(deck[deck.length - 1].cards.map((card) => card.repetition).join(", "), deck[deck.length - 1].rank.type, deck[deck.length - 1].rank.values.join(", "));
     }, 100);
   }
   return (
