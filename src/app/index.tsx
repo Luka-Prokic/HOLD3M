@@ -9,8 +9,16 @@ import { View } from "react-native";
 
 export default function Page() {
   const { theme } = useThemeStore();
-  const { finalizeHand, startNewHand } = useGameStore();
+  const { finalizeHand, startNewHand, deck } = useGameStore();
 
+  function handleEndDay() {
+    finalizeHand();
+    setTimeout(() => {
+      startNewHand();
+      console.log("Deck", deck.length);
+      console.log(deck[deck.length - 1].cards.map((card) => card.repetition).join(", "), deck[deck.length - 1].rank.type, deck[deck.length - 1].rank.values.join(", "));
+    }, 100);
+  }
   return (
     <Fragment>
       <Stack.Screen options={{
@@ -22,8 +30,7 @@ export default function Page() {
       }} />
       <ScreenContent edges={["top"]} scroll={false}>
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <AceButton title="End Hand" onPress={() => finalizeHand()} />
-          <AceButton title="New Hand" onPress={() => startNewHand()} />
+          <AceButton title="End Day" onPress={handleEndDay} />
         </View>
       </ScreenContent>
     </Fragment >

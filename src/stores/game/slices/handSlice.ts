@@ -28,7 +28,9 @@ export const createHandSlice: StateCreator<
     const { burnsAvailable, deck } = get();
     if (!burnsAvailable) set({ burnsAvailable: 1 });
 
-    set({ currentHand: deck[deck.length - 1].cards, heldCards: [] });
+    const newHand: Card[] = deck[deck.length - 1].cards.map((card) => ({ ...card, id: nanoid(), repetition: card.repetition + 1, createdAt: Date.now() }));
+
+    set({ currentHand: newHand, heldCards: [] });
   },
 
   holdCard: (cardId) => {
