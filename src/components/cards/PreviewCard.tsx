@@ -3,6 +3,7 @@ import { useThemeStore } from "@/stores/themeStore";
 import { Card } from "@/stores/types";
 import { getCardRank } from "@/utils/getCardRank";
 import { WIDTH } from "@/utils/Dimensions";
+import { useGameStore } from "@/stores/game/useGameStore";
 
 interface PreviewCardProps {
     card: Card;
@@ -10,15 +11,26 @@ interface PreviewCardProps {
 }
 
 export function PreviewCard({ card, onPress }: PreviewCardProps) {
-    const { cardBackground, cardText } = useThemeStore();
+    const { cardBackground, cardText, theme } = useThemeStore();
+    const { holdCard, heldCards, releaseCard } = useGameStore();
+
+    const isHeld = heldCards.some((c) => c.id === card.id);
 
     const cardWidth = WIDTH / 6;
     const cardHeight = cardWidth * 1.4;
 
     const rank = getCardRank(card.repetition);
 
+    function handleLongPress() {
+        if (isHeld) {
+            releaseCard(card.id);
+        } else {
+            holdCard(card.id);
+        }
+    }
+
     return (
-        <Pressable style={{ width: cardWidth, height: cardHeight, backgroundColor: cardBackground, borderRadius: 8, padding: 4 }} onPress={onPress}>
+        <Pressable style={{ width: cardWidth, height: cardHeight, backgroundColor: isHeld ? theme.select : cardBackground, borderRadius: 8, padding: 4 }} onPress={onPress} onLongPress={handleLongPress}>
             <Text style={{ fontSize: 24, fontWeight: "bold", color: cardText }}>{rank}</Text>
         </Pressable>
     );

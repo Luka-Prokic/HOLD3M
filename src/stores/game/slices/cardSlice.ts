@@ -8,7 +8,7 @@ export interface CardSlice {
   burnsAvailable: number;
   addCard: (text: string) => void;
   editCard: (cardId: string, text: string) => void;
-  burnCards: (cardsIds: string[]) => void;
+  burnCards: () => void;
   resetBurns: () => void;
 }
 
@@ -43,15 +43,18 @@ export const createCardSlice: StateCreator<
     });
   },
 
-  burnCards: (cardsIds: string[]) => {
-    const { burnsAvailable, currentHand } = get();
+  burnCards: () => {
+    const { burnsAvailable, currentHand, heldCards } = get();
 
     if (burnsAvailable <= 0) {
       return;
     }
 
+
+    const cardsNotToBurn = currentHand.filter((card) => heldCards.includes(card));
+
     set({
-      currentHand: currentHand.filter((card) => !cardsIds.includes(card.id)),
+      currentHand: cardsNotToBurn,
       burnsAvailable: burnsAvailable - 1,
     });
   },

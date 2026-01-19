@@ -3,9 +3,14 @@ import { router, Stack } from "expo-router";
 import { ScreenContent } from "@/components/ui/utils/ScreenContent";
 import { HeaderButton } from "@/components/ui/buttons/HeaderButton";
 import { useThemeStore } from "@/stores/themeStore";
+import { AceButton } from "@/components/ui/buttons/AceButton";
+import { useGameStore } from "@/stores/game/useGameStore";
+import { View } from "react-native";
 
 export default function Page() {
   const { theme } = useThemeStore();
+  const { finalizeHand, startNewHand } = useGameStore();
+
   return (
     <Fragment>
       <Stack.Screen options={{
@@ -15,7 +20,11 @@ export default function Page() {
           backgroundColor: theme.background,
         },
       }} />
-      <ScreenContent edges={["top"]}>
+      <ScreenContent edges={["top"]} scroll={false}>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <AceButton title="End Hand" onPress={() => finalizeHand()} />
+          <AceButton title="New Hand" onPress={() => startNewHand()} />
+        </View>
       </ScreenContent>
     </Fragment >
   );

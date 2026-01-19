@@ -8,7 +8,7 @@ export interface HandSlice {
   deck: Hand[];
   currentHand: Card[];
   heldCards: Card[];
-  startNewHand: (cards: Card[]) => void;
+  startNewHand: () => void;
   holdCard: (cardId: string) => void;
   releaseCard: (cardId: string) => void;
   finalizeHand: () => Hand;
