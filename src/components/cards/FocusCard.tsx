@@ -1,7 +1,7 @@
 import { useThemeStore } from "@/stores/themeStore";
 import { Card } from "@/stores/types";
 import { WIDTH } from "@/utils/Dimensions";
-import { getCardRank } from "@/utils/getCardRank";
+import { getCardRank, getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Text, Pressable } from "react-native";
 
 
@@ -11,7 +11,7 @@ interface FocusCardProps {
 
 export function FocusCard({ card }: FocusCardProps) {
     const { cardBackground, cardText, theme } = useThemeStore();
-    const rank = getCardRank(card.repetition);
+    const rankLetter = getCardRankLetterFromRep(card.repetition);
 
     const cardHeight = (WIDTH - 48) * 1.4;
     const cardWidth = WIDTH - 48;
@@ -31,7 +31,7 @@ export function FocusCard({ card }: FocusCardProps) {
                 elevation: 8,
                 zIndex: 1,
             }} >
-            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>{rank}</Text>
+            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>{rankLetter}</Text>
             <Text style={{ fontSize: 24, color: cardText }}>{card.text}</Text>
         </Pressable>
     );

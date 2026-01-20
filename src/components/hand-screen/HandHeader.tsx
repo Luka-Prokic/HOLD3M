@@ -9,13 +9,13 @@ export function HandHeader() {
     const { burnCards, burnsAvailable, currentHand, heldCards } = useGameStore();
     const { themeName } = useThemeStore();
 
-    const unHeldCards = currentHand.filter((card: Card) => !heldCards.includes(card));
-    const unHeldCardsCount = unHeldCards.length;
+    const unHeldCardsCount = currentHand.filter((card: Card) => !heldCards.includes(card)).length;
+    const jesterCardsCount = currentHand.filter((card: Card) => card.repetition === -1).length;
 
-    const burnableCards = burnsAvailable > 0 && unHeldCardsCount > 0 ? true : false;
+    const burnableCards = burnsAvailable > 0 && unHeldCardsCount > 0 && jesterCardsCount === 5 ? true : false;
 
     const burnStyle = themeName === "dark" ? "tint" : "accent";
-    const burnLabel = `Burn (${unHeldCardsCount})`;
+    const burnLabel = `Burn (${unHeldCardsCount - jesterCardsCount})`;
 
     return (
         <Animated.View

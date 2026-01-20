@@ -8,17 +8,11 @@ import { CenterCardSlider } from "../ui/sliders/CenterCardSlider";
 export function FocusedHand() {
     const { currentHand, currentCardIndex, setCurrentCardIndex } = useGameStore();
 
-    // Always render 5 cards, fill with jesters if needed
-    const cardsToShow = [...currentHand];
-    while (cardsToShow.length < 5) {
-        cardsToShow.push({ id: "jester", repetition: 0, suit: "hearts" } as Card); // undefined will render jester
-    }
-
     if (currentCardIndex === -1) return null;
 
     return (
         <CenterCardSlider
-            data={cardsToShow}
+            data={currentHand}
             card={({ item }: { item: Card }) => <CardItem card={item} />}
             cardWidth={WIDTH}
             sliderWidth={WIDTH}
@@ -39,7 +33,7 @@ export function FocusedHand() {
 }
 
 function CardItem({ card }: { card: Card }) {
-    if (card.id !== "jester") return <FocusCard card={card} />;
+    if (card.repetition >= 0) return <FocusCard card={card} />;
 
-    return <JesterFocusCard />;
+    return <JesterFocusCard card={card} />;
 }

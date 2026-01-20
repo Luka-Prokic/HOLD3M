@@ -1,13 +1,12 @@
 import type { StateCreator } from "zustand";
 import type { HandSlice } from "./handSlice";
-import type { Card } from "@/stores/types";
+import type { Card, CardSuit } from "@/stores/types";
 import { CARD_SUITS } from "../constants";
 import { nanoid } from "nanoid/non-secure";
 
 export interface CardSlice {
   burnsAvailable: number;
-  addCard: (text: string) => void;
-  editCard: (cardId: string, text: string) => void;
+  addCard: (card: Card) => void;
   burnCards: () => void;
   resetBurns: () => void;
 }
@@ -20,41 +19,46 @@ export const createCardSlice: StateCreator<
 > = (set, get) => ({
   burnsAvailable: 1,
 
-  addCard: (text: string) => {
+  addCard: (card: Card) => {
+    const { currentHand } = get();
+
     const newCard: Card = {
-      id: nanoid(),
-      text,
+      id: `card_${nanoid()}`,
+      text: card.text,
       repetition: 0,
-      suit: CARD_SUITS[Math.floor(Math.random() * CARD_SUITS.length)],
+      suit: card.suit,
       createdAt: Date.now(),
     };
 
-    set({
-      currentHand: [...get().currentHand, newCard],
-    });
-  },
+    const newCurrentHand = currentHand.map(c => c.id === card.id ? newCard : c);
 
-  editCard: (cardId, text) => {
-    const { currentHand } = get();
     set({
-      currentHand: currentHand.map((card) =>
-        card.id === cardId ? { ...card, text } : card
-      ),
+      currentHand: newCurrentHand,
     });
   },
 
   burnCards: () => {
     const { burnsAvailable, currentHand, heldCards } = get();
+    if (burnsAvailable <= 0) return;
 
-    if (burnsAvailable <= 0) {
-      return;
-    }
+    const heldIds = new Set(heldCards.map(c => c.id));
 
+    const keptCards = currentHand.filter(card =>
+      heldIds.has(card.id)
+    );
 
-    const cardsNotToBurn = currentHand.filter((card) => heldCards.includes(card));
+    const burnedCount = currentHand.length - keptCards.length;
+
+    const jesters: Card[] = Array.from({ length: burnedCount }).map(() => ({
+      id: `jester_${nanoid()}`,
+      text: "",
+      repetition: -1,
+      suit: CARD_SUITS[Math.floor(Math.random() * CARD_SUITS.length)],
+      createdAt: Date.now(),
+    }));
 
     set({
-      currentHand: cardsNotToBurn,
+      currentHand: [...keptCards, ...jesters],
       burnsAvailable: burnsAvailable - 1,
     });
   },

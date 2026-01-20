@@ -3,8 +3,13 @@ import { WIDTH } from "@/utils/Dimensions";
 import { Text, Pressable, TextInput } from "react-native";
 import { useState } from "react";
 import { useGameStore } from "@/stores/game/useGameStore";
+import { Card } from "@/stores/types";
 
-export function JesterFocusCard() {
+interface JesterFocusCardProps {
+    card: Card;
+}
+
+export function JesterFocusCard({ card }: JesterFocusCardProps) {
     const { addCard } = useGameStore();
     const { cardBackground, cardText, theme } = useThemeStore();
     const cardHeight = (WIDTH - 48) * 1.4;
@@ -15,7 +20,7 @@ export function JesterFocusCard() {
 
     function handleLongPress() {
         setFocus(false);
-        addCard(text);
+        addCard({ ...card, text });
     }
 
     return (
@@ -36,7 +41,7 @@ export function JesterFocusCard() {
             onPress={() => setFocus(!focus)}
             onLongPress={handleLongPress}
         >
-            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>J</Text>
+            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>X</Text>
             {focus ?
                 <TextInput
                     style={{ fontSize: 24, color: cardText }}

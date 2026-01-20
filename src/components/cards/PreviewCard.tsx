@@ -1,7 +1,7 @@
 import { Text, Pressable } from "react-native";
 import { useThemeStore } from "@/stores/themeStore";
 import { Card } from "@/stores/types";
-import { getCardRank } from "@/utils/getCardRank";
+import { getCardRank, getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { WIDTH } from "@/utils/Dimensions";
 import { useGameStore } from "@/stores/game/useGameStore";
 
@@ -19,7 +19,7 @@ export function PreviewCard({ card, onPress }: PreviewCardProps) {
     const cardWidth = WIDTH / 6;
     const cardHeight = cardWidth * 1.4;
 
-    const rank = getCardRank(card.repetition);
+    const rankLetter = getCardRankLetterFromRep(card.repetition);
 
     function handleLongPress() {
         if (isHeld) {
@@ -31,7 +31,7 @@ export function PreviewCard({ card, onPress }: PreviewCardProps) {
 
     return (
         <Pressable style={{ width: cardWidth, height: cardHeight, backgroundColor: isHeld ? theme.select : cardBackground, borderRadius: 8, padding: 4 }} onPress={onPress} onLongPress={handleLongPress}>
-            <Text style={{ fontSize: 24, fontWeight: "bold", color: cardText }}>{rank}</Text>
+            <Text style={{ fontSize: 24, fontWeight: "bold", color: cardText }}>{rankLetter}</Text>
         </Pressable>
     );
 }

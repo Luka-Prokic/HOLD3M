@@ -1,12 +1,15 @@
 import { Card } from "@/stores/types";
 import { useGameStore } from "@/stores/game/useGameStore"
-import { View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Text, View } from "react-native";
 import { useThemeStore } from "@/stores/themeStore";
+import { WIDTH } from "@/utils/Dimensions";
 
 
 export function MiniFocusedHand() {
     const { currentHand } = useGameStore();
+
+    const cardWidth = (WIDTH - 144) / 5;
+    const cardHeight = cardWidth * 1.4;
 
     // Always render 5 cards, fill with jesters if needed
     const cardsToShow = [...currentHand];
@@ -14,7 +17,14 @@ export function MiniFocusedHand() {
         cardsToShow.push({ id: "jester", repetition: 0, suit: "hearts" } as Card); // undefined will render jester
     }
 
-    return (<View style={{ flexDirection: "row", width: "100%", height: 80, alignItems: "center", justifyContent: "space-between", paddingHorizontal: 8 }}>
+    return (<View style={{
+        flexDirection: "row",
+        width: WIDTH,
+        height: cardHeight,
+        alignItems: "center",
+        paddingHorizontal: 24,
+        gap: 24
+    }}>
         {cardsToShow.map((card, index) =>
             <CardItem key={index} card={card} index={index} />
         )}
@@ -26,12 +36,13 @@ function CardItem({ card, index }: { card: Card, index: number }) {
     const { heldCards, currentCardIndex } = useGameStore();
 
 
+    const cardWidth = (WIDTH - 144) / 5;
+    const cardHeight = cardWidth * 1.4;
 
     const isHeld = heldCards.some((heldCard) => heldCard.id === card.id);
     const isCurrent = currentCardIndex === index;
-    const isJester = card.id === "jester";
 
-    if (isJester) return <Ionicons name="star-outline" size={24} color={theme.text} style={{ transform: [{ scale: isCurrent ? 1.5 : 1 }] }} />
-
-    return <Ionicons name={isHeld ? "ellipse" : "ellipse-outline"} size={24} color={theme.text} style={{ transform: [{ scale: isCurrent ? 1.5 : 1 }] }} />
+    return <View style={{ width: cardWidth, height: cardHeight, backgroundColor: theme.background }} >
+        <Text style={{ fontSize: 24, fontWeight: "bold", color: theme.text }}>{card.id}</Text>
+    </View>
 }
