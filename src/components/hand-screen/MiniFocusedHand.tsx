@@ -1,9 +1,10 @@
 import { Card } from "@/stores/types";
 import { useGameStore } from "@/stores/game/useGameStore"
-import { Pressable, Text, TouchableOpacity, View, ViewStyle } from "react-native";
+import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import { useThemeStore } from "@/stores/themeStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
+import { Ionicons } from "@expo/vector-icons";
 
 
 export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) {
@@ -60,14 +61,16 @@ function CardItem({ card, index }: { card: Card, index: number }) {
             borderRightWidth: 0.2,
             borderColor: colorTwo,
             borderRadius: 8,
+            shadowColor: colorOne,
+            shadowOffset: { width: 1, height: 1 },
+            shadowOpacity: isCurrent ? 0.8 : 0.4,
+            shadowRadius: 1,
+            elevation: 2,
         }} >
-        <Text
-            style={{
-                fontSize: 24,
-                fontWeight: "bold",
-                color: colorTwo
-            }}>
-            {rankLabel}
-        </Text>
+        {rankLabel === "X" ?
+            <Ionicons name="star" size={24} color={colorTwo} />
+            :
+            <Text style={{ fontSize: 24, fontWeight: "bold", color: colorTwo }}>{rankLabel}</Text>
+        }
     </TouchableOpacity>
 }

@@ -10,7 +10,7 @@ export function FocusedHand() {
 
     if (currentCardIndex === -1) return null;
 
-    const cardHeight = (WIDTH - 32) * 1.4 + 64;
+    const cardHeight = (WIDTH - 32) * 1.4 + 88;
 
     return (
         <CenterCardSlider
