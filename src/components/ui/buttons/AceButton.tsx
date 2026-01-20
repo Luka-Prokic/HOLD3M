@@ -1,9 +1,9 @@
 import { useThemeStore } from "@/stores/themeStore";
-import { Pressable, Text, ViewStyle, TextStyle, PressableProps } from "react-native";
+import { Text, ViewStyle, TextStyle, TouchableOpacity, TouchableOpacityProps } from "react-native";
 
-export type ButtonThemeType = "theme" | "tint" | "accent" | "custom";
+export type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
 
-interface AceButtonProps extends PressableProps {
+interface AceButtonProps extends TouchableOpacityProps {
     title: string;
     buttonColor?: string;
     textColor?: string;
@@ -20,16 +20,16 @@ export function AceButton({
     buttonStyle,
     textStyle,
     disabled = false,
-    themeType = "theme",
+    themeType = "default",
     children,
-    ...pressableProps
+    ...touchableOpacityProps
 }: AceButtonProps) {
     const bColor = getButtonColor(themeType, buttonColor);
     const tColor = getTextColor(themeType, textColor);
 
     return (
-        <Pressable
-            {...pressableProps}
+        <TouchableOpacity
+            {...touchableOpacityProps}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             style={{
                 height: 64,
@@ -43,11 +43,11 @@ export function AceButton({
                 ...buttonStyle,
             }}
         >
-            {children ? children : <Text style={{ color: tColor, fontSize: 24, fontWeight: "600", ...textStyle }}>
+            {children ? children : <Text style={{ color: tColor, fontSize: 24, fontWeight: "bold", ...textStyle }}>
                 {title}
             </Text>
             }
-        </Pressable>
+        </TouchableOpacity>
     );
 }
 
@@ -55,6 +55,8 @@ export function AceButton({
 function getButtonColor(themeType: ButtonThemeType, customColor?: string) {
     const { theme, accentColor, tintColor } = useThemeStore();
     switch (themeType) {
+        case "default":
+            return theme.darkSurface;
         case "theme":
             return theme.surface;
         case "tint":
@@ -70,6 +72,8 @@ function getTextColor(themeType: ButtonThemeType, customColor?: string) {
     const { theme, accentColor, tintColor } = useThemeStore();
 
     switch (themeType) {
+        case "default":
+            return theme.lightSurface;
         case "theme":
             return theme.textInverted;
         case "tint":

@@ -99,7 +99,7 @@ export const ScreenContent = React.memo(function ScreenContent({
   style,
   contentContainerStyle,
   edges = [],
-  scroll = true,
+  scroll = false,
   headerTopPadding = false,
   keyboardAvoidingView,
   HeaderComponent,

@@ -10,7 +10,7 @@ export default {
     surfaceSecondary: "#D6D6D6",
 
     lightSurface: "#D6D6D6",
-    darkSurface: "#2A2723",
+    darkSurface: "#12110F",
 
     // UI - not set
     border: "#C6C6C8",
@@ -35,13 +35,13 @@ export default {
     textInverted: "#0D0D0D",
 
     // Backgrounds
-    background: "#2A2723",
+    background: "#1F1D1B",
     surface: "#D6D6D6",
     surfaceSecondary: "#12110F",
     surfaceTertiary: "#48484A",
 
     lightSurface: "#D6D6D6",
-    darkSurface: "#2A2723",
+    darkSurface: "#12110F",
 
     // UI - not set
     border: "#3A3A3C",

@@ -5,7 +5,7 @@ import { calculateHandRank } from "../utils/calculateHandRank";
 import { CardSlice } from "./cardSlice";
 
 export interface HandSlice {
-  deck: Hand[];
+  round: Hand[];
   currentHand: Card[];
   heldCards: Card[];
   startNewHand: () => void;
@@ -20,15 +20,15 @@ export const createHandSlice: StateCreator<
   [],
   HandSlice
 > = (set, get) => ({
-  deck: [],
+  round: [],
   currentHand: [],
   heldCards: [],
 
   startNewHand: () => {
-    const { burnsAvailable, deck } = get();
+    const { burnsAvailable, round } = get();
     if (!burnsAvailable) set({ burnsAvailable: 1 });
 
-    const newHand: Card[] = deck[deck.length - 1].cards.map((card) => ({ ...card, id: nanoid(), repetition: card.repetition + 1, createdAt: Date.now() }));
+    const newHand: Card[] = round[round.length - 1].cards.map((card) => ({ ...card, id: nanoid(), repetition: card.repetition + 1, createdAt: Date.now() }));
 
     set({ currentHand: newHand, heldCards: [] });
   },
@@ -48,7 +48,7 @@ export const createHandSlice: StateCreator<
   },
 
   finalizeHand: () => {
-    const { heldCards, deck } = get();
+    const { heldCards, round } = get();
     const rank = calculateHandRank(heldCards);
 
     const newHand: Hand = {
@@ -58,7 +58,7 @@ export const createHandSlice: StateCreator<
       createdAt: Date.now(),
     };
 
-    set({ deck: [...deck, newHand] });
+    set({ round: [...round, newHand] });
 
     return newHand;
   },
