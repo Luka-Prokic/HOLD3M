@@ -3,8 +3,8 @@ import type { Card, Hand } from "../../types";
 import { nanoid } from "nanoid/non-secure";
 import { calculateHandRank } from "../utils/calculateHandRank";
 import { CardSlice } from "./cardSlice";
-import { CARD_SUITS } from "../constants";
 import { genFirstHand } from "../utils/genFirstHand";
+import { getRandomCardSuit } from "../utils/getRandomCardSuit";
 
 export interface HandSlice {
   round: Hand[];
@@ -31,6 +31,7 @@ export const createHandSlice: StateCreator<
     if (!burnsAvailable) set({ burnsAvailable: 1 });
 
     const lastHand = round[round.length - 1];
+
     if (!lastHand) {
       set({ currentHand: [], heldCards: [] });
       return;
@@ -43,15 +44,17 @@ export const createHandSlice: StateCreator<
       createdAt: Date.now(),
     }));
 
-    const jesters: Card[] = [5 - newHand.length].map(() => ({
+    const newJesterCount = 5 - newHand.length;
+
+    const newJesters: Card[] = Array.from({ length: newJesterCount }).map(() => ({
       id: `jester_${nanoid()}`,
       text: "",
       repetition: -1,
-      suit: CARD_SUITS[Math.floor(Math.random() * CARD_SUITS.length)],
+      suit: getRandomCardSuit(),
       createdAt: Date.now(),
     }));
 
-    set({ currentHand: [...newHand, ...jesters], heldCards: [] });
+    set({ currentHand: [...newHand, ...newJesters], heldCards: [] });
   },
 
   holdCard: (cardId) => {

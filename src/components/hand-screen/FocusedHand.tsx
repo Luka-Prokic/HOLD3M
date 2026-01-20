@@ -1,7 +1,7 @@
 import { useGameStore } from "@/stores/game/useGameStore";
 import { FocusCard } from "../cards/FocusCard";
 import { JesterFocusCard } from "../cards/JesterFocusCard";
-import { WIDTH, HEIGHT } from "@/utils/Dimensions";
+import { WIDTH } from "@/utils/Dimensions";
 import { Card } from "@/stores/types";
 import { CenterCardSlider } from "../ui/sliders/CenterCardSlider";
 
@@ -10,13 +10,16 @@ export function FocusedHand() {
 
     if (currentCardIndex === -1) return null;
 
+    const cardHeight = (WIDTH - 32) * 1.4 + 64;
+
     return (
         <CenterCardSlider
             data={currentHand}
             card={({ item }: { item: Card }) => <CardItem card={item} />}
             cardWidth={WIDTH}
             sliderWidth={WIDTH}
-            cardHeight={HEIGHT}
+            cardHeight={cardHeight}
+            sliderHeight={cardHeight}
             selectedIndex={currentCardIndex}
             selectedCardIndex={currentCardIndex}
             initialScrollIndex={currentCardIndex}

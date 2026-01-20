@@ -1,8 +1,8 @@
 import type { StateCreator } from "zustand";
 import type { HandSlice } from "./handSlice";
-import type { Card, CardSuit } from "@/stores/types";
-import { CARD_SUITS } from "../constants";
+import type { Card } from "@/stores/types";
 import { nanoid } from "nanoid/non-secure";
+import { getRandomCardSuit } from "../utils/getRandomCardSuit";
 
 export interface CardSlice {
   burnsAvailable: number;
@@ -53,7 +53,7 @@ export const createCardSlice: StateCreator<
       id: `jester_${nanoid()}`,
       text: "",
       repetition: -1,
-      suit: CARD_SUITS[Math.floor(Math.random() * CARD_SUITS.length)],
+      suit: getRandomCardSuit(),
       createdAt: Date.now(),
     }));
 

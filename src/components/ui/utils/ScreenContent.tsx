@@ -152,10 +152,7 @@ export const ScreenContent = memo(function ScreenContent({
         {scrollable ? (
           <ScrollView
             style={{ flex: 1 }}
-            contentContainerStyle={[
-              { gap: 8, padding: 16 },
-              contentContainerStyle,
-            ]}
+            contentContainerStyle={contentContainerStyle}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="interactive"
             showsVerticalScrollIndicator={false}
