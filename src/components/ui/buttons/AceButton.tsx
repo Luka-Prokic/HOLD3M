@@ -11,6 +11,7 @@ interface AceButtonProps extends TouchableOpacityProps {
     textStyle?: TextStyle | TextStyle[];
     themeType?: ButtonThemeType;
     children?: React.ReactNode;
+    circle?: boolean;
 }
 
 export function AceButton({
@@ -19,9 +20,9 @@ export function AceButton({
     textColor = "#000",
     buttonStyle,
     textStyle,
-    disabled = false,
     themeType = "default",
     children,
+    circle = false,
     ...touchableOpacityProps
 }: AceButtonProps) {
     const bColor = getButtonColor(themeType, buttonColor);
@@ -35,15 +36,15 @@ export function AceButton({
                 height: 64,
                 minWidth: 64,
                 backgroundColor: bColor,
-                opacity: disabled ? 0.4 : 1,
-                paddingHorizontal: 16,
+                opacity: touchableOpacityProps.disabled ? 0.4 : 1,
+                paddingHorizontal: circle ? 0 : 24,
                 borderRadius: 32,
                 alignItems: "center",
                 justifyContent: "center",
                 ...buttonStyle,
             }}
         >
-            {children ? children : <Text style={{ color: tColor, fontSize: 24, fontWeight: "bold", ...textStyle }}>
+            {children ? children : <Text style={{ color: tColor, fontSize: 24, fontWeight: "600", ...textStyle }}>
                 {title}
             </Text>
             }

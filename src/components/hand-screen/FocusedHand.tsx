@@ -32,6 +32,7 @@ export function FocusedHand() {
                 index,
             })}
             onSelect={(index) => setCurrentCardIndex(index)}
+            animationType="album"
             hideDots
         />
     );

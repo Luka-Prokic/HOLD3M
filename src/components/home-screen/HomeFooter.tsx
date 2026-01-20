@@ -13,7 +13,7 @@ export function HomeFooter() {
     const holdemStyle = themeName === "dark" ? "tint" : "accent";
 
     return (
-        <View style={{ flexDirection: "row", width: "100%", paddingBottom: 16, paddingHorizontal: 24, gap: 24, zIndex: 1 }}>
+        <View style={{ flexDirection: "row", width: "100%", paddingBottom: 16, paddingHorizontal: 24, zIndex: 1 }}>
             <AceButton title="Holdem" onPress={handleHoldem} themeType={holdemStyle} buttonStyle={{ flexGrow: 1 }} />
         </View>
     );

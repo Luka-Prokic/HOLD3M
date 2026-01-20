@@ -6,13 +6,7 @@ export default function Layout() {
   return (
     <Stack
       screenOptions={{
-        headerBackButtonDisplayMode: 'minimal',
-        headerTitleAlign: 'center',
-        title: '',
-        headerStyle: {
-          backgroundColor: theme.background,
-        },
-        headerShadowVisible: false,
+        headerShown: false,
         contentStyle: {
           backgroundColor: theme.background,
         },
@@ -20,12 +14,6 @@ export default function Layout() {
     >
       <Stack.Screen
         name="index"
-      />
-      <Stack.Screen
-        name="accent-tint"
-        options={{
-          presentation: "modal",
-        }}
       />
     </Stack>
   );

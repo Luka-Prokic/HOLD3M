@@ -13,8 +13,8 @@ export function CurrentRound() {
 
     return (
         <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ fontSize: 96, fontWeight: "bold", color: theme.textInverted }}>Round</Text>
-            <Text style={{ fontSize: 128, fontWeight: "bold", color: hashColor }}>#<Text style={{ color: roundColor }}>{round.length + 1}</Text></Text>
+            <Text style={{ fontSize: 96, fontWeight: "800", color: theme.textInverted }}>Round</Text>
+            <Text style={{ fontSize: 128, fontWeight: "800", color: hashColor }}>#<Text style={{ color: roundColor }}>{round.length + 1}</Text></Text>
         </View>
     );
 }

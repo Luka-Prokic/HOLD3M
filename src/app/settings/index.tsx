@@ -1,27 +1,28 @@
 import { Fragment } from "react";
-import { router, Stack } from "expo-router";
 import { ScreenContent } from "@/components/ui/utils/ScreenContent";
 import { AceButton } from "@/components/ui/buttons/AceButton";
 import { useThemeStore } from "@/stores/themeStore";
-import { HeaderButton } from "@/components/ui/buttons/HeaderButton";
 import { EndDayButton } from "@/components/ui/mock/EndDayButton";
 import { View } from "react-native";
+import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
+import { AccentTintButton } from "@/components/ui/buttons/AccentTintButton";
 
 export default function Page() {
     const { setTheme } = useThemeStore();
 
     return (
         <Fragment>
-            <Stack.Screen options={{
-                headerRight: () => <HeaderButton title="Home" onPress={() => router.dismissTo("/")} />,
-            }} />
-
-            <ScreenContent edges={["top"]} >
-                <View style={{ paddingHorizontal: 16, gap: 16 }}>
+            <ScreenContent
+                edges={["top"]}
+                HeaderComponent={<SettingsHeader />} >
+                <View style={{ padding: 16, gap: 8 }}>
                     <EndDayButton />
-                    <AceButton title="DARK" onPress={() => setTheme("dark")} />
-                    <AceButton title="LIGHT" onPress={() => setTheme("light")} />
-                    <AceButton title="Accent & Tint" onPress={() => router.push("/settings/accent-tint")} />
+                    <AceButton title="DARK" onPress={() => setTheme("dark")} themeType="accent" />
+                    <AceButton title="LIGHT" onPress={() => setTheme("light")} themeType="tint" />
+
+                    <AccentTintButton title="Crimson" tint={"#FF8A78"} accent={"#7A3E2A"} />
+                    <AccentTintButton title="Vapor" tint={"#B7AEFF"} accent={"#5747E5"} />
+                    <AccentTintButton title="Mono" tint={"#8C867C"} accent={"#2A2723"} />
                 </View>
             </ScreenContent>
         </Fragment >

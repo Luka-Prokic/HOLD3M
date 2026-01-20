@@ -1,8 +1,8 @@
 import { useThemeStore } from "@/stores/themeStore";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text } from "react-native";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import { getPerfectGradientMiddleColor } from "@/utils/getPerfectGradientMiddleColor";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 export function HandScreenBackground() {
     const { theme, tintColor, accentColor } = useThemeStore();
@@ -18,7 +18,7 @@ export function HandScreenBackground() {
                 justifyContent: "flex-end",
                 alignItems: "center"
             }} >
-            <Text style={{
+            <Animated.Text entering={FadeIn.duration(600).delay(400)} style={{
                 fontFamily,
                 fontSize: 96,
                 color: accentColor,
@@ -28,7 +28,7 @@ export function HandScreenBackground() {
                 paddingHorizontal: 32,
             }} >
                 Holdem
-            </Text>
+            </Animated.Text>
         </LinearGradient>
 
     );

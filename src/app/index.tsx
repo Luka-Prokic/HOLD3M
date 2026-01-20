@@ -17,7 +17,6 @@ export default function Page() {
       >
         <View style={{ flex: 1, justifyContent: "space-between", alignItems: "center", paddingVertical: 32 }}>
           <CurrentRound />
-          <View style={{ width: 1, height: 200, backgroundColor: "red", opacity: 0.001 }} />
         </View>
       </ScreenContent>
     </Fragment >
