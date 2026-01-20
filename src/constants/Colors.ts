@@ -14,7 +14,6 @@ export default {
 
     // UI - not set
     border: "#C6C6C8",
-    divider: "#C6C6C8",
     input: "#FFFFFF",
     handle: "#AEAEB2",
 
@@ -45,9 +44,8 @@ export default {
 
     // UI - not set
     border: "#3A3A3C",
-    divider: "#3A3A3C",
     input: "#2C2C2E",
-    handle: "#48484A",
+    handle: "#5E5E63",
 
     // Effects
     shadow: "#00000066",
@@ -55,7 +53,7 @@ export default {
     select: "#FFD3A5",
 
     // States
-    highlight: "#5E5E63",
+    highlight: "#48484A",
     warning: "#FFD60A",
     error: "#FF453A",
   },

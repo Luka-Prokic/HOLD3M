@@ -1,21 +1,23 @@
 import { Fragment } from "react";
-import { router, Stack } from "expo-router";
 import { ScreenContent } from "@/components/ui/utils/ScreenContent";
-import { HeaderButton } from "@/components/ui/buttons/HeaderButton";
+import { InputModal } from "@/components/ui/modals/InputModal";
+import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
+import { View } from "react-native";
+import { WIDTH } from "@/utils/Dimensions";
 
 export default function Page() {
-  function handleBackPress() {
-    router.dismissTo("/hand");
-  }
+
+
+  const cardHeight = (WIDTH - 48) * 1.4;
+  const cardWidth = WIDTH - 48;
 
   return (
     <Fragment>
-      <Stack.Screen
-        options={{
-          headerLeft: () => <HeaderButton title="Back" onPress={handleBackPress} />,
-        }} />
-      <ScreenContent>
+      <ScreenContent edges={["top"]} HeaderComponent={<SettingsHeader />}>
+        <View style={{ width: WIDTH, height: cardHeight }}>
 
+          <InputModal style={{ width: cardWidth, height: cardHeight, marginHorizontal: 24 }} />
+        </View>
       </ScreenContent>
     </Fragment >
   );

@@ -8,7 +8,10 @@ import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
 import { AccentTintButton } from "@/components/ui/buttons/AccentTintButton";
 
 export default function Page() {
-    const { setTheme } = useThemeStore();
+    const { setTheme, themeName } = useThemeStore();
+
+    const darkLabel = themeName === "dark" ? "> DARK <" : "DARK";
+    const lightLabel = themeName === "light" ? "> LIGHT <" : "LIGHT";
 
     return (
         <Fragment>
@@ -17,8 +20,8 @@ export default function Page() {
                 HeaderComponent={<SettingsHeader />} >
                 <View style={{ padding: 16, gap: 8 }}>
                     <EndDayButton />
-                    <AceButton title="DARK" onPress={() => setTheme("dark")} themeType="accent" />
-                    <AceButton title="LIGHT" onPress={() => setTheme("light")} themeType="tint" />
+                    <AceButton title={darkLabel} onPress={() => setTheme("dark")} themeType="accent" />
+                    <AceButton title={lightLabel} onPress={() => setTheme("light")} themeType="tint" />
 
                     <AccentTintButton title="Crimson" tint={"#FF8A78"} accent={"#7A3E2A"} />
                     <AccentTintButton title="Frost" tint={"#B7AEFF"} accent={"#5747E5"} />

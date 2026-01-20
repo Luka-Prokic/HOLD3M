@@ -9,18 +9,19 @@ import { useThemeStore } from "@/stores/themeStore";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ViewStyle } from "react-native";
 
-interface TransparentBottomSheetProps extends BottomSheetModalProps {
+interface IBottomSheetProps extends BottomSheetModalProps {
   ref: React.RefObject<BottomSheetModal | null>;
   children: React.ReactNode;
-  bottomSheetStyle?: ViewStyle;
+  bottomSheetStyle?: ViewStyle | ViewStyle[];
 }
 
-export function TransparentBottomSheet({
+export function IBottomSheet({
   ref,
   children,
   bottomSheetStyle,
   ...props
-}: TransparentBottomSheetProps) {
+}: IBottomSheetProps) {
+  const { theme } = useThemeStore();
   const insets = useSafeAreaInsets();
 
   return (
@@ -30,11 +31,8 @@ export function TransparentBottomSheet({
       enableDismissOnClose
       keyboardBehavior="fillParent"
       keyboardBlurBehavior="restore"
-      handleIndicatorStyle={{ backgroundColor: "transparent" }}
-      backgroundStyle={{ backgroundColor: "transparent" }}
-      snapPoints={["80%"]}
-      enableDynamicSizing={false}
-
+      handleIndicatorStyle={{ backgroundColor: theme.handle }}
+      backgroundStyle={{ backgroundColor: theme.surface }}
       backdropComponent={(props) => (
         <BottomSheetBackdrop
           {...props}
@@ -50,7 +48,13 @@ export function TransparentBottomSheet({
         style={[
           {
             flex: 1,
+            padding: 16,
+            paddingVertical: 32,
+            justifyContent: "flex-start",
+            borderTopColor: theme.border,
+            borderTopWidth: 1,
             paddingBottom: insets.bottom,
+            alignItems: "center",
             ...bottomSheetStyle,
           },
         ]}

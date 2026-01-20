@@ -1,11 +1,10 @@
-import React, { useMemo } from "react";
+import { memo, useMemo } from "react";
 import {
   KeyboardAvoidingView,
   KeyboardAvoidingViewProps,
   Platform,
   ScrollView,
   type StyleProp,
-  StyleSheet,
   View,
   ViewStyle,
 } from "react-native";
@@ -28,7 +27,7 @@ export type ScreenContentProps = {
    * Whether to wrap content in a ScrollView for scrollable content.
    * @default true
    */
-  scroll?: boolean;
+  scrollable?: boolean;
 
   /**
    * If true, ScreenContent will include top padding equal to header height.
@@ -94,12 +93,12 @@ export type ScreenContentProps = {
  * @todo Create prop: BgComponent
  * @returns A memoized screen wrapper component
  */
-export const ScreenContent = React.memo(function ScreenContent({
+export const ScreenContent = memo(function ScreenContent({
   children,
   style,
   contentContainerStyle,
   edges = [],
-  scroll = false,
+  scrollable = false,
   headerTopPadding = false,
   keyboardAvoidingView,
   HeaderComponent,
@@ -141,20 +140,20 @@ export const ScreenContent = React.memo(function ScreenContent({
   ]);
 
   return (
-    <View style={[styles.flex, safeStyle, style]}>
+    <View style={[{ flex: 1 }, safeStyle, style]}>
       <KeyboardAvoidingView
         enabled={false}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         keyboardVerticalOffset={headerHeight}
-        style={styles.flex}
+        style={{ flex: 1 }}
         {...keyboardAvoidingView}
       >
         {HeaderComponent}
-        {scroll ? (
+        {scrollable ? (
           <ScrollView
-            style={styles.flex}
+            style={{ flex: 1 }}
             contentContainerStyle={[
-              styles.scrollContentStyle,
+              { gap: 8, padding: 16 },
               contentContainerStyle,
             ]}
             keyboardShouldPersistTaps="handled"
@@ -175,13 +174,3 @@ export const ScreenContent = React.memo(function ScreenContent({
 function includesEdge(edgesArray: Edges, edge: Edge): boolean {
   return (edgesArray as string[]).includes(edge);
 }
-
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-  },
-  scrollContentStyle: {
-    // padding: 15,
-    gap: 16,
-  },
-});
