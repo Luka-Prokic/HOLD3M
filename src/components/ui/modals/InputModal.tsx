@@ -72,7 +72,5 @@ export function InputModal({ style, placeholder = "Type something...", value = "
         </View>
       </TransparentBottomSheet>
     </Fragment >
-
-
   );
 }

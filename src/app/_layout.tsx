@@ -29,9 +29,21 @@ export default function Layout() {
             />
             <Stack.Screen
               name="hand"
+              options={{
+                presentation: "transparentModal",
+                contentStyle: {
+                  backgroundColor: "transparent",
+                },
+              }}
             />
             <Stack.Screen
               name="card"
+              options={{
+                presentation: "transparentModal",
+                contentStyle: {
+                  backgroundColor: "transparent",
+                },
+              }}
             />
             <Stack.Screen
               name="board"
