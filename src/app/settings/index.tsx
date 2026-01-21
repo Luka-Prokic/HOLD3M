@@ -20,8 +20,8 @@ export default function Page() {
                 HeaderComponent={<SettingsHeader />} >
                 <View style={{ padding: 16, gap: 8 }}>
                     <EndDayButton />
-                    <AceButton title={darkLabel} onPress={() => setTheme("dark")} themeType="accent" />
-                    <AceButton title={lightLabel} onPress={() => setTheme("light")} themeType="tint" />
+                    <AceButton title={darkLabel} onPress={() => setTheme("dark")} />
+                    <AceButton title={lightLabel} onPress={() => setTheme("light")} />
 
                     <AccentTintButton title="Crimson" tint={"#FF8A78"} accent={"#7A3E2A"} />
                     <AccentTintButton title="Frost" tint={"#B7AEFF"} accent={"#5747E5"} />

@@ -26,6 +26,11 @@ export default function Layout() {
             />
             <Stack.Screen
               name="settings"
+              options={{
+                contentStyle: {
+                  backgroundColor: tintColor,
+                },
+              }}
             />
             <Stack.Screen
               name="hand"
@@ -47,11 +52,6 @@ export default function Layout() {
             />
             <Stack.Screen
               name="board"
-              options={{
-                contentStyle: {
-                  backgroundColor: tintColor,
-                },
-              }}
             />
           </Stack>
         </BottomSheetModalProvider>

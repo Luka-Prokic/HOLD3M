@@ -4,6 +4,7 @@ import { WIDTH } from "@/utils/Dimensions";
 import { HandRankType } from "@/stores/types";
 import { useGameStore } from "@/stores/game/useGameStore";
 import { useMemo } from "react";
+import { RoundPreviewBar } from "./RoundPreviewBar";
 
 export type BoardFilterType = HandRankType | "all";
 
@@ -22,6 +23,11 @@ export function FilteredBoardList({ filter }: FilteredBoardListProps) {
     }, [rounds, filter]);
 
     return (
-        <FlatList data={filteredRounds} renderItem={({ item }) => <MiniHand hand={item} />} style={{ width: WIDTH }} />
+        <FlatList
+            data={filteredRounds}
+            renderItem={({ item }) => <RoundPreviewBar round={item} roundNumber={rounds.indexOf(item) + 1} onPress={() => { }} />}
+            style={{ width: WIDTH, padding: 16 }}
+            contentContainerStyle={{ gap: 8 }}
+        />
     );
 }

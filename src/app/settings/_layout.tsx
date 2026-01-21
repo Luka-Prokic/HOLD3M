@@ -1,20 +1,24 @@
+import { Fragment } from 'react';
 import { Stack } from 'expo-router/stack';
-import { useThemeStore } from '@/stores/themeStore';
+import { PremadeDiamondBackground } from '@/components/ui/backgrounds/PremadeDiamondBackground';
 
 export default function Layout() {
-  const { theme } = useThemeStore();
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: {
-          backgroundColor: theme.background,
-        },
-      }}
-    >
-      <Stack.Screen
-        name="index"
-      />
-    </Stack>
+    <Fragment>
+      <PremadeDiamondBackground />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: "transparent",
+          },
+        }}
+      >
+        <Stack.Screen
+          name="index"
+        />
+      </Stack>
+    </Fragment>
+
   );
 }

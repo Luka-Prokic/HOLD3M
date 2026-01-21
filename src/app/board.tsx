@@ -4,14 +4,14 @@ import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
 import { BoardFilterType } from "@/components/board-screen/FilteredBoardList";
 import { HandFilterSelector } from "@/components/board-screen/HandFilterSelector";
 import { FilteredBoardList } from "@/components/board-screen/FilteredBoardList";
-import { PremadeDiamondBackground } from "@/components/ui/backgrounds/PremadeDiamondBackground";
+import { HomeScreenBackground } from "@/components/ui/backgrounds/HomeScreenBackground";
 
 export default function Page() {
   const [selectedBoardFilter, setSelectedBoardFilter] = useState<BoardFilterType>("all");
 
   return (
     <Fragment>
-      <PremadeDiamondBackground />
+      <HomeScreenBackground />
       <ScreenContent
         edges={["top", "bottom"]}
         HeaderComponent={<SettingsHeader />}
