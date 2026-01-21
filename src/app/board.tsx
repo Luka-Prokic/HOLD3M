@@ -1,23 +1,19 @@
 import { Fragment } from "react";
 import { ScreenContent } from "@/components/ui/utils/ScreenContent";
-import { InputModal } from "@/components/ui/modals/InputModal";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
-import { View } from "react-native";
 import { WIDTH } from "@/utils/Dimensions";
+import { FlatList } from "react-native-gesture-handler";
+import { MiniHand } from "@/components/hands/MiniHand";
+import { useGameStore } from "@/stores/game/useGameStore";
 
 export default function Page() {
-
-
-  const cardHeight = (WIDTH - 48) * 1.4;
-  const cardWidth = WIDTH - 48;
+  const { rounds } = useGameStore();
 
   return (
     <Fragment>
       <ScreenContent edges={["top"]} HeaderComponent={<SettingsHeader />}>
-        <View style={{ width: WIDTH, height: cardHeight }}>
+        <FlatList data={rounds} renderItem={({ item }) => <MiniHand hand={item} />} style={{ width: WIDTH }} />
 
-          <InputModal style={{ width: cardWidth, height: cardHeight, marginHorizontal: 24 }} />
-        </View>
       </ScreenContent>
     </Fragment >
   );

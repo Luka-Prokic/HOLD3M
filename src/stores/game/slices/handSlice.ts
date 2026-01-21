@@ -7,7 +7,7 @@ import { genFirstHand } from "../utils/genFirstHand";
 import { getRandomCardSuit } from "../utils/getRandomCardSuit";
 
 export interface HandSlice {
-  round: Hand[];
+  rounds: Hand[];
   currentHand: Card[];
   heldCards: Card[];
   startNewHand: () => void;
@@ -22,15 +22,15 @@ export const createHandSlice: StateCreator<
   [],
   HandSlice
 > = (set, get) => ({
-  round: [],
+  rounds: [],
   currentHand: genFirstHand(),
   heldCards: [],
 
   startNewHand: () => {
-    const { burnsAvailable, round } = get();
+    const { burnsAvailable, rounds } = get();
     if (!burnsAvailable) set({ burnsAvailable: 1 });
 
-    const lastHand = round[round.length - 1];
+    const lastHand = rounds[rounds.length - 1];
 
     if (!lastHand) {
       set({ currentHand: [], heldCards: [] });
@@ -74,7 +74,7 @@ export const createHandSlice: StateCreator<
   },
 
   finalizeHand: () => {
-    const { heldCards, round } = get();
+    const { heldCards, rounds } = get();
     const rank = calculateHandRank(heldCards);
 
     const newHand: Hand = {
@@ -84,7 +84,7 @@ export const createHandSlice: StateCreator<
       createdAt: Date.now(),
     };
 
-    set({ round: [...round, newHand] });
+    set({ rounds: [...rounds, newHand] });
 
     return newHand;
   },

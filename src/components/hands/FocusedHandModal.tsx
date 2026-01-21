@@ -1,7 +1,7 @@
 import { Pressable } from "react-native";
 import { Fragment, useRef } from "react";
 import { TransparentBottomSheet } from "../ui/modals/TransparentBottomSheet";
-import { FocusedHand } from "./FocusedHand";
+import { FocusedHand } from "../hands/FocusedHand";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 export function FocusedHandModal({ children }: { children: React.ReactNode }) {

@@ -1,20 +1,28 @@
-import { Card } from "@/stores/types";
-import { useGameStore } from "@/stores/game/useGameStore"
+import { Card, Hand } from "@/stores/types";
 import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import { useThemeStore } from "@/stores/themeStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Ionicons } from "@expo/vector-icons";
 
+interface MiniHandProps {
+    hand: Hand;
+    style?: ViewStyle | ViewStyle[];
+    onCardPress?: (hand: Hand) => void;
+}
 
-export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) {
-    const { currentHand } = useGameStore();
+export function MiniHand({ hand, onCardPress, style }: MiniHandProps) {
+    const { theme } = useThemeStore();
 
     const cardWidth = (WIDTH - 118) / 5;
     const cardHeight = cardWidth * 1.4;
 
+    function handlePress() {
+        onCardPress?.(hand);
+    }
 
-    return (<View style={[{
+
+    return (<TouchableOpacity onPress={handlePress} style={[{
         flexDirection: "row",
         width: WIDTH,
         height: cardHeight,
@@ -24,53 +32,45 @@ export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) 
     },
         style
     ]}>
-        {currentHand.map((card, index) =>
-            <CardItem key={index} card={card} index={index} />
+        {hand.cards.map((card: Card, index: number) =>
+            <CardItem key={index} card={card} />
         )}
-    </View>)
+        <Text style={{ fontSize: 12, fontWeight: "bold", color: theme.text }}>{hand.rank.type.toUpperCase()}</Text>
+    </TouchableOpacity>)
 }
 
-function CardItem({ card, index }: { card: Card, index: number }) {
+function CardItem({ card }: { card: Card }) {
     const { accentColor, tintColor } = useThemeStore();
-    const { heldCards, currentCardIndex, setCurrentCardIndex } = useGameStore();
     const rankLabel = getCardRankLetterFromRep(card.repetition)
 
 
     const cardWidth = (WIDTH - 118) / 5;
     const cardHeight = cardWidth * 1.4;
 
-    const isHeld = heldCards.some((heldCard) => heldCard.id === card.id);
-    const isCurrent = currentCardIndex === index;
 
-
-    const colorOne = isHeld ? accentColor : tintColor;
-    const colorTwo = isHeld ? tintColor : accentColor;
-
-    return <TouchableOpacity
-        onPress={() => setCurrentCardIndex(index)}
+    return <View
         style={{
             width: cardWidth,
             height: cardHeight,
-            backgroundColor: colorOne,
+            backgroundColor: accentColor,
             justifyContent: "center",
             alignItems: "center",
-            opacity: isCurrent ? 1 : 0.4,
             borderWidth: 2,
             borderTopWidth: 0,
             borderLeftWidth: 0.2,
             borderRightWidth: 0.2,
-            borderColor: colorTwo,
+            borderColor: tintColor,
             borderRadius: 8,
-            shadowColor: colorOne,
+            shadowColor: accentColor,
             shadowOffset: { width: 1, height: 1 },
-            shadowOpacity: isCurrent ? 0.8 : 0.4,
+            shadowOpacity: 0.8,
             shadowRadius: 1,
             elevation: 2,
         }} >
         {rankLabel === "X" ?
-            <Ionicons name="star" size={24} color={colorTwo} />
+            <Ionicons name="star" size={24} color={tintColor} />
             :
-            <Text style={{ fontSize: 24, fontWeight: "bold", color: colorTwo }}>{rankLabel}</Text>
+            <Text style={{ fontSize: 24, fontWeight: "bold", color: tintColor }}>{rankLabel}</Text>
         }
-    </TouchableOpacity>
+    </View>
 }
