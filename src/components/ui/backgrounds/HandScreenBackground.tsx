@@ -22,7 +22,7 @@ export function HandScreenBackground() {
                 backgroundColor: theme.background,
             }}>
             <LinearGradient
-                colors={[theme.background + "00", middleColor, tintColor]}
+                colors={[middleColor + "00", tintColor]}
                 style={{
                     flex: 1,
                     position: "absolute", top: 0, left: 0, bottom: 0, right: 0,

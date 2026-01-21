@@ -4,6 +4,7 @@ import { AceButton } from "../ui/buttons/AceButton";
 import { useThemeStore } from "@/stores/themeStore";
 import { Card } from "@/stores/types";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { WIDTH } from "@/utils/Dimensions";
 
 export function HandHeader() {
     const { burnCards, burnsAvailable, currentHand, heldCards } = useGameStore();
@@ -21,19 +22,21 @@ export function HandHeader() {
     const burnStyle = themeName === "dark" ? "tint" : "accent";
     const burnLabel = `Burn (${unHeldCardsCount - jesterCardsCount})`;
 
+    const buttonWidth = WIDTH / 2 - 36;
+
     return (
         <Animated.View
             entering={FadeIn.duration(400).delay(400)}
             style={{
                 flexDirection: "row",
-                width: "100%",
+                width: WIDTH,
                 paddingTop: 16,
                 paddingHorizontal: 24,
                 gap: 24,
                 zIndex: 1
             }}>
-            <AceButton title="Home" onPress={() => router.dismissTo("/")} buttonStyle={{ flexGrow: 1 }} />
-            <AceButton title={burnLabel} onPress={() => burnCards()} disabled={!burnableCards} themeType={burnStyle} />
+            <AceButton title="Home" onPress={() => router.dismissTo("/")} buttonStyle={{ width: buttonWidth }} />
+            <AceButton title={burnLabel} onPress={() => burnCards()} disabled={!burnableCards} themeType={burnStyle} buttonStyle={{ width: buttonWidth }} />
         </Animated.View>
     );
 }
