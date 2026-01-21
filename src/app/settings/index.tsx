@@ -16,7 +16,6 @@ export default function Page() {
     return (
         <Fragment>
             <ScreenContent
-                edges={["top"]}
                 HeaderComponent={<SettingsHeader />} >
                 <View style={{ padding: 16, gap: 8 }}>
                     <EndDayButton />

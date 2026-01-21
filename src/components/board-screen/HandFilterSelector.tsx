@@ -7,7 +7,7 @@ import { useBalletFont } from "@/utils/fonts/useBalletFont";
 
 
 const BOARD_FILTER_OPTIONS: BoardFilterType[] = [
-    "all",
+    "all_hands",
     "high_card",
     "pair",
     "two_pair",
@@ -36,6 +36,7 @@ export function HandFilterSelector({ selectedBoardFilter, onSelect }: HandFilter
                 style={{
                     fontSize: 48,
                     color: theme.text,
+                    opacity: item === selectedBoardFilter ? 1 : 0.4,
                     fontFamily,
                     lineHeight: 128,
                     width: "100%",

@@ -27,6 +27,7 @@ export default function Layout() {
             <Stack.Screen
               name="settings"
               options={{
+                presentation: "modal",
                 contentStyle: {
                   backgroundColor: tintColor,
                 },

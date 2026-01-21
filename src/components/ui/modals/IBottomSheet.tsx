@@ -8,19 +8,18 @@ import {
 import { useThemeStore } from "@/stores/themeStore";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ViewStyle } from "react-native";
+import { forwardRef } from "react";
 
 interface IBottomSheetProps extends BottomSheetModalProps {
-  ref: React.RefObject<BottomSheetModal | null>;
   children: React.ReactNode;
   bottomSheetStyle?: ViewStyle | ViewStyle[];
 }
 
-export function IBottomSheet({
-  ref,
+export const IBottomSheet = forwardRef<BottomSheetModal, IBottomSheetProps>(({
   children,
   bottomSheetStyle,
   ...props
-}: IBottomSheetProps) {
+}, ref) => {
   const { theme } = useThemeStore();
   const insets = useSafeAreaInsets();
 
@@ -32,7 +31,7 @@ export function IBottomSheet({
       keyboardBehavior="fillParent"
       keyboardBlurBehavior="restore"
       handleIndicatorStyle={{ backgroundColor: theme.handle }}
-      backgroundStyle={{ backgroundColor: theme.surface }}
+      backgroundStyle={{ backgroundColor: theme.surfaceSecondary }}
       backdropComponent={(props) => (
         <BottomSheetBackdrop
           {...props}
@@ -51,8 +50,6 @@ export function IBottomSheet({
             padding: 16,
             paddingVertical: 32,
             justifyContent: "flex-start",
-            borderTopColor: theme.border,
-            borderTopWidth: 1,
             paddingBottom: insets.bottom,
             alignItems: "center",
             ...bottomSheetStyle,
@@ -63,4 +60,4 @@ export function IBottomSheet({
       </BottomSheetView>
     </BottomSheetModal>
   );
-}
+});

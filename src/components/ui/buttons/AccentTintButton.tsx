@@ -1,5 +1,5 @@
 import { useThemeStore } from "@/stores/themeStore";
-import { Pressable, View, Text } from "react-native";
+import { View, Text } from "react-native";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import { AceButton } from "./AceButton";
 

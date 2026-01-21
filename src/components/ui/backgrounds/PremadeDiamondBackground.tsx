@@ -8,7 +8,7 @@ import { DiamondTileBackground } from "./DiamondTileBackground";
 export function PremadeDiamondBackground() {
     const { theme, themeName } = useThemeStore();
     const squareSize = WIDTH / 6;
-    const squareColor = hexToRGBA(theme.background, themeName === "dark" ? 0.05 : 0.1);
+    const squareColor = hexToRGBA(theme.background, themeName === "dark" ? 0.05 : 0.15);
     return (
         <DiamondTileBackground
             columns={6}

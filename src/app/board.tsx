@@ -1,20 +1,22 @@
 import { Fragment, useState } from "react";
 import { ScreenContent } from "@/components/ui/screens/ScreenContent";
-import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
+import { BoardHeader } from "@/components/board-screen/BoardHeader";
 import { BoardFilterType } from "@/components/board-screen/FilteredBoardList";
 import { HandFilterSelector } from "@/components/board-screen/HandFilterSelector";
 import { FilteredBoardList } from "@/components/board-screen/FilteredBoardList";
-import { HomeScreenBackground } from "@/components/ui/backgrounds/HomeScreenBackground";
+import { BoardScreenBackground } from "@/components/ui/backgrounds/BoardScreenBackground";
 
 export default function Page() {
-  const [selectedBoardFilter, setSelectedBoardFilter] = useState<BoardFilterType>("all");
+  const [selectedBoardFilter, setSelectedBoardFilter] = useState<BoardFilterType>("all_hands");
 
   return (
     <Fragment>
-      <HomeScreenBackground />
+      {/* <HomeScreenBackground /> */}
+      {/* <PremadeDiamondBackground /> */}
+      <BoardScreenBackground />
       <ScreenContent
         edges={["top", "bottom"]}
-        HeaderComponent={<SettingsHeader />}
+        HeaderComponent={<BoardHeader />}
         FooterComponent={<HandFilterSelector selectedBoardFilter={selectedBoardFilter} onSelect={setSelectedBoardFilter} />}
       >
         <FilteredBoardList filter={selectedBoardFilter} />
