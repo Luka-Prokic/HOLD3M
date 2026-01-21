@@ -1,18 +1,18 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
-import { WIDTH } from "@/utils/Dimensions";
-import { FlatList } from "react-native-gesture-handler";
-import { MiniHand } from "@/components/hands/MiniHand";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { BoardFilterType } from "@/components/board-screen/FilteredBoardList";
+import { HandFilterSelector } from "@/components/board-screen/HandFilterSelector";
+import { FilteredBoardList } from "@/components/board-screen/FilteredBoardList";
 
 export default function Page() {
-  const { rounds } = useGameStore();
+  const [selectedBoardFilter, setSelectedBoardFilter] = useState<BoardFilterType>("all");
 
   return (
     <Fragment>
-      <ScreenContent edges={["top"]} HeaderComponent={<SettingsHeader />}>
-        <FlatList data={rounds} renderItem={({ item }) => <MiniHand hand={item} />} style={{ width: WIDTH }} />
+      <ScreenContent edges={["top", "bottom"]} HeaderComponent={<SettingsHeader />}>
+        <FilteredBoardList filter={selectedBoardFilter} />
+        <HandFilterSelector selectedBoardFilter={selectedBoardFilter} onSelect={setSelectedBoardFilter} />
 
       </ScreenContent>
     </Fragment >
