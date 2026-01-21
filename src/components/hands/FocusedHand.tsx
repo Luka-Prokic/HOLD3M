@@ -21,7 +21,6 @@ export function FocusedHand() {
             cardHeight={cardHeight}
             sliderHeight={cardHeight}
             selectedIndex={currentCardIndex}
-            selectedCardIndex={currentCardIndex}
             initialScrollIndex={currentCardIndex}
             getItemLayout={(_, index) => ({
                 length: WIDTH,

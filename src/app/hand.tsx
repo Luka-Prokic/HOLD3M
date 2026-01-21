@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ScreenContent } from "@/components/ui/utils/ScreenContent";
+import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { HandScreenBackground } from "@/components/ui/backgrounds/HandScreenBackground";
 import { View } from "react-native";
 import { CurrentHand } from "@/components/hands/CurrentHand";

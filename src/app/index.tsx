@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ScreenContent } from "@/components/ui/utils/ScreenContent";
+import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { View } from "react-native";
 import { HomeHeader } from "@/components/home-screen/HomeHeader";
 import { HomeFooter } from "@/components/home-screen/HomeFooter";

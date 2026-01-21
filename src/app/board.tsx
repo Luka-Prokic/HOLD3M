@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ScreenContent } from "@/components/ui/utils/ScreenContent";
+import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
 import { WIDTH } from "@/utils/Dimensions";
 import { FlatList } from "react-native-gesture-handler";

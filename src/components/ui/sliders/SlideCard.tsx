@@ -1,16 +1,20 @@
 import { memo } from "react";
-import { Animated as RNAnimated } from "react-native";
+import { ViewStyle } from "react-native";
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+} from "react-native-reanimated";
 
 type AnimationType = "card" | "wheel" | "album" | "flat";
 
 interface SlideCardProps {
-  scrollX: RNAnimated.Value;
+  scrollX: SharedValue<number>;
   index: number;
   content: React.ReactNode;
   width: number;
   height: number;
-  totalItems: number;
-  horizontalPadding: number;
   animationType?: AnimationType;
 }
 
@@ -24,94 +28,79 @@ export function SlideCard({
   height,
   animationType = "card",
 }: SlideCardProps) {
-  const inputRange = [
-    (index - 3) * width,
-    (index - 2) * width,
-    (index - 1) * width,
-    index * width,
-    (index + 1) * width,
-    (index + 2) * width,
-    (index + 3) * width,
-  ];
+  const animatedStyle = useAnimatedStyle(() => {
+    const center = index * width;
+    const distance = scrollX.value - center;
 
-  const opacity =
-    animationType === "flat"
-      ? 1
-      : scrollX.interpolate({
-        inputRange,
-        outputRange: [0.4, 0.6, 0.8, 1, 0.8, 0.6, 0.4],
-        extrapolate: "clamp",
-      });
+    const opacity =
+      animationType === "flat"
+        ? 1
+        : interpolate(
+          Math.abs(distance),
+          [0, width, width * 2, width * 3],
+          [1, 0.8, 0.6, 0.4],
+          Extrapolate.CLAMP
+        );
 
-  const scale = scrollX.interpolate({
-    inputRange,
-    outputRange: [0.85, 0.9, 0.95, 1, 0.95, 0.9, 0.85],
-    extrapolate: "clamp",
+    const scale = interpolate(
+      Math.abs(distance),
+      [0, width, width * 2, width * 3],
+      [1, 0.95, 0.9, 0.85],
+      Extrapolate.CLAMP
+    );
+
+    let rotateY = "0deg";
+
+    if (animationType === "card") {
+      rotateY = `${interpolate(
+        distance,
+        [-width * 3, -width * 2, -width, 0, width, width * 2, width * 3],
+        [-65, -35, -25, 0, 25, 35, 65],
+        Extrapolate.CLAMP
+      )}deg`;
+    }
+
+    if (animationType === "wheel") {
+      rotateY = `${interpolate(
+        distance,
+        [-width * 3, -width * 2, -width, 0, width, width * 2, width * 3],
+        [55, 45, 35, 0, -35, -45, -55],
+        Extrapolate.CLAMP
+      )}deg`;
+    }
+
+    if (animationType === "album") {
+      rotateY = `${interpolate(
+        distance,
+        [-width * 3, -width * 2, -width, 0, width, width * 2, width * 3],
+        [-55, -55, -55, 0, 55, 55, 55],
+        Extrapolate.CLAMP
+      )}deg`;
+    }
+
+    return {
+      width,
+      height,
+      opacity,
+      transform: [
+        { scale },
+        { perspective: 600 },
+        { rotateY },
+      ],
+    } as ViewStyle;
   });
 
-  const rotateY =
-    animationType === "flat"
-      ? scrollX.interpolate({
-        inputRange,
-        outputRange: ["0deg", "0deg", "0deg", "0deg", "0deg", "0deg", "0deg"],
-        extrapolate: "clamp",
-      })
-      : animationType === "card"
-        ? scrollX.interpolate({
-          inputRange,
-          outputRange: [
-            "-65deg",
-            "-35deg",
-            "-25deg",
-            "0deg",
-            "25deg",
-            "35deg",
-            "65deg",
-          ],
-          extrapolate: "clamp",
-        })
-        : animationType === "wheel"
-          ? scrollX.interpolate({
-            inputRange,
-            outputRange: [
-              "55deg",
-              "45deg",
-              "35deg",
-              "0deg",
-              "-35deg",
-              "-45deg",
-              "-55deg",
-            ],
-            extrapolate: "clamp",
-          })
-          : animationType === "album"
-            ? scrollX.interpolate({
-              inputRange,
-              outputRange: [
-                "-55deg",
-                "-55deg",
-                "-55deg",
-                "0deg",
-                "55deg",
-                "55deg",
-                "55deg",
-              ],
-              extrapolate: "clamp",
-            })
-            : undefined;
-
   return (
-    <RNAnimated.View
-      style={{
-        width,
-        height,
-        opacity,
-        transform: [{ scale }, { perspective: 600 }, { rotateY } as any],
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+    <Animated.View
+      style={[
+        animatedStyle,
+        {
+          justifyContent: "center",
+          alignItems: "center",
+        },
+      ]}
     >
       {content}
-    </RNAnimated.View>
+    </Animated.View>
   );
 }

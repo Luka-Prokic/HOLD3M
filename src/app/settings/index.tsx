@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ScreenContent } from "@/components/ui/utils/ScreenContent";
+import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { AceButton } from "@/components/ui/buttons/AceButton";
 import { useThemeStore } from "@/stores/themeStore";
 import { EndDayButton } from "@/components/ui/mock/EndDayButton";

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ScreenContent } from "@/components/ui/utils/ScreenContent";
+import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { CardScreenBackground } from "@/components/ui/backgrounds/CardScreenBackground";
 import { FocusedHand } from "@/components/hands/FocusedHand";
 import { MiniFocusedHand } from "@/components/hands/MiniFocusedHand";
