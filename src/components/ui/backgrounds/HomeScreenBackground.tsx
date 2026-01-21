@@ -1,6 +1,7 @@
 import { useThemeStore } from "@/stores/themeStore";
 import { LinearGradient } from "expo-linear-gradient";
 import { getPerfectGradientMiddleColor } from "@/utils/getPerfectGradientMiddleColor";
+import { PremadeDiamondBackground } from "./PremadeDiamondBackground";
 
 
 export function HomeScreenBackground() {
@@ -16,6 +17,7 @@ export function HomeScreenBackground() {
                 justifyContent: "flex-end",
                 alignItems: "center"
             }} >
+            <PremadeDiamondBackground />
         </LinearGradient>
 
     );

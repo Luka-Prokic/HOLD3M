@@ -35,7 +35,9 @@ export function HandFilterSelector({ selectedBoardFilter, onSelect }: HandFilter
             onSelect={(index) => onSelect(BOARD_FILTER_OPTIONS[index])}
             cardWidth={WIDTH}
             cardHeight={88}
+            sliderWidth={WIDTH}
             maxDotsShown={BOARD_FILTER_OPTIONS.length}
+            animationType="flat"
         />
     );
 }

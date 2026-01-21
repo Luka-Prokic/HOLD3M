@@ -6,7 +6,7 @@ import { useThemeStore } from '@/stores/themeStore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Layout() {
-  const { themeName, theme } = useThemeStore();
+  const { themeName, theme, tintColor } = useThemeStore();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -47,6 +47,11 @@ export default function Layout() {
             />
             <Stack.Screen
               name="board"
+              options={{
+                contentStyle: {
+                  backgroundColor: tintColor,
+                },
+              }}
             />
           </Stack>
         </BottomSheetModalProvider>
