@@ -2,16 +2,16 @@ import { Fragment } from "react";
 import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { FlatList } from "react-native";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
-import { PremadeDiamondBackground } from "@/components/ui/backgrounds/PremadeDiamondBackground";
 import { SETTINGS_SCHEMA } from "@/components/setttings-screen/settings.schema";
 import { SettingsButton } from "@/components/setttings-screen/SettingsButton";
 import { SettingsFooter } from "@/components/setttings-screen/SettingsFooter";
+import { SettingsScreenBackground } from "@/components/ui/backgrounds/SettingsScreenBackground";
 
 export default function Page() {
 
     return (
         <Fragment>
-            <PremadeDiamondBackground />
+            <SettingsScreenBackground />
             <ScreenContent
                 edges={["top"]}
                 HeaderComponent={<SettingsHeader />} >

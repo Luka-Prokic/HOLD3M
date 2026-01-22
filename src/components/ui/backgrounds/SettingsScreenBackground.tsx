@@ -1,0 +1,23 @@
+import { useThemeStore } from "@/stores/themeStore";
+import { PremadeDiamondBackground } from "./PremadeDiamondBackground";
+import { View } from "react-native";
+import { hexToRGBA } from "@/utils/hexToRGBA";
+
+
+export function SettingsScreenBackground() {
+    const { accentColor, themeName } = useThemeStore();
+
+    return (
+        <View
+            style={{
+                flex: 1,
+                position: "absolute", top: 0, left: 0, bottom: 0, right: 0,
+                justifyContent: "flex-end",
+                alignItems: "center",
+                backgroundColor: hexToRGBA(accentColor, themeName === "dark" ? 0.4 : 0),
+            }} >
+            <PremadeDiamondBackground />
+        </View>
+
+    );
+}

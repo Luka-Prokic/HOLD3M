@@ -11,29 +11,31 @@ import { hexToRGBA } from "@/utils/hexToRGBA";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface SwitchButtonProps {
-  option1: string;
-  option2?: string;
+  optionOne: string;
+  optionTwo?: string;
   value: string;
   onChange?: (val: string) => void;
   width?: number;
   height?: number;
   style?: ViewStyle;
   disabled?: boolean;
+  hideOtherOption?: boolean;
 }
 
 export function SwitchButton({
-  option1,
-  option2,
+  optionOne,
+  optionTwo,
   value,
   onChange,
   width = 192,
   height = 48,
   style,
   disabled = false,
+  hideOtherOption = false,
 }: SwitchButtonProps) {
   const { theme, accentColor } = useThemeStore();
 
-  const singleMode = !option2 || disabled;
+  const singleMode = !optionTwo || disabled;
 
   // ───────────────── SINGLE OPTION MODE ─────────────────
   if (singleMode) {
@@ -56,7 +58,7 @@ export function SwitchButton({
             fontSize: 24,
           }}
         >
-          {option1}
+          {optionOne}
         </Text>
       </View>
     );
@@ -67,12 +69,12 @@ export function SwitchButton({
   const padding = 3;
 
   const translateX = useSharedValue(
-    value === option1 ? 0 : width - knobWidth - padding * 2
+    value === optionOne ? 0 : width - knobWidth - padding * 2
   );
 
   useDerivedValue(() => {
     translateX.value = withSpring(
-      value === option1
+      value === optionOne
         ? 0
         : width - knobWidth - padding * 2,
       {
@@ -88,7 +90,7 @@ export function SwitchButton({
   }));
 
   function toggle() {
-    const next = value === option1 ? option2! : option1;
+    const next = value === optionOne ? optionTwo! : optionOne;
     onChange?.(next);
   }
 
@@ -149,7 +151,7 @@ export function SwitchButton({
           height: "100%",
         }}
       >
-        {[option1, option2].map((option: string, index: number) => (
+        {[optionOne, optionTwo].map((option: string, index: number) => (
           <Text
             key={index}
             style={{
@@ -165,7 +167,7 @@ export function SwitchButton({
                   : theme.lightSurface,
             }}
           >
-            {option}
+            {hideOtherOption ? (option === value ? "" : option === optionTwo ? optionOne : optionTwo) : option}
           </Text>
         ))}
       </View>

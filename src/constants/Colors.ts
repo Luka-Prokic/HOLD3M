@@ -6,8 +6,7 @@ export default {
 
     // Backgrounds
     background: "#E5E5EA",
-    surface: "#12110F",
-    surfaceSecondary: "#D6D6D6",
+    surface: "#D6D6D6",
 
     lightSurface: "#D6D6D6",
     darkSurface: "#12110F",
@@ -35,9 +34,7 @@ export default {
 
     // Backgrounds
     background: "#1F1D1B",
-    surface: "#D6D6D6",
-    surfaceSecondary: "#12110F",
-    surfaceTertiary: "#48484A",
+    surface: "#2E2929",
 
     lightSurface: "#D6D6D6",
     darkSurface: "#12110F",

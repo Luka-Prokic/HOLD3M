@@ -31,7 +31,7 @@ export const IBottomSheet = forwardRef<BottomSheetModal, IBottomSheetProps>(({
       keyboardBehavior="fillParent"
       keyboardBlurBehavior="restore"
       handleIndicatorStyle={{ backgroundColor: theme.handle }}
-      backgroundStyle={{ backgroundColor: theme.surfaceSecondary }}
+      backgroundStyle={{ backgroundColor: theme.surface }}
       backdropComponent={(props) => (
         <BottomSheetBackdrop
           {...props}
