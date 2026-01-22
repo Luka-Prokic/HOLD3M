@@ -1,12 +1,11 @@
-import { LinearGradient } from "expo-linear-gradient";
-import { Pressable, Text } from "react-native";
+import { Text, View } from "react-native";
 import { useThemeStore } from "@/stores/themeStore";
 import { Card, CardSuit, Hand } from "@/stores/types";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Fragment, useRef } from "react";
 import { HandInfoBottomSheet } from "./HandInfoBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { hexToRGBA } from "@/utils/hexToRGBA";
+import { QueenButton } from "../ui/buttons/QueenButton";
 
 interface RoundPreviewBarProps {
     round: Hand;
@@ -14,38 +13,29 @@ interface RoundPreviewBarProps {
 }
 
 export function RoundPreviewBar({ round, roundNumber }: RoundPreviewBarProps) {
-    const { theme, accentColor } = useThemeStore();
+    const { theme } = useThemeStore();
     const handInfoBottomSheetRef = useRef<BottomSheetModal>(null);
     const cards = getCards(round.cards);
     const date = formatDateDMY(new Date(round.createdAt));
+
     return (
         <Fragment>
-            <Pressable onPress={() => handInfoBottomSheetRef.current?.present()} style={{
-                backgroundColor: accentColor,
-                borderRadius: 27,
-                borderWidth: 0.2,
-                borderTopWidth: 1,
-                borderBottomWidth: 1,
-                borderColor: theme.lightSurface,
-                overflow: "hidden",
-            }}>
-                <LinearGradient
-                    colors={[theme.lightSurface, theme.lightSurface + "80", hexToRGBA(theme.lightSurface, 0.8)]}
-                    locations={[0, 0.8, 1]}
+            <QueenButton onPress={() => handInfoBottomSheetRef.current?.present()}>
+                <View
                     style={{
                         height: 54,
+                        width: "100%",
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        paddingHorizontal: 16,
                     }}>
-                    <Text style={{ fontSize: 32, fontWeight: "800", color: theme.darkSurface }}>#{roundNumber}</Text>
+                    <Text style={{ fontSize: 24, fontWeight: "800", color: theme.darkSurface }}>#{roundNumber}</Text>
 
                     <Text style={{ fontSize: 18, fontWeight: "600", color: theme.darkSurface }}>{cards}</Text>
 
                     <Text style={{ fontSize: 12, fontWeight: "600", color: theme.darkSurface }}>{date}</Text>
-                </LinearGradient>
-            </Pressable>
+                </View>
+            </QueenButton>
             <HandInfoBottomSheet ref={handInfoBottomSheetRef} hand={round} />
         </Fragment>
 

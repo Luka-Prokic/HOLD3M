@@ -3,14 +3,16 @@ import { AceButton } from "../ui/buttons/AceButton";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeStore } from "@/stores/themeStore";
+import { EndDayButton } from "../ui/mock/EndDayButton";
 
 interface SettingsHeaderProps {
     title?: string;
     showBack?: boolean;
     showHome?: boolean;
+    dayResetBeta?: boolean;
 }
 
-export function SettingsHeader({ title = "Settings", showBack = false, showHome = true }: SettingsHeaderProps) {
+export function SettingsHeader({ title = "Settings", showBack = false, showHome = true, dayResetBeta = true }: SettingsHeaderProps) {
     const { theme } = useThemeStore();
 
     return (
@@ -21,13 +23,16 @@ export function SettingsHeader({ title = "Settings", showBack = false, showHome 
                         <Ionicons name="chevron-back" size={32} color={theme.lightSurface} />
                     </AceButton>
                 )}
+                {!showBack && dayResetBeta && (
+                    <EndDayButton />
+                )}
             </View>
 
             <Text style={{ fontSize: 32, fontWeight: "bold", color: theme.text }}>{title}</Text>
             <View style={{ width: 64, height: 64 }}>
                 {showHome && (
                     <AceButton title="Home" onPress={() => router.dismissTo("/")} style={{ marginTop: 8 }} circle>
-                        <Ionicons name="close" size={32} color={theme.lightSurface} />
+                        <Ionicons name="home" size={32} color={theme.lightSurface} />
                     </AceButton>
                 )}
             </View>

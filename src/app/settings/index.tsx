@@ -1,31 +1,26 @@
 import { Fragment } from "react";
 import { ScreenContent } from "@/components/ui/screens/ScreenContent";
-import { AceButton } from "@/components/ui/buttons/AceButton";
-import { useThemeStore } from "@/stores/themeStore";
-import { EndDayButton } from "@/components/ui/mock/EndDayButton";
-import { View } from "react-native";
+import { FlatList } from "react-native";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
-import { AccentTintButton } from "@/components/ui/buttons/AccentTintButton";
+import { PremadeDiamondBackground } from "@/components/ui/backgrounds/PremadeDiamondBackground";
+import { SETTINGS_SCHEMA } from "@/components/setttings-screen/settings.schema";
+import { SettingsButton } from "@/components/setttings-screen/SettingsButton";
+import { SettingsFooter } from "@/components/setttings-screen/SettingsFooter";
 
 export default function Page() {
-    const { setTheme, themeName } = useThemeStore();
-
-    const darkLabel = themeName === "dark" ? "> DARK <" : "DARK";
-    const lightLabel = themeName === "light" ? "> LIGHT <" : "LIGHT";
 
     return (
         <Fragment>
+            <PremadeDiamondBackground />
             <ScreenContent
+                edges={["top"]}
                 HeaderComponent={<SettingsHeader />} >
-                <View style={{ padding: 16, gap: 8 }}>
-                    <EndDayButton />
-                    <AceButton title={darkLabel} onPress={() => setTheme("dark")} />
-                    <AceButton title={lightLabel} onPress={() => setTheme("light")} />
-
-                    <AccentTintButton title="Crimson" tint={"#FF8A78"} accent={"#7A3E2A"} />
-                    <AccentTintButton title="Frost" tint={"#B7AEFF"} accent={"#5747E5"} />
-                    <AccentTintButton title="Mono" tint={"#8C867C"} accent={"#2A2723"} />
-                </View>
+                <FlatList
+                    data={SETTINGS_SCHEMA}
+                    renderItem={({ item }) => <SettingsButton icon={item.icon} title={item.title} description={item.description} onPress={item.onPress} />}
+                    contentContainerStyle={{ padding: 16, gap: 16 }}
+                    ListFooterComponent={() => <SettingsFooter />}
+                />
             </ScreenContent>
         </Fragment >
     );

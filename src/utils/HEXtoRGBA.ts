@@ -18,7 +18,7 @@ export function hexToRGBA(hex: string, alpha: number) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-export function tintColor(hex: string, amount = 0.8) {
+export function tintColorLight(hex: string, amount = 0.8) {
   // amount: 0 = original, 1 = white
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);

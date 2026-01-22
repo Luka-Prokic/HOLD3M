@@ -15,7 +15,7 @@ export default {
     // UI - not set
     border: "#C6C6C8",
     input: "#FFFFFF",
-    handle: "#AEAEB2",
+    handle: "#C8C6C6",
 
     // Effects
     shadow: "#00000033",

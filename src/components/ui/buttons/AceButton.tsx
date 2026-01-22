@@ -1,10 +1,10 @@
 import { useThemeStore } from "@/stores/themeStore";
 import { Text, ViewStyle, TextStyle, TouchableOpacity, TouchableOpacityProps } from "react-native";
 
-export type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
+type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
 
 interface AceButtonProps extends TouchableOpacityProps {
-    title: string;
+    title?: string;
     buttonColor?: string;
     textColor?: string;
     buttonStyle?: ViewStyle | ViewStyle[];
@@ -12,6 +12,8 @@ interface AceButtonProps extends TouchableOpacityProps {
     themeType?: ButtonThemeType;
     children?: React.ReactNode;
     circle?: boolean;
+    width?: number;
+    height?: number;
 }
 
 export function AceButton({
@@ -23,6 +25,8 @@ export function AceButton({
     themeType = "default",
     children,
     circle = false,
+    width = 64,
+    height = 64,
     ...touchableOpacityProps
 }: AceButtonProps) {
     const bColor = getButtonColor(themeType, buttonColor);
@@ -33,7 +37,8 @@ export function AceButton({
             {...touchableOpacityProps}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             style={{
-                height: 64,
+                height,
+                width,
                 minWidth: 64,
                 backgroundColor: bColor,
                 opacity: touchableOpacityProps.disabled ? 0.4 : 1,
