@@ -11,8 +11,6 @@ export default function Page() {
 
   return (
     <Fragment>
-      {/* <HomeScreenBackground /> */}
-      {/* <PremadeDiamondBackground /> */}
       <BoardScreenBackground />
       <ScreenContent
         edges={["top", "bottom"]}

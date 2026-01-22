@@ -1,4 +1,5 @@
 export type HandRankType =
+    | "empty_hand"
     | "high_card"
     | "pair"
     | "two_pair"

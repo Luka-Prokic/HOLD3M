@@ -3,7 +3,7 @@ import { getCardRank } from "@/utils/getCardRank";
 
 export const calculateHandRank = (cards: Card[]): HandRank => {
   if (cards.length === 0) {
-    return { type: "high_card", values: [] };
+    return { type: "empty_hand", values: [] };
   }
 
   // Map repetitions to rank numbers
