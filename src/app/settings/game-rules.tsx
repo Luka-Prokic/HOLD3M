@@ -1,8 +1,10 @@
 import { Fragment } from "react";
 import { ScreenContent } from "@/components/ui/screens/ScreenContent";
-import { View } from "react-native";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
 import { SettingsScreenBackground } from "@/components/ui/backgrounds/SettingsScreenBackground";
+import { Content } from "@/components/ui/screens/Content";
+import { GameRuleItem } from "@/components/setttings-screen/game-rules/GameRuleItem";
+import { GAME_RULES_SCHEMA } from "@/components/setttings-screen/game-rules/game.rules";
 
 export default function Page() {
     return (
@@ -10,9 +12,13 @@ export default function Page() {
             <SettingsScreenBackground />
             <ScreenContent
                 edges={["top"]}
+                scrollable
                 HeaderComponent={<SettingsHeader title="Game Rules" showBack />} >
-                <View style={{ padding: 16, gap: 8 }}>
-                </View>
+                <Content style={{ gap: 32 }}>
+                    {GAME_RULES_SCHEMA.map((rule) => (
+                        <GameRuleItem key={rule.title} rule={rule} />
+                    ))}
+                </Content>
             </ScreenContent>
         </Fragment >
     );

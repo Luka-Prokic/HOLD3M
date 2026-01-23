@@ -23,7 +23,7 @@ export function GlassCard({ children, style, onPress }: GlassCardProps) {
                     padding: 16,
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundColor: hexToRGBA(glassTintColor as string, 0.4),
+                    backgroundColor: hexToRGBA(glassTintColor as string, 0.1),
                     borderWidth: 1,
                     borderLeftWidth: 0.5,
                     borderRightWidth: 0.5,
@@ -43,7 +43,7 @@ export function GlassCard({ children, style, onPress }: GlassCardProps) {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        opacity: 0.2,
+                        opacity: 0.1,
                         zIndex: -1,
                     }}
                 />

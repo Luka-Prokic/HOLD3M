@@ -1,26 +1,24 @@
 import { View, Text, ViewStyle } from "react-native";
 import { useThemeStore } from "@/stores/themeStore";
-
-
+import { Ionicons } from "@expo/vector-icons";
 
 interface ParagraphProps {
-    icon: React.ReactNode;
+    icon: keyof typeof Ionicons.glyphMap;
     title: string;
-    text: string;
+    description: string;
     style?: ViewStyle | ViewStyle[];
 }
 
-export function Paragraph({ icon, title, text, style }: ParagraphProps) {
+export function Paragraph({ icon, title, description, style }: ParagraphProps) {
     const { theme } = useThemeStore();
 
     return (
         <View style={[{ gap: 8 }, style]}>
             <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                {icon}
-                <Text style={{ fontSize: 24, fontWeight: "800", color: theme.text }}>{title}</Text>
-
+                <Ionicons name={icon} size={32} color={theme.text} />
+                <Text style={{ fontSize: 20, fontWeight: "800", color: theme.text }}>{title}</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: "600", color: theme.text }}>{text}</Text>
+            <Text style={{ fontSize: 18, fontWeight: "600", color: theme.text }}>{description}</Text>
         </View>
     )
 }

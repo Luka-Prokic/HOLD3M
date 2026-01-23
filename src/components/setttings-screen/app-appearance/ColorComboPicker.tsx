@@ -69,7 +69,7 @@ function ColorComboCard({ item }: { item: ColorComboPickerProps }) {
             style={{
                 width: (WIDTH - 48) / 2,
                 padding: 0,
-                backgroundColor: isSelected ? theme.select + "80" : hexToRGBA(glassTintColor as string, 0.4)
+                backgroundColor: isSelected ? theme.select + "80" : hexToRGBA(glassTintColor as string, 0.1)
             }}
             onPress={() => handleSelect(item)}
         >

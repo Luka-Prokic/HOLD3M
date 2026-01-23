@@ -16,6 +16,8 @@ import {
 import { useHeaderHeight } from "@react-navigation/elements";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useOrientation } from "./orientation";
+import { LinearGradient } from "expo-linear-gradient";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 export type ScreenContentProps = {
   /**
@@ -149,19 +151,32 @@ export const ScreenContent = memo(function ScreenContent({
         {...keyboardAvoidingView}
       >
         {HeaderComponent}
-        {scrollable ? (
-          <ScrollView
-            style={{ flex: 1 }}
-            contentContainerStyle={contentContainerStyle}
-            keyboardShouldPersistTaps="handled"
-            keyboardDismissMode="interactive"
-            showsVerticalScrollIndicator={false}
-          >
-            {children}
-          </ScrollView>
-        ) : (
-          children
-        )}
+        <MaskedView
+          style={{ flex: 1 }}
+          maskElement={
+            <LinearGradient
+              colors={['transparent', 'black']} // fade top
+              locations={[0, 0.02]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 1 }}
+            />
+          }
+        >
+          {scrollable ? (
+            <ScrollView
+              style={{ flex: 1 }}
+              contentContainerStyle={contentContainerStyle}
+              keyboardShouldPersistTaps="handled"
+              keyboardDismissMode="interactive"
+              showsVerticalScrollIndicator={false}
+            >
+              {children}
+            </ScrollView>
+          ) : (
+            children
+          )}
+        </MaskedView>
         {FooterComponent}
       </KeyboardAvoidingView>
     </View>
