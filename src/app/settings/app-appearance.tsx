@@ -3,10 +3,10 @@ import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { Theme, useThemeStore } from "@/stores/themeStore";
 import { View, Text } from "react-native";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
-import { AccentTintButton } from "@/components/ui/buttons/AccentTintButton";
 import { SettingsScreenBackground } from "@/components/ui/backgrounds/SettingsScreenBackground";
 import { SwitchButton } from "@/components/ui/buttons/SwitchButton";
 import { WIDTH } from "@/utils/Dimensions";
+import { ColorComboPicker } from "@/components/setttings-screen/app-appearance/ColorComboPicker";
 
 export default function Page() {
     const { setTheme, themeName, theme } = useThemeStore();
@@ -17,8 +17,8 @@ export default function Page() {
             <ScreenContent
                 edges={["top"]}
                 HeaderComponent={<SettingsHeader title="Appearance" showBack />} >
-                <View style={{ padding: 16, gap: 16 }}>
-                    <View style={{ flexDirection: "row", width: "100%", alignItems: "center", justifyContent: "space-between" }}>
+                <View style={{ gap: 16 }}>
+                    <View style={{ flexDirection: "row", width: "100%", alignItems: "center", justifyContent: "space-between", padding: 16 }}>
                         <Text style={{ fontSize: 24, fontWeight: "800", color: theme.text }}>Theme</Text>
                         <SwitchButton
                             optionOne="LIGHT"
@@ -30,11 +30,10 @@ export default function Page() {
                             hideOtherOption
                         />
                     </View>
-
-
-                    <AccentTintButton title="Crimson" tint={"#FF8A78"} accent={"#7A3E2A"} />
-                    <AccentTintButton title="Lavender" tint={"#B7AEFF"} accent={"#5747E5"} />
-                    <AccentTintButton title="Mono" tint={"#8C867C"} accent={"#2A2723"} />
+                    <View style={{ width: "100%" }}>
+                        <Text style={{ fontSize: 24, fontWeight: "800", color: theme.text, paddingHorizontal: 16 }}>Color Combo</Text>
+                        <ColorComboPicker />
+                    </View>
                 </View>
             </ScreenContent>
         </Fragment >

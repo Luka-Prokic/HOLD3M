@@ -54,7 +54,7 @@ export function QueenButton({
                 colors={[gColor, gColor + "80", hexToRGBA(gColor as string, 0.8)]}
                 locations={[0, 0.8, 1]}
                 style={{
-                    height: height,
+                    minHeight: height,
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "center",

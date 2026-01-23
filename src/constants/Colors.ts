@@ -3,6 +3,7 @@ export default {
     // Text
     text: "#2A2723",
     textInverted: "#F1EFEA",
+    textGrey: "#494240",
 
     // Backgrounds
     background: "#E5E5EA",
@@ -31,6 +32,7 @@ export default {
     // Text
     text: "#F1EFEA",
     textInverted: "#0D0D0D",
+    textGrey: "#494240",
 
     // Backgrounds
     background: "#1F1D1B",
