@@ -13,14 +13,14 @@ interface DataAndPrivacyItemProps {
 }
 
 export function DataAndPrivacyItem({ item }: DataAndPrivacyItemProps) {
-    const { theme } = useSettingsStore();
+    const { theme, isNotificationsEnabled, isIncognitoModeEnabled, setIsNotificationsEnabled, setIsIncognitoModeEnabled } = useSettingsStore();
 
     return <Fragment>
         {item.title === "Notifications" &&
-            <SwitchGlassOption title={item.title} description={item.description} value={true} onChange={() => { }} />
+            <SwitchGlassOption title={item.title} description={item.description} value={isNotificationsEnabled} onChange={setIsNotificationsEnabled} />
         }
         {item.title === "Incognito" &&
-            <SwitchGlassOption title={item.title} description={item.description} value={false} onChange={() => { }} />
+            <SwitchGlassOption title={item.title} description={item.description} value={isIncognitoModeEnabled} onChange={setIsIncognitoModeEnabled} />
         }
         {item.title === "Export Data" &&
             <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label={item.label} onPress={() => { }} />

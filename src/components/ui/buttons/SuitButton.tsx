@@ -9,6 +9,7 @@ import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { getGradientColor } from "./QueenButton";
 import { LinearGradient } from "expo-linear-gradient";
+import { haptic } from "@/utils/useHaptics";
 
 interface SuitButtonProps<T extends string> {
   options: T[];
@@ -61,6 +62,11 @@ export function SuitButton<T extends string>({
     if (value === option) return;
     onChange(option);
   }
+
+  function handlePressIn() {
+    haptic("bold");
+  }
+
   return (
     <View style={{ width, gap: 4 }}>
       <Animated.View
@@ -86,6 +92,7 @@ export function SuitButton<T extends string>({
             onPress={() => {
               handlePress(option);
             }}
+            onPressIn={handlePressIn}
             disabled={value === option}
 
           >

@@ -4,27 +4,26 @@ import { Interaction } from "./interactions.schema";
 import { SuitButton } from "@/components/ui/buttons/SuitButton";
 import { SwitchGlassOption } from "../SwitchGlassOption";
 import { WIDTH } from "@/utils/Dimensions";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 
 interface InteractionItemProps {
     item: Interaction;
 }
 
 export function InteractionItem({ item }: InteractionItemProps) {
-
-    const [hapticsIntensity, setHapticsIntensity] = useState<("off" | "gentle" | "MAX")>("off");
-    const [animations, setAnimations] = useState<boolean>(false);
+    const { hapticsIntensity, setHapticsIntensity, isAnimationsEnabled, setIsAnimationsEnabled } = useSettingsStore();
 
     return (
         <Fragment>
             {item.title === "Haptics Intensity" &&
                 <GlassCard style={{ gap: 8 }}>
                     <Paragraph icon={item.icon} title={item.title} description={item.description} />
-                    <SuitButton options={["off", "gentle", "MAX"]} value={hapticsIntensity} onChange={setHapticsIntensity} width={WIDTH - 64} />
+                    <SuitButton options={["off", "gentle", "max"]} value={hapticsIntensity} onChange={setHapticsIntensity} width={WIDTH - 64} />
                 </GlassCard>
             }
             {item.title === "Animations" &&
-                <SwitchGlassOption title={item.title} description={item.description} value={animations} onChange={setAnimations} />
+                <SwitchGlassOption title={item.title} description={item.description} value={isAnimationsEnabled} onChange={setIsAnimationsEnabled} />
             }
             {item.title !== "Haptics Intensity" && item.title !== "Animations" &&
                 <GlassCard style={{ gap: 8 }}>

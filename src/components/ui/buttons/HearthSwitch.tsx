@@ -10,6 +10,7 @@ import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { LinearGradient } from "expo-linear-gradient";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { getGradientColor } from "./QueenButton";
+import { haptic } from "@/utils/useHaptics";
 
 interface BooleanSwitchProps {
   value: boolean;
@@ -56,9 +57,14 @@ export function HearthSwitch({
     onChange?.(!value);
   }
 
+  function handlePressIn() {
+    haptic("bold");
+  }
+
   return (
     <AceButton
       onPress={toggle}
+      onPressIn={handlePressIn}
       height={height}
       width={width}
       themeType="custom"

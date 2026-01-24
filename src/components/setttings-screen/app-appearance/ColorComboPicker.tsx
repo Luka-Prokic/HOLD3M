@@ -5,6 +5,7 @@ import { WIDTH } from "@/utils/Dimensions";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { Paragraph } from "@/components/ui/texts/Paragraph";
+import { haptic } from "@/utils/useHaptics";
 
 
 interface ColorComboPickerProps {
@@ -71,8 +72,12 @@ function ColorComboCard({ item }: { item: ColorComboPickerProps }) {
         setTintColor(item.tint);
     }
 
+    function handlePressIn() {
+        haptic("bold");
+    }
+
     return (
-        <Pressable onPress={() => handleSelect(item)}>
+        <Pressable onPress={() => handleSelect(item)} onPressIn={handlePressIn}>
             <GlassCard
                 style={{
                     width: (WIDTH - 48) / 2,

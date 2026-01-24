@@ -1,10 +1,10 @@
 import type { StateCreator } from "zustand";
 
 export interface PrivacySlice {
-  useNotifications: boolean;
-  useIncognitoMode: boolean;
-  setUseNotifications: (useNotifications: boolean) => void;
-  setUseIncognitoMode: (useIncognitoMode: boolean) => void;
+  isNotificationsEnabled: boolean;
+  isIncognitoModeEnabled: boolean;
+  setIsNotificationsEnabled: (isNotificationsEnabled: boolean) => void;
+  setIsIncognitoModeEnabled: (isIncognitoModeEnabled: boolean) => void;
 }
 
 export const createPrivacySlice: StateCreator<
@@ -13,8 +13,8 @@ export const createPrivacySlice: StateCreator<
   [],
   PrivacySlice
 > = (set, get) => ({
-  useNotifications: true,
-  useIncognitoMode: false,
-  setUseNotifications: (useNotifications: boolean) => set({ useNotifications: useNotifications }),
-  setUseIncognitoMode: (useIncognitoMode: boolean) => set({ useIncognitoMode: useIncognitoMode }),
+  isNotificationsEnabled: true,
+  isIncognitoModeEnabled: false,
+  setIsNotificationsEnabled: (isNotificationsEnabled: boolean) => set({ isNotificationsEnabled: isNotificationsEnabled }),
+  setIsIncognitoModeEnabled: (isIncognitoModeEnabled: boolean) => set({ isIncognitoModeEnabled: isIncognitoModeEnabled }),
 });

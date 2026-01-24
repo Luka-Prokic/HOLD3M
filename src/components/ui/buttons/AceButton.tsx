@@ -32,6 +32,7 @@ export function AceButton({
     const bColor = getButtonColor(themeType, buttonColor);
     const tColor = getTextColor(themeType, textColor);
 
+
     return (
         <Pressable
             {...pressableProps}

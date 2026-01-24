@@ -12,6 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { WIDTH } from "@/utils/Dimensions";
 import { Ionicons } from "@expo/vector-icons";
 import { GlassCard } from "@/components/ui/buttons/GlassCard";
+import { haptic } from "@/utils/useHaptics";
 
 export function ThemeSwtichOption() {
     const { theme, accentColor, themeName, setTheme } = useSettingsStore();
@@ -46,12 +47,17 @@ export function ThemeSwtichOption() {
         setTheme(next);
     }
 
+    function handlePressIn() {
+        haptic("bold");
+    }
+
     return (
         <GlassCard style={{ flexDirection: "row", width: WIDTH - 32, alignItems: "center", justifyContent: "space-between", padding: 16 }}>
             <Text style={{ fontSize: 24, fontWeight: "600", color: theme.text }}>App Theme</Text>
 
             <AceButton
                 onPress={toggle}
+                onPressIn={handlePressIn}
                 style={{
                     borderRadius: 27,
                     position: "relative",

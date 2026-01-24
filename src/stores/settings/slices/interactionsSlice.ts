@@ -1,10 +1,11 @@
 import type { StateCreator } from "zustand";
-import { HapticsIntensity } from "@/stores/settings/types";
+import type { HapticsIntensity } from "@/stores/settings/types";
 
 export interface InteractionsSlice {
   hapticsIntensity: HapticsIntensity;
-  useAnimations: boolean;
+  isAnimationsEnabled: boolean;
   setHapticsIntensity: (intensity: HapticsIntensity) => void;
+  setIsAnimationsEnabled: (isAnimationsEnabled: boolean) => void;
 }
 
 export const createInteractionsSlice: StateCreator<
@@ -14,7 +15,7 @@ export const createInteractionsSlice: StateCreator<
   InteractionsSlice
 > = (set, get) => ({
   hapticsIntensity: "max",
-  useAnimations: true,
+  isAnimationsEnabled: true,
   setHapticsIntensity: (intensity: HapticsIntensity) => set({ hapticsIntensity: intensity }),
-  setUseAnimations: (useAnimations: boolean) => set({ useAnimations: useAnimations }),
+  setIsAnimationsEnabled: (isAnimationsEnabled: boolean) => set({ isAnimationsEnabled: isAnimationsEnabled }),
 });

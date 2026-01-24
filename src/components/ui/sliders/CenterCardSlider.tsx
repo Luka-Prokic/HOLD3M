@@ -11,13 +11,13 @@ import Animated, {
   useAnimatedScrollHandler,
   useAnimatedReaction,
   BounceIn,
-  runOnJS,
 } from "react-native-reanimated";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "../../../utils/Dimensions";
 import { ScrollableDots } from "@/components/ui/sliders/ScrollableDots";
 import { SlideCard } from "@/components/ui/sliders/SlideCard";
 import { scheduleOnRN } from "react-native-worklets";
+import { hapticMax } from "@/utils/useHaptics";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -109,7 +109,7 @@ export function CenterCardSlider<T>({
 
       scrollStoppedTimeout.current = setTimeout(() => {
         const newIndex = Math.round(scrollX.value / cardWidth);
-        runOnJS(onSelect)(firstCard ? newIndex - 1 : newIndex);
+        scheduleOnRN(onSelect, firstCard ? newIndex - 1 : newIndex);
       }, selectDelay);
     },
   });
@@ -122,8 +122,10 @@ export function CenterCardSlider<T>({
 
       if (!onSelect) return;
 
+      scheduleOnRN(hapticMax, "sharp");
       if (!delayedSelect) {
         scheduleOnRN(onSelect, firstCard ? next - 1 : next);
+
       }
     }
   );

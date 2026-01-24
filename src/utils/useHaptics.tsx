@@ -37,7 +37,7 @@ const SYSTEM_MAP: Record<SystemHaptic, Haptics.NotificationFeedbackType> = {
  * Fire haptic feedback
  */
 export function haptic(type: HapticType) {
-    const { hapticsIntensity } = useSettingsStore();
+    const { hapticsIntensity } = useSettingsStore.getState();
     if (hapticsIntensity === "off") return;
 
     if (Platform.OS !== "ios") {
@@ -54,4 +54,25 @@ export function haptic(type: HapticType) {
     if (style) {
         Haptics.impactAsync(style);
     }
+}
+
+
+export function hapticMax(type: HapticType) {
+    const { hapticsIntensity } = useSettingsStore.getState();
+
+    if (hapticsIntensity === "off") return;
+
+    if (Platform.OS !== "ios") {
+        Vibration.vibrate(10);
+        return;
+    }
+
+    if (type in SYSTEM_MAP) {
+        Haptics.notificationAsync(SYSTEM_MAP[type as SystemHaptic]);
+        return;
+    }
+
+    const style = INTENT_MAP[type as IntentHaptic].max;
+
+    Haptics.impactAsync(style);
 }

@@ -1,7 +1,8 @@
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { hexToRGBA } from "@/utils/hexToRGBA";
+import { haptic } from "@/utils/useHaptics";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, ViewStyle, TextStyle, TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { Text, ViewStyle, TextStyle, TouchableOpacity, TouchableOpacityProps, GestureResponderEvent } from "react-native";
 
 type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
 
@@ -37,9 +38,15 @@ export function QueenButton({
     const gColor = getGradientColor(themeType, gradientColor);
     const tColor = getTextColor(themeType, textColor);
 
+
+    function handlePressIn(e: GestureResponderEvent) {
+        haptic("sharp");
+        touchableOpacityProps.onPressIn?.(e);
+    }
     return (
         <TouchableOpacity
             {...touchableOpacityProps}
+            onPressIn={handlePressIn}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             style={[{
                 backgroundColor: bColor,
