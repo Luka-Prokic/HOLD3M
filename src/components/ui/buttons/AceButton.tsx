@@ -1,9 +1,9 @@
 import { useThemeStore } from "@/stores/themeStore";
-import { Text, ViewStyle, TextStyle, TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { Text, ViewStyle, TextStyle, Pressable, PressableProps } from "react-native";
 
 type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
 
-interface AceButtonProps extends TouchableOpacityProps {
+interface AceButtonProps extends PressableProps {
     title?: string;
     buttonColor?: string;
     textColor?: string;
@@ -27,21 +27,21 @@ export function AceButton({
     circle = false,
     width = 64,
     height = 64,
-    ...touchableOpacityProps
+    ...pressableProps
 }: AceButtonProps) {
     const bColor = getButtonColor(themeType, buttonColor);
     const tColor = getTextColor(themeType, textColor);
 
     return (
-        <TouchableOpacity
-            {...touchableOpacityProps}
+        <Pressable
+            {...pressableProps}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             style={{
                 height,
                 width,
                 minWidth: 64,
                 backgroundColor: bColor,
-                opacity: touchableOpacityProps.disabled ? 0.4 : 1,
+                opacity: pressableProps.disabled ? 0.4 : 1,
                 paddingHorizontal: circle ? 0 : 24,
                 borderRadius: 32,
                 alignItems: "center",
@@ -53,40 +53,34 @@ export function AceButton({
                 {title}
             </Text>
             }
-        </TouchableOpacity>
+        </Pressable>
     );
 }
 
-
 function getButtonColor(themeType: ButtonThemeType, customColor?: string) {
-    const { theme, accentColor, tintColor } = useThemeStore();
-    switch (themeType) {
-        case "default":
-            return theme.darkSurface;
-        case "theme":
-            return theme.surface;
-        case "tint":
-            return tintColor;
-        case "accent":
-            return accentColor;
-        case "custom":
-            return customColor;
-    }
+    const { theme, accentColor, tintColor } = useThemeStore.getState();
+
+    const colorMap: Record<ButtonThemeType, string | undefined> = {
+        default: theme.darkSurface,
+        theme: theme.surface,
+        tint: tintColor,
+        accent: accentColor,
+        custom: customColor,
+    };
+
+    return colorMap[themeType];
 }
 
 function getTextColor(themeType: ButtonThemeType, customColor?: string) {
-    const { theme, accentColor, tintColor } = useThemeStore();
+    const { theme, accentColor, tintColor } = useThemeStore.getState();
 
-    switch (themeType) {
-        case "default":
-            return theme.lightSurface;
-        case "theme":
-            return theme.textInverted;
-        case "tint":
-            return accentColor;
-        case "accent":
-            return tintColor;
-        case "custom":
-            return customColor;
-    }
+    const colorMap: Record<ButtonThemeType, string | undefined> = {
+        default: theme.lightSurface,
+        theme: theme.textInverted,
+        tint: accentColor,
+        accent: tintColor,
+        custom: customColor,
+    };
+
+    return colorMap[themeType];
 }

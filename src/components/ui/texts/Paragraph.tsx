@@ -3,9 +3,9 @@ import { useThemeStore } from "@/stores/themeStore";
 import { Ionicons } from "@expo/vector-icons";
 
 interface ParagraphProps {
-    icon: keyof typeof Ionicons.glyphMap;
-    title: string;
-    description: string;
+    icon?: keyof typeof Ionicons.glyphMap;
+    title?: string;
+    description?: string;
     style?: ViewStyle | ViewStyle[];
 }
 
@@ -15,10 +15,10 @@ export function Paragraph({ icon, title, description, style }: ParagraphProps) {
     return (
         <View style={[{ gap: 8 }, style]}>
             <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                <Ionicons name={icon} size={32} color={theme.text} />
-                <Text style={{ fontSize: 20, fontWeight: "800", color: theme.text }}>{title}</Text>
+                {icon && <Ionicons name={icon} size={32} color={theme.text} />}
+                {title && <Text style={{ fontSize: 20, fontWeight: "800", color: theme.text }}>{title}</Text>}
             </View>
-            <Text style={{ fontSize: 18, fontWeight: "600", color: theme.text }}>{description}</Text>
+            {description && <Text style={{ fontSize: 18, fontWeight: "600", color: theme.text }}>{description}</Text>}
         </View>
     )
 }

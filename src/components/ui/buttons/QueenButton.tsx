@@ -71,52 +71,52 @@ export function QueenButton({
     );
 }
 
-
 function getButtonColor(themeType: ButtonThemeType, customColor?: string) {
     const { theme, accentColor, tintColor } = useThemeStore();
-    switch (themeType) {
-        case "default":
-            return accentColor;
-        case "theme":
-            return theme.surface;
-        case "tint":
-            return accentColor;
-        case "accent":
-            return tintColor;
-        case "custom":
-            return customColor;
-    }
+
+    const map: Record<ButtonThemeType, string | undefined> = {
+        default: accentColor,
+        theme: theme.surface,
+        tint: accentColor,
+        accent: tintColor,
+        custom: customColor,
+    };
+
+    return map[themeType];
 }
 
 function getTextColor(themeType: ButtonThemeType, customColor?: string) {
     const { theme, accentColor, tintColor } = useThemeStore();
 
-    switch (themeType) {
-        case "default":
-            return theme.darkSurface;
-        case "theme":
-            return theme.textInverted;
-        case "tint":
-            return accentColor;
-        case "accent":
-            return tintColor;
-        case "custom":
-            return customColor;
-    }
+    const map: Record<ButtonThemeType, string | undefined> = {
+        default: theme.darkSurface,
+        theme: theme.textInverted,
+        tint: accentColor,
+        accent: tintColor,
+        custom: customColor,
+    };
+
+    return map[themeType];
 }
 
-function getGradientColor(themeType: ButtonThemeType, customColor: string) {
+export function getGradientColor(
+    themeType: ButtonThemeType,
+    customColor: string
+) {
     const { theme, accentColor, tintColor, themeName } = useThemeStore();
-    switch (themeType) {
-        case "default":
-            return themeName === "light" ? theme.textInverted : theme.lightSurface;
-        case "theme":
-            return theme.textInverted;
-        case "tint":
-            return tintColor;
-        case "accent":
-            return accentColor;
-        case "custom":
-            return customColor;
-    }
+
+    const defaultGradient =
+        themeName === "light"
+            ? theme.textInverted
+            : theme.lightSurface;
+
+    const map: Record<ButtonThemeType, string> = {
+        default: defaultGradient,
+        theme: theme.textInverted,
+        tint: tintColor,
+        accent: accentColor,
+        custom: customColor,
+    };
+
+    return map[themeType];
 }

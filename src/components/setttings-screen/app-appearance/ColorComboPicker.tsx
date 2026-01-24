@@ -45,7 +45,7 @@ export function ColorComboPicker() {
     return (
         <View style={{ flexDirection: "row", width: "100%", gap: 8, flexWrap: "wrap" }}>
             <Paragraph
-                icon="color-fill-outline"
+                icon="contrast-outline"
                 title="App Color Combo"
                 description="Pick the main colors used across the app."
                 style={{ width: "100%", paddingHorizontal: 16 }}
