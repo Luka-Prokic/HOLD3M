@@ -35,7 +35,7 @@ export const GAME_RULES_SCHEMA: GameRule[] = [
     },
     {
         icon: "hourglass-outline",
-        title: "End of Round - 00:00",
+        title: "End of Round",
         description: "Your daily hand resets at the time you select on the wheel.",
     },
 ];

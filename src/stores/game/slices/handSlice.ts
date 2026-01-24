@@ -10,11 +10,15 @@ export interface HandSlice {
   rounds: Hand[];
   currentHand: Card[];
   heldCards: Card[];
+  endOfRoundTime: string;
   startNewHand: () => void;
   holdCard: (cardId: string) => void;
   releaseCard: (cardId: string) => void;
   finalizeHand: () => Hand;
+  setEndOfRoundTime: (timeStamp: string) => void;
 }
+
+const VALID_TIME_REGEX = /^(0\d|1\d|2[0-3]):00|24:00$/;
 
 export const createHandSlice: StateCreator<
   HandSlice & CardSlice,
@@ -25,6 +29,14 @@ export const createHandSlice: StateCreator<
   rounds: [],
   currentHand: genFirstHand(),
   heldCards: [],
+  endOfRoundTime: "00:00",
+
+
+  setEndOfRoundTime: (timeStamp) => {
+    if (!VALID_TIME_REGEX.test(timeStamp)) return;
+
+    set({ endOfRoundTime: timeStamp });
+  },
 
   startNewHand: () => {
     const { burnsAvailable, rounds } = get();
@@ -63,7 +75,7 @@ export const createHandSlice: StateCreator<
 
     if (!card || card.repetition < 0) return;
 
-    if (card && !heldCards.some((c) => c.id === cardId)) {
+    if (!heldCards.some((c) => c.id === cardId)) {
       set({ heldCards: [...heldCards, card] });
     }
   },

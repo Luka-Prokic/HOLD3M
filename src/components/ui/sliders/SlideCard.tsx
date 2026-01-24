@@ -64,7 +64,7 @@ export function SlideCard({
       rotateY = `${interpolate(
         distance,
         [-width * 3, -width * 2, -width, 0, width, width * 2, width * 3],
-        [55, 45, 35, 0, -35, -45, -55],
+        [45, 25, 10, 0, -10, -25, -45],
         Extrapolate.CLAMP
       )}deg`;
     }

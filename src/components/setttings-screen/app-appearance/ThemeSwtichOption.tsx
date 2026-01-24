@@ -11,7 +11,7 @@ import { hexToRGBA } from "@/utils/hexToRGBA";
 import { LinearGradient } from "expo-linear-gradient";
 import { WIDTH } from "@/utils/Dimensions";
 import { Ionicons } from "@expo/vector-icons";
-import { GlassCard } from "@/components/ui/sliders/GlassCard";
+import { GlassCard } from "@/components/ui/buttons/GlassCard";
 
 export function ThemeSwtichOption() {
     const { theme, accentColor, themeName, setTheme } = useThemeStore();

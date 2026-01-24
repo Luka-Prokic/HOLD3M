@@ -10,13 +10,14 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
   useAnimatedReaction,
-  runOnJS,
   BounceIn,
+  runOnJS,
 } from "react-native-reanimated";
 import { useThemeStore } from "@/stores/themeStore";
 import { WIDTH } from "../../../utils/Dimensions";
 import { ScrollableDots } from "@/components/ui/sliders/ScrollableDots";
 import { SlideCard } from "@/components/ui/sliders/SlideCard";
+import { scheduleOnRN } from "react-native-worklets";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -46,6 +47,8 @@ interface CenterCardSliderProps<T>
   distanceTolerance?: number;
   animationType?: AnimationType;
   disableScroll?: boolean;
+  delayedSelect?: boolean;
+  selectDelay?: number;
 }
 
 export function CenterCardSlider<T>({
@@ -73,10 +76,13 @@ export function CenterCardSlider<T>({
   distanceTolerance = 0,
   animationType = "card",
   disableScroll = false,
+  delayedSelect = false,
+  selectDelay = 100,
   ...flatListProps
 }: CenterCardSliderProps<T>) {
   const { theme } = useThemeStore();
   const listRef = useRef<FlatList>(null);
+  const scrollStoppedTimeout = useRef<number | null>(null);
 
   const scrollX = useSharedValue(0);
   const currentIndex = useSharedValue(selectedIndex);
@@ -96,6 +102,15 @@ export function CenterCardSlider<T>({
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollX.value = event.contentOffset.x;
+
+      if (!delayedSelect || !onSelect) return;
+
+      if (scrollStoppedTimeout.current) clearTimeout(scrollStoppedTimeout.current);
+
+      scrollStoppedTimeout.current = setTimeout(() => {
+        const newIndex = Math.round(scrollX.value / cardWidth);
+        runOnJS(onSelect)(firstCard ? newIndex - 1 : newIndex);
+      }, selectDelay);
     },
   });
 
@@ -104,7 +119,12 @@ export function CenterCardSlider<T>({
     (next, prev) => {
       if (!isReady.value || next === prev) return;
       currentIndex.value = next;
-      if (onSelect) runOnJS(onSelect)(firstCard ? next - 1 : next);
+
+      if (!onSelect) return;
+
+      if (!delayedSelect) {
+        scheduleOnRN(onSelect, firstCard ? next - 1 : next);
+      }
     }
   );
 
@@ -129,6 +149,12 @@ export function CenterCardSlider<T>({
       animated: true,
     });
   }, [visualIndex]);
+
+  useEffect(() => {
+    return () => {
+      if (scrollStoppedTimeout.current) clearTimeout(scrollStoppedTimeout.current);
+    };
+  }, []);
 
   const defaultKeyExtractor = (item: any, index: number) =>
     item?.id ? `${item.id}-${index}` : `${index}`;

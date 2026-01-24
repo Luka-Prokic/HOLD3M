@@ -16,6 +16,7 @@ interface QueenButtonProps extends TouchableOpacityProps {
     children?: React.ReactNode;
     circle?: boolean;
     height?: number;
+    width?: number;
 }
 
 export function QueenButton({
@@ -29,6 +30,7 @@ export function QueenButton({
     children,
     circle = false,
     height = 54,
+    width,
     ...touchableOpacityProps
 }: QueenButtonProps) {
     const bColor = getButtonColor(themeType, buttonColor);
@@ -47,6 +49,7 @@ export function QueenButton({
                 borderBottomWidth: 1,
                 borderColor: gColor,
                 overflow: "hidden",
+                width: width,
             },
                 buttonStyle
             ]}>
@@ -103,10 +106,10 @@ function getTextColor(themeType: ButtonThemeType, customColor?: string) {
 }
 
 function getGradientColor(themeType: ButtonThemeType, customColor: string) {
-    const { theme, accentColor, tintColor } = useThemeStore();
+    const { theme, accentColor, tintColor, themeName } = useThemeStore();
     switch (themeType) {
         case "default":
-            return theme.lightSurface;
+            return themeName === "light" ? theme.textInverted : theme.lightSurface;
         case "theme":
             return theme.textInverted;
         case "tint":

@@ -1,16 +1,22 @@
 import { GameRule } from "@/components/setttings-screen/game-rules/game.rules";
 import { QueenButton } from "@/components/ui/buttons/QueenButton";
-import { GlassCard } from "@/components/ui/sliders/GlassCard";
+import { GlassCard } from "@/components/ui/buttons/GlassCard";
 import { Paragraph } from "@/components/ui/texts/Paragraph";
+import { EndOfRoundSelector } from "@/components/setttings-screen/game-rules/EndOfRoundSelector";
+import { useGameStore } from "@/stores/game/useGameStore";
 
 interface GameRuleItemProps {
     rule: GameRule;
 }
 
 export function GameRuleItem({ rule }: GameRuleItemProps) {
+    const { endOfRoundTime } = useGameStore();
 
-    if (rule.title === "End of Round - 00:00") {
-        return <GlassCard><Paragraph icon={rule.icon} title={rule.title} description={rule.description} /></GlassCard>
+    if (rule.title === "End of Round") {
+        return <GlassCard style={{ gap: 8 }}>
+            <Paragraph icon={rule.icon} title={`${rule.title} - ${endOfRoundTime}`} description={rule.description} />
+            <EndOfRoundSelector />
+        </GlassCard>
     }
 
     if (rule.title === "Hands & Ranks") {
