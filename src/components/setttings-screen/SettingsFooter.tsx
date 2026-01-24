@@ -1,13 +1,13 @@
 import { QueenButton } from "../ui/buttons/QueenButton";
 import { Text } from "react-native";
 import { router } from "expo-router";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import { Fragment } from "react";
 
 
 export function SettingsFooter() {
-    const { tintColor } = useThemeStore();
+    const { tintColor } = useSettingsStore();
     const { fontFamily } = useBalletFont();
 
     return (

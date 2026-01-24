@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { QueenButton } from "./QueenButton";
 
 interface AccentTintButtonProps {
@@ -8,7 +8,7 @@ interface AccentTintButtonProps {
 }
 
 export function AccentTintButton({ title, tint, accent }: AccentTintButtonProps) {
-    const { accentColor, tintColor, setAccentColor, setTintColor } = useThemeStore();
+    const { accentColor, tintColor, setAccentColor, setTintColor } = useSettingsStore();
 
     const isSelected = accentColor === accent && tintColor === tint;
 

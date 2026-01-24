@@ -6,7 +6,7 @@ import Animated, {
     withSpring,
 } from "react-native-reanimated";
 import { AceButton } from "@/components/ui/buttons/AceButton";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { LinearGradient } from "expo-linear-gradient";
 import { WIDTH } from "@/utils/Dimensions";
@@ -14,7 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { GlassCard } from "@/components/ui/buttons/GlassCard";
 
 export function ThemeSwtichOption() {
-    const { theme, accentColor, themeName, setTheme } = useThemeStore();
+    const { theme, accentColor, themeName, setTheme } = useSettingsStore();
 
     const width = (WIDTH - 32) / 2;
     const knobWidth = width * 0.5;

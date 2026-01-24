@@ -1,14 +1,14 @@
 import { router } from "expo-router";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 import { AceButton } from "../ui/buttons/AceButton";
-import { useThemeStore } from "@/stores/themeStore";
-import { Card } from "@/stores/types";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
+import { Card } from "@/stores/game/types";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { WIDTH } from "@/utils/Dimensions";
 
 export function HandHeader() {
     const { burnCards, burnsAvailable, currentHand, heldCards } = useGameStore();
-    const { themeName } = useThemeStore();
+    const { themeName } = useSettingsStore();
 
     const unHeldCards = currentHand.filter((card: Card) => !heldCards.includes(card));
     const jesterCards = currentHand.filter((card: Card) => card.repetition === -1);

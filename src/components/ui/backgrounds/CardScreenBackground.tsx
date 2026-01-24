@@ -1,11 +1,11 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { LinearGradient } from "expo-linear-gradient";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { getPerfectGradientMiddleColor } from "@/utils/getPerfectGradientMiddleColor";
 
 export function CardScreenBackground() {
-    const { theme, tintColor } = useThemeStore();
+    const { theme, tintColor } = useSettingsStore();
     const { fontFamily } = useBalletFont();
     const middleColor = getPerfectGradientMiddleColor();
 

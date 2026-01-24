@@ -6,7 +6,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { AceButton } from "./AceButton";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { LinearGradient } from "expo-linear-gradient";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { getGradientColor } from "./QueenButton";
@@ -26,7 +26,7 @@ export function HearthSwitch({
   height = 54,
   style,
 }: BooleanSwitchProps) {
-  const { theme, accentColor } = useThemeStore();
+  const { theme, accentColor } = useSettingsStore();
 
   const gColor = getGradientColor("default", theme.lightSurface);
 
@@ -41,9 +41,9 @@ export function HearthSwitch({
     translateX.value = withSpring(
       value ? width - knobWidth - padding * 2 : 0,
       {
-        mass: 0.9,
+        mass: 1,
         stiffness: 420,
-        damping: 22,
+        damping: 16,
       }
     );
   }, [value]);
@@ -71,6 +71,46 @@ export function HearthSwitch({
       }}
       buttonStyle={{ paddingHorizontal: 0 }}
     >
+
+      {/* Labels */}
+      <View
+        style={{
+          position: "absolute",
+          flexDirection: "row",
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+        }}
+      >
+        {/* ON (left) */}
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "600",
+            color: theme.lightSurface,
+            lineHeight: height,
+            textAlign: "center",
+            flex: 1,
+          }}
+        >
+          ON
+        </Text>
+
+        {/* OFF (right) */}
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "600",
+            color: theme.lightSurface,
+            lineHeight: height,
+            textAlign: "center",
+            flex: 1,
+          }}
+        >
+          OFF
+        </Text>
+      </View>
+
       {/* Knob */}
       <Animated.View
         style={[
@@ -101,49 +141,6 @@ export function HearthSwitch({
           style={{ flex: 1 }}
         />
       </Animated.View>
-
-      {/* Labels */}
-      <View
-        style={{
-          position: "absolute",
-          flexDirection: "row",
-          width: "100%",
-          height: "100%",
-          alignItems: "center",
-        }}
-      >
-        {/* ON (left) */}
-        <View style={{ flex: 1, alignItems: "center" }}>
-          {value && (
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: theme.lightSurface,
-                lineHeight: height,
-              }}
-            >
-              ON
-            </Text>
-          )}
-        </View>
-
-        {/* OFF (right) */}
-        <View style={{ flex: 1, alignItems: "center" }}>
-          {!value && (
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: theme.lightSurface,
-                lineHeight: height,
-              }}
-            >
-              OFF
-            </Text>
-          )}
-        </View>
-      </View>
     </AceButton>
   );
 }

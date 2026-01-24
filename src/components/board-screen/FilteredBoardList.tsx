@@ -1,6 +1,6 @@
 import { FlatList } from "react-native-gesture-handler";
-import { HandRankType } from "@/stores/types";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { HandRankType } from "@/stores/game/types";
+import { useGameStore } from "@/stores/game/gameStore";
 import { useMemo } from "react";
 import { RoundPreviewBar } from "./RoundPreviewBar";
 import MaskedView from "@react-native-masked-view/masked-view";

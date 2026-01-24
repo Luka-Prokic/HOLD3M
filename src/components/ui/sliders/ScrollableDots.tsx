@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { FlatList } from "react-native";
 import { View } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import Animated, {
   FadeInLeft,
   FadeInUp,
@@ -32,7 +32,7 @@ export const ScrollableDots = ({
   lastDot,
   maxDotsShown = 5,
 }: ScrollableDotsProps) => {
-  const { theme } = useThemeStore();
+  const { theme } = useSettingsStore();
   const flatListRef = useRef<FlatList>(null);
   const totalDots = dataLength;
   const dotWidth = DOT_MARGIN * 2 + DOT_SIZE;
@@ -139,7 +139,7 @@ export const VerticalScrollableDots = ({
   maxDotsShown = 5,
 }: VerticalScrollableDotsProps) => {
   const flatListRef = useRef<FlatList>(null);
-  const { theme } = useThemeStore();
+  const { theme } = useSettingsStore();
 
   const totalDots = dataLength;
   const dotHeight = DOT_SIZE + DOT_MARGIN * 2;

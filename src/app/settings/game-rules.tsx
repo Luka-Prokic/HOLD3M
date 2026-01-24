@@ -4,7 +4,7 @@ import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
 import { SettingsScreenBackground } from "@/components/ui/backgrounds/SettingsScreenBackground";
 import { Content } from "@/components/ui/screens/Content";
 import { GameRuleItem } from "@/components/setttings-screen/game-rules/GameRuleItem";
-import { GAME_RULES_SCHEMA } from "@/components/setttings-screen/game-rules/game.rules";
+import { GAME_RULES_SCHEMA } from "@/components/setttings-screen/game-rules/game.rules.schema";
 
 export default function Page() {
     return (

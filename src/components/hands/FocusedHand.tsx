@@ -1,8 +1,8 @@
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 import { FocusCard } from "../cards/FocusCard";
 import { JesterFocusCard } from "../cards/JesterFocusCard";
 import { WIDTH } from "@/utils/Dimensions";
-import { Card } from "@/stores/types";
+import { Card } from "@/stores/game/types";
 import { CenterCardSlider } from "../ui/sliders/CenterCardSlider";
 
 export function FocusedHand() {

@@ -3,8 +3,8 @@ import { CenterCardSlider } from "@/components/ui/sliders/CenterCardSlider"
 import { WIDTH } from "@/utils/Dimensions"
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
-import { useThemeStore } from "@/stores/themeStore";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
+import { useGameStore } from "@/stores/game/gameStore";
 
 const TIME_STAMPS = [
     "00:00",
@@ -82,7 +82,7 @@ export function EndOfRoundSelector({ width = WIDTH - 64 }: EndOfRoundSelectorPro
 }
 
 function EndOfRoundCard({ item, width }: { item: string, width: number }) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     return <View style={{ width, height: 108, gap: 4, alignItems: "center" }} >
         <View style={{ width, height: 54, justifyContent: "center", alignItems: "center" }} >

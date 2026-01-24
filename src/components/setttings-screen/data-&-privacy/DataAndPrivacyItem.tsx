@@ -1,19 +1,19 @@
 import { GlassCard } from "@/components/ui/buttons/GlassCard";
 import { Paragraph } from "@/components/ui/texts/Paragraph";
-import { DataAndPrivacy } from "./data.and.privacy";
+import { DataAndPrivacy } from "./data.and.privacy.schema";
 import { SwitchGlassOption } from "../SwitchGlassOption";
 import { Fragment } from "react";
 import { ButtonGlassOption } from "../ButtonGlassOption";
 import { QueenButton } from "@/components/ui/buttons/QueenButton";
 import { WIDTH } from "@/utils/Dimensions";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 
 interface DataAndPrivacyItemProps {
     item: DataAndPrivacy;
 }
 
 export function DataAndPrivacyItem({ item }: DataAndPrivacyItemProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     return <Fragment>
         {item.title === "Notifications" &&

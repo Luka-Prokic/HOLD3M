@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import { AceButton } from "../ui/buttons/AceButton";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { EndDayButton } from "../ui/mock/EndDayButton";
 
 interface SettingsHeaderProps {
@@ -13,7 +13,7 @@ interface SettingsHeaderProps {
 }
 
 export function SettingsHeader({ title = "Settings", showBack = false, showHome = true, dayResetBeta = true }: SettingsHeaderProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", width: "100%", paddingTop: 16, paddingHorizontal: 24, zIndex: 1 }}>

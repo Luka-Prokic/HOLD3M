@@ -1,9 +1,9 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { Text, Pressable, TextInput } from "react-native";
 import { useState } from "react";
-import { useGameStore } from "@/stores/game/useGameStore";
-import { Card } from "@/stores/types";
+import { useGameStore } from "@/stores/game/gameStore";
+import { Card } from "@/stores/game/types";
 
 interface JesterFocusCardProps {
     card: Card;
@@ -11,7 +11,7 @@ interface JesterFocusCardProps {
 
 export function JesterFocusCard({ card }: JesterFocusCardProps) {
     const { addCard } = useGameStore();
-    const { cardBackground, cardText, theme } = useThemeStore();
+    const { cardBackground, cardText, theme } = useSettingsStore();
     const cardHeight = (WIDTH - 48) * 1.4;
     const cardWidth = WIDTH - 48;
 

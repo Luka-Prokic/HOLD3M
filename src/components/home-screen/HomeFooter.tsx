@@ -1,10 +1,10 @@
 import { router } from "expo-router";
 import { View } from "react-native";
 import { AceButton } from "../ui/buttons/AceButton";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 
 export function HomeFooter() {
-    const { themeName } = useThemeStore();
+    const { themeName } = useSettingsStore();
 
     function handleHoldem() {
         router.push("/hand");

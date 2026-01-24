@@ -1,12 +1,12 @@
 import { Pressable } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { router } from "expo-router";
 import { WIDTH } from "@/utils/Dimensions";
 import { Ionicons } from "@expo/vector-icons";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 
 export function CardFooter() {
-    const { accentColor } = useThemeStore();
+    const { accentColor } = useSettingsStore();
     const { clearSelection } = useGameStore();
 
     function handlePress() {

@@ -3,7 +3,7 @@ import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
 import { SettingsScreenBackground } from "@/components/ui/backgrounds/SettingsScreenBackground";
 import { Content } from "@/components/ui/screens/Content";
-import { DATA_AND_PRIVACY_SCHEMA } from "@/components/setttings-screen/data-&-privacy/data.and.privacy";
+import { DATA_AND_PRIVACY_SCHEMA } from "@/components/setttings-screen/data-&-privacy/data.and.privacy.schema";
 import { DataAndPrivacyItem } from "@/components/setttings-screen/data-&-privacy/DataAndPrivacyItem";
 
 export default function Page() {

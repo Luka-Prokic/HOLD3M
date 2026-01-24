@@ -1,11 +1,11 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { LinearGradient } from "expo-linear-gradient";
 import { getPerfectGradientMiddleColor } from "@/utils/getPerfectGradientMiddleColor";
 import { PremadeDiamondBackground } from "./PremadeDiamondBackground";
 
 
 export function HomeScreenBackground() {
-    const { theme, tintColor } = useThemeStore();
+    const { theme, tintColor } = useSettingsStore();
     const middleColor = getPerfectGradientMiddleColor();
 
     return (

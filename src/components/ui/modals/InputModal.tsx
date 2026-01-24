@@ -1,6 +1,6 @@
 import { useState, useRef, Fragment } from "react";
 import { Keyboard, TouchableOpacity, TextInput, ViewStyle, Pressable, Text, View } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { TransparentBottomSheet } from "./TransparentBottomSheet";
@@ -13,7 +13,7 @@ interface InputModalProps {
 }
 
 export function InputModal({ style, placeholder = "Type something...", value = "", onChangeText }: InputModalProps) {
-  const { theme } = useThemeStore();
+  const { theme } = useSettingsStore();
   const [newValue, setNewValue] = useState(value);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 

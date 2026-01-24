@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { hexToRGBA } from "./hexToRGBA";
 
 const DARK_VERSION_MAP: Record<string, string> = {
@@ -9,7 +9,7 @@ const DARK_VERSION_MAP: Record<string, string> = {
 };
 
 export function getPerfectGradientMiddleColor() {
-    const { themeName, tintColor } = useThemeStore();
+    const { themeName, tintColor } = useSettingsStore();
 
     const tintDoesntMatch = DARK_VERSION_MAP[tintColor] === undefined;
     if (tintDoesntMatch) return hexToRGBA(tintColor, 0.5);

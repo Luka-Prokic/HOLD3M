@@ -5,7 +5,7 @@ import {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ViewStyle } from "react-native";
 import { forwardRef } from "react";
@@ -20,7 +20,7 @@ export const IBottomSheet = forwardRef<BottomSheetModal, IBottomSheetProps>(({
   bottomSheetStyle,
   ...props
 }, ref) => {
-  const { theme } = useThemeStore();
+  const { theme } = useSettingsStore();
   const insets = useSafeAreaInsets();
 
   return (

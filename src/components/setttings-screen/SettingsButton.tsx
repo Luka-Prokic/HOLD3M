@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { QueenButton } from "../ui/buttons/QueenButton";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Ionicons } from "@expo/vector-icons";
 
 
@@ -12,7 +12,7 @@ interface SettingsButtonProps {
 }
 
 export function SettingsButton({ icon, title, description, onPress }: SettingsButtonProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
     return (
         <QueenButton onPress={onPress}>
             <View style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 8, gap: 16 }}>

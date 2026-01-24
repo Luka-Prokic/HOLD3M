@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { ViewStyle } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { BlurView } from "expo-blur";
 
@@ -11,7 +11,7 @@ interface GlassCardProps {
     height?: number;
 }
 export function GlassCard({ children, style, width, height }: GlassCardProps) {
-    const { theme, themeName, tintColor, accentColor } = useThemeStore();
+    const { theme, themeName, tintColor, accentColor } = useSettingsStore();
 
     const glassTintColor = themeName === "light" ? accentColor : tintColor;
 

@@ -1,11 +1,11 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { PremadeDiamondBackground } from "./PremadeDiamondBackground";
 import { View } from "react-native";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 
 
 export function SettingsScreenBackground() {
-    const { accentColor, themeName } = useThemeStore();
+    const { accentColor, themeName } = useSettingsStore();
 
     return (
         <View

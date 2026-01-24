@@ -1,11 +1,11 @@
 import { View, Text } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
+import { useGameStore } from "@/stores/game/gameStore";
 
 
 
 export function CurrentRound() {
-    const { theme, themeName, accentColor, tintColor } = useThemeStore();
+    const { theme, themeName, accentColor, tintColor } = useSettingsStore();
     const { rounds } = useGameStore();
 
     const hashColor = themeName === "light" ? tintColor : accentColor;

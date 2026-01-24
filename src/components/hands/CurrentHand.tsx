@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 import { PreviewCard } from "../cards/PreviewCard";
 import { router } from "expo-router";
 

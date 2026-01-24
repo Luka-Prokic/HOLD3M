@@ -1,11 +1,11 @@
 import { router } from "expo-router";
 import { View } from "react-native";
 import { AceButton } from "../ui/buttons/AceButton";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Ionicons } from "@expo/vector-icons";
 
 export function HomeHeader() {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     return (
         <View style={{ flexDirection: "row", width: "100%", paddingTop: 16, paddingHorizontal: 24, gap: 24, zIndex: 1 }}>

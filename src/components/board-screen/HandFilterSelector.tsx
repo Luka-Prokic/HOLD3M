@@ -2,9 +2,9 @@ import { Text } from "react-native";
 import { CenterCardSlider } from "../ui/sliders/CenterCardSlider";
 import { BoardFilterType } from "./FilteredBoardList";
 import { WIDTH } from "@/utils/Dimensions";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 
 interface HandFilterSelectorProps {
     selectedBoardFilter: BoardFilterType;
@@ -12,7 +12,7 @@ interface HandFilterSelectorProps {
 }
 
 export function HandFilterSelector({ selectedBoardFilter, onSelect }: HandFilterSelectorProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
     const { fontFamily } = useBalletFont();
     const { rounds } = useGameStore();
 

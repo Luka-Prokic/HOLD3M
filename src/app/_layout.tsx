@@ -2,11 +2,11 @@ import { Stack } from 'expo-router/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { StatusBar } from 'expo-status-bar';
-import { useThemeStore } from '@/stores/themeStore';
+import { useSettingsStore } from '@/stores/settings/settingsStore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Layout() {
-  const { themeName, theme, tintColor } = useThemeStore();
+  const { themeName, theme, tintColor } = useSettingsStore();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

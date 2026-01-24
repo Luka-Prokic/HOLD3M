@@ -1,7 +1,7 @@
-import { Card } from "@/stores/types";
-import { useGameStore } from "@/stores/game/useGameStore"
+import { Card } from "@/stores/game/types";
+import { useGameStore } from "@/stores/game/gameStore"
 import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Ionicons } from "@expo/vector-icons";
@@ -31,7 +31,7 @@ export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) 
 }
 
 function CardItem({ card, index }: { card: Card, index: number }) {
-    const { accentColor, tintColor } = useThemeStore();
+    const { accentColor, tintColor } = useSettingsStore();
     const { heldCards, currentCardIndex, setCurrentCardIndex } = useGameStore();
     const rankLabel = getCardRankLetterFromRep(card.repetition)
 

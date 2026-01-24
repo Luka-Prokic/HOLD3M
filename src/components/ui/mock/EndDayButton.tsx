@@ -1,12 +1,12 @@
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 import { AceButton } from "../buttons/AceButton";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Ionicons } from "@expo/vector-icons";
 
 
 export function EndDayButton() {
   const { finalizeHand, startNewHand } = useGameStore();
-  const { theme } = useThemeStore();
+  const { theme } = useSettingsStore();
 
   function handleEndDay() {
     finalizeHand();

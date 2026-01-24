@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, ViewStyle, TextStyle, TouchableOpacity, TouchableOpacityProps } from "react-native";
@@ -72,7 +72,7 @@ export function QueenButton({
 }
 
 function getButtonColor(themeType: ButtonThemeType, customColor?: string) {
-    const { theme, accentColor, tintColor } = useThemeStore();
+    const { theme, accentColor, tintColor } = useSettingsStore();
 
     const map: Record<ButtonThemeType, string | undefined> = {
         default: accentColor,
@@ -86,7 +86,7 @@ function getButtonColor(themeType: ButtonThemeType, customColor?: string) {
 }
 
 function getTextColor(themeType: ButtonThemeType, customColor?: string) {
-    const { theme, accentColor, tintColor } = useThemeStore();
+    const { theme, accentColor, tintColor } = useSettingsStore();
 
     const map: Record<ButtonThemeType, string | undefined> = {
         default: theme.darkSurface,
@@ -103,7 +103,7 @@ export function getGradientColor(
     themeType: ButtonThemeType,
     customColor: string
 ) {
-    const { theme, accentColor, tintColor, themeName } = useThemeStore();
+    const { theme, accentColor, tintColor, themeName } = useSettingsStore();
 
     const defaultGradient =
         themeName === "light"

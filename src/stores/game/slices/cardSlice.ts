@@ -1,6 +1,6 @@
 import type { StateCreator } from "zustand";
 import type { HandSlice } from "./handSlice";
-import type { Card } from "@/stores/types";
+import type { Card } from "@/stores/game/types";
 import { nanoid } from "nanoid/non-secure";
 import { getRandomCardSuit } from "../utils/getRandomCardSuit";
 

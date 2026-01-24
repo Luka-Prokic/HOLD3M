@@ -1,6 +1,6 @@
 import { GlassCard } from "@/components/ui/buttons/GlassCard";
 import { Paragraph } from "@/components/ui/texts/Paragraph";
-import { Interaction } from "./interactions";
+import { Interaction } from "./interactions.schema";
 import { SuitButton } from "@/components/ui/buttons/SuitButton";
 import { SwitchGlassOption } from "../SwitchGlassOption";
 import { WIDTH } from "@/utils/Dimensions";

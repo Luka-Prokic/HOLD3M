@@ -13,7 +13,7 @@ import Animated, {
   BounceIn,
   runOnJS,
 } from "react-native-reanimated";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "../../../utils/Dimensions";
 import { ScrollableDots } from "@/components/ui/sliders/ScrollableDots";
 import { SlideCard } from "@/components/ui/sliders/SlideCard";
@@ -80,7 +80,7 @@ export function CenterCardSlider<T>({
   selectDelay = 100,
   ...flatListProps
 }: CenterCardSliderProps<T>) {
-  const { theme } = useThemeStore();
+  const { theme } = useSettingsStore();
   const listRef = useRef<FlatList>(null);
   const scrollStoppedTimeout = useRef<number | null>(null);
 

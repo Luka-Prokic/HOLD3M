@@ -1,5 +1,5 @@
 import type { StateCreator } from "zustand";
-import type { Card, Hand } from "../../types";
+import type { Card, Hand } from "../types";
 import { nanoid } from "nanoid/non-secure";
 import { calculateHandRank } from "../utils/calculateHandRank";
 import { CardSlice } from "./cardSlice";

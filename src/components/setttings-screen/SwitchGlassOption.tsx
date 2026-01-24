@@ -1,7 +1,7 @@
 import { View, ViewStyle, Text } from "react-native";
 import { GlassCard } from "../ui/buttons/GlassCard";
 import { HearthSwitch } from "../ui/buttons/HearthSwitch";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 
 
 interface SwitchGlassOptionProps {
@@ -13,7 +13,7 @@ interface SwitchGlassOptionProps {
 }
 
 export function SwitchGlassOption({ title, description, value, onChange, style }: SwitchGlassOptionProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     return (
         <GlassCard style={{ gap: 8, ...style }}>

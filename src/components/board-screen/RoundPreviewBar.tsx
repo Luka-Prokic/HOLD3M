@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
-import { Card, CardSuit, Hand } from "@/stores/types";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
+import { Card, CardSuit, Hand } from "@/stores/game/types";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Fragment, useRef } from "react";
 import { HandInfoBottomSheet } from "./HandInfoBottomSheet";
@@ -13,7 +13,7 @@ interface RoundPreviewBarProps {
 }
 
 export function RoundPreviewBar({ round, roundNumber }: RoundPreviewBarProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
     const handInfoBottomSheetRef = useRef<BottomSheetModal>(null);
     const cards = getCards(round.cards);
     const date = formatDateDMY(new Date(round.createdAt));

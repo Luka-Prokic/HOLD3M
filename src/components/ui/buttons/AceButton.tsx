@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Text, ViewStyle, TextStyle, Pressable, PressableProps } from "react-native";
 
 type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
@@ -58,7 +58,7 @@ export function AceButton({
 }
 
 function getButtonColor(themeType: ButtonThemeType, customColor?: string) {
-    const { theme, accentColor, tintColor } = useThemeStore.getState();
+    const { theme, accentColor, tintColor } = useSettingsStore.getState();
 
     const colorMap: Record<ButtonThemeType, string | undefined> = {
         default: theme.darkSurface,
@@ -72,7 +72,7 @@ function getButtonColor(themeType: ButtonThemeType, customColor?: string) {
 }
 
 function getTextColor(themeType: ButtonThemeType, customColor?: string) {
-    const { theme, accentColor, tintColor } = useThemeStore.getState();
+    const { theme, accentColor, tintColor } = useSettingsStore.getState();
 
     const colorMap: Record<ButtonThemeType, string | undefined> = {
         default: theme.lightSurface,

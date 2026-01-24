@@ -5,7 +5,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { useEffect } from "react";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { getGradientColor } from "./QueenButton";
 import { LinearGradient } from "expo-linear-gradient";
@@ -27,7 +27,7 @@ export function SuitButton<T extends string>({
   height = 54,
   style,
 }: SuitButtonProps<T>) {
-  const { theme, accentColor } = useThemeStore();
+  const { theme, accentColor } = useSettingsStore();
 
   const gColor = getGradientColor("default", theme.lightSurface);
 
@@ -48,8 +48,8 @@ export function SuitButton<T extends string>({
   useEffect(() => {
     knobX.value = withSpring(offset, {
       mass: 1,
-      stiffness: 360,
-      damping: 16,
+      stiffness: 420,
+      damping: 24,
     });
   }, [value]);
 

@@ -1,6 +1,6 @@
-import { Card, Hand } from "@/stores/types";
+import { Card, Hand } from "@/stores/game/types";
 import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ interface MiniHandProps {
 }
 
 export function MiniHand({ hand, onCardPress, style }: MiniHandProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     const cardWidth = (WIDTH - 118) / 5;
     const cardHeight = cardWidth * 1.4;
@@ -40,7 +40,7 @@ export function MiniHand({ hand, onCardPress, style }: MiniHandProps) {
 }
 
 function CardItem({ card }: { card: Card }) {
-    const { accentColor, tintColor } = useThemeStore();
+    const { accentColor, tintColor } = useSettingsStore();
     const rankLabel = getCardRankLetterFromRep(card.repetition)
 
 

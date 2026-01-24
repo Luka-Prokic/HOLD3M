@@ -1,6 +1,6 @@
 import { GlassCard } from "@/components/ui/buttons/GlassCard";
 import { Pressable, Text, View } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import { hexToRGBA } from "@/utils/hexToRGBA";
@@ -59,9 +59,9 @@ export function ColorComboPicker() {
 
 
 function ColorComboCard({ item }: { item: ColorComboPickerProps }) {
-    const { setAccentColor, setTintColor, tintColor, accentColor, themeName } = useThemeStore();
+    const { setAccentColor, setTintColor, tintColor, accentColor, themeName } = useSettingsStore();
     const { fontFamily } = useBalletFont();
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     const isSelected = item.tint === tintColor && item.accent === accentColor;
     const glassTintColor = themeName === "light" ? accentColor : tintColor;

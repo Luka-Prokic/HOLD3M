@@ -2,11 +2,11 @@ import { View, Text } from "react-native";
 import { AceButton } from "../ui/buttons/AceButton";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 
 
 export function BoardHeader() {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     return (
         <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-between", alignItems: "center", paddingTop: 16, paddingHorizontal: 24, gap: 24, zIndex: 1 }}>

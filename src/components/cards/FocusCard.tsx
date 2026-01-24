@@ -1,9 +1,9 @@
-import { useThemeStore } from "@/stores/themeStore";
-import { Card } from "@/stores/types";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
+import { Card } from "@/stores/game/types";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Text, Pressable } from "react-native";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 
 
 interface FocusCardProps {
@@ -11,7 +11,7 @@ interface FocusCardProps {
 }
 
 export function FocusCard({ card }: FocusCardProps) {
-    const { cardBackground, cardText, theme } = useThemeStore();
+    const { cardBackground, cardText, theme } = useSettingsStore();
     const { heldCards } = useGameStore();
     const rankLetter = getCardRankLetterFromRep(card.repetition);
 

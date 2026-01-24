@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { LinearGradient } from "expo-linear-gradient";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import { getPerfectGradientMiddleColor } from "@/utils/getPerfectGradientMiddleColor";
@@ -6,7 +6,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { PremadeDiamondBackground } from "./PremadeDiamondBackground";
 
 export function HandScreenBackground() {
-    const { theme, tintColor, accentColor } = useThemeStore();
+    const { theme, tintColor, accentColor } = useSettingsStore();
     const { fontFamily } = useBalletFont();
     const middleColor = getPerfectGradientMiddleColor();
 

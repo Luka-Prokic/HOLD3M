@@ -1,4 +1,4 @@
-import type { Card, HandRank } from "../../types";
+import type { Card, HandRank } from "../types";
 import { getCardRank } from "@/utils/getCardRank";
 
 export const calculateHandRank = (cards: Card[]): HandRank => {

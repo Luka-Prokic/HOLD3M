@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { Stack } from 'expo-router/stack';
-import { useThemeStore } from '@/stores/themeStore';
+import { useSettingsStore } from '@/stores/settings/settingsStore';
 
 export default function Layout() {
-  const { tintColor } = useThemeStore();
+  const { tintColor } = useSettingsStore();
 
   return (
     <Fragment>

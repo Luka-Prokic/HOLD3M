@@ -3,7 +3,7 @@ import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { SettingsHeader } from "@/components/setttings-screen/SettingsHeader";
 import { SettingsScreenBackground } from "@/components/ui/backgrounds/SettingsScreenBackground";
 import { Content } from "@/components/ui/screens/Content";
-import { INTERACTIONS_SCHEMA } from "@/components/setttings-screen/Interactions /interactions";
+import { INTERACTIONS_SCHEMA } from "@/components/setttings-screen/Interactions /interactions.schema";
 import { InteractionItem } from "@/components/setttings-screen/Interactions /InteractionItem";
 
 export default function Page() {

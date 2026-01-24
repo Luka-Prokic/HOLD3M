@@ -1,5 +1,5 @@
 import { View, Text, ViewStyle } from "react-native";
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Ionicons } from "@expo/vector-icons";
 
 export interface ParagraphProps {
@@ -10,7 +10,7 @@ export interface ParagraphProps {
 }
 
 export function Paragraph({ icon, title, description, style }: ParagraphProps) {
-    const { theme } = useThemeStore();
+    const { theme } = useSettingsStore();
 
     return (
         <View style={[{ gap: 8 }, style]}>

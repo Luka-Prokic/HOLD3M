@@ -1,4 +1,4 @@
-import { useThemeStore } from "@/stores/themeStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { DiamondTileBackground } from "./DiamondTileBackground";
@@ -6,7 +6,7 @@ import { DiamondTileBackground } from "./DiamondTileBackground";
 
 
 export function PremadeDiamondBackground() {
-    const { theme, themeName } = useThemeStore();
+    const { theme, themeName } = useSettingsStore();
     const squareSize = WIDTH / 6;
     const squareColor = hexToRGBA(theme.background, themeName === "dark" ? 0.05 : 0.1);
     return (

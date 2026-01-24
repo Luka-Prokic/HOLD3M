@@ -1,4 +1,4 @@
-import { CardSuit, HandRankType } from "../types";
+import { CardSuit, HandRankType } from "./types";
 
 export const CARD_SUITS: CardSuit[] = ["hearts", "diamonds", "clubs", "spades"];
 

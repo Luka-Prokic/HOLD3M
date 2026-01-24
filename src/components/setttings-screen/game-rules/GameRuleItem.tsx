@@ -1,9 +1,9 @@
-import { GameRule } from "@/components/setttings-screen/game-rules/game.rules";
+import { GameRule } from "@/components/setttings-screen/game-rules/game.rules.schema";
 import { ButtonGlassOption } from "@/components/setttings-screen/ButtonGlassOption";
 import { GlassCard } from "@/components/ui/buttons/GlassCard";
 import { Paragraph } from "@/components/ui/texts/Paragraph";
 import { EndOfRoundSelector } from "@/components/setttings-screen/game-rules/EndOfRoundSelector";
-import { useGameStore } from "@/stores/game/useGameStore";
+import { useGameStore } from "@/stores/game/gameStore";
 import { Fragment } from "react";
 
 interface GameRuleItemProps {
