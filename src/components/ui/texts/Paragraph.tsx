@@ -2,7 +2,7 @@ import { View, Text, ViewStyle } from "react-native";
 import { useThemeStore } from "@/stores/themeStore";
 import { Ionicons } from "@expo/vector-icons";
 
-interface ParagraphProps {
+export interface ParagraphProps {
     icon?: keyof typeof Ionicons.glyphMap;
     title?: string;
     description?: string;

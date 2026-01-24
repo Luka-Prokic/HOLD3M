@@ -5,7 +5,7 @@ import { Text, ViewStyle, TextStyle, TouchableOpacity, TouchableOpacityProps } f
 
 type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
 
-interface QueenButtonProps extends TouchableOpacityProps {
+export interface QueenButtonProps extends TouchableOpacityProps {
     title?: string;
     buttonColor?: string;
     textColor?: string;
