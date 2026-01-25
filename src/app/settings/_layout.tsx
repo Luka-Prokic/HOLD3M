@@ -19,7 +19,22 @@ export default function Layout() {
           name="index"
         />
         <Stack.Screen
+          name="game-rules"
+        />
+        <Stack.Screen
+          name="data-privacy"
+        />
+        <Stack.Screen
+          name="interactions"
+        />
+        <Stack.Screen
+          name="card-style"
+        />
+        <Stack.Screen
           name="app-appearance"
+        />
+        <Stack.Screen
+          name="about-holdem"
         />
       </Stack>
     </Fragment>

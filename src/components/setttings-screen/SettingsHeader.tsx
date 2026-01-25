@@ -9,22 +9,28 @@ interface SettingsHeaderProps {
     title?: string;
     showBack?: boolean;
     showHome?: boolean;
+    backToSettings?: boolean;
     dayResetBeta?: boolean;
 }
 
-export function SettingsHeader({ title = "Settings", showBack = false, showHome = true, dayResetBeta = true }: SettingsHeaderProps) {
+export function SettingsHeader({ title = "Settings", showBack = false, showHome = true, backToSettings = false, dayResetBeta = true }: SettingsHeaderProps) {
     const { theme } = useSettingsStore();
 
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", width: "100%", paddingTop: 16, paddingHorizontal: 24, zIndex: 1 }}>
             <View style={{ width: 64, height: 64 }}>
-                {showBack && (
+                {showBack && !backToSettings && (
                     <AceButton title="Back" onPress={() => router.back()} style={{ marginTop: 8 }} circle>
                         <Ionicons name="chevron-back" size={32} color={theme.lightSurface} />
                     </AceButton>
                 )}
-                {!showBack && dayResetBeta && (
+                {!showBack && !backToSettings && dayResetBeta && (
                     <EndDayButton />
+                )}
+                {backToSettings && (
+                    <AceButton title="Settings" onPress={() => router.dismissTo("/settings")} style={{ marginTop: 8 }} circle>
+                        <Ionicons name="chevron-back" size={32} color={theme.lightSurface} />
+                    </AceButton>
                 )}
             </View>
 

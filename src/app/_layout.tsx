@@ -6,7 +6,7 @@ import { useSettingsStore } from '@/stores/settings/settingsStore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Layout() {
-  const { themeName, theme, tintColor } = useSettingsStore();
+  const { themeName, theme } = useSettingsStore();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
