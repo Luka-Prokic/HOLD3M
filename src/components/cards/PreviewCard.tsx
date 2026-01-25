@@ -11,7 +11,7 @@ interface PreviewCardProps {
 }
 
 export function PreviewCard({ card, onPress }: PreviewCardProps) {
-    const { cardBackground, cardText, theme } = useSettingsStore();
+    const { cardColors, theme } = useSettingsStore();
     const { holdCard, heldCards, releaseCard } = useGameStore();
 
     const isHeld = heldCards.some((c) => c.id === card.id);
@@ -30,8 +30,8 @@ export function PreviewCard({ card, onPress }: PreviewCardProps) {
     }
 
     return (
-        <Pressable style={{ width: cardWidth, height: cardHeight, backgroundColor: isHeld ? theme.select : cardBackground, borderRadius: 8, padding: 4 }} onPress={onPress} onLongPress={handleLongPress}>
-            <Text style={{ fontSize: 24, fontWeight: "bold", color: cardText }}>{rankLetter}</Text>
+        <Pressable style={{ width: cardWidth, height: cardHeight, backgroundColor: isHeld ? theme.select : cardColors.background, borderRadius: 8, padding: 4 }} onPress={onPress} onLongPress={handleLongPress}>
+            <Text style={{ fontSize: 24, fontWeight: "bold", color: cardColors.text }}>{rankLetter}</Text>
         </Pressable>
     );
 }

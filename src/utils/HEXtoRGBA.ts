@@ -35,3 +35,37 @@ export function tintColorLight(hex: string, amount = 0.8) {
     newB.toString(16).padStart(2, "0")
   );
 }
+
+export function isLightColor(hex: string) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  return (r * 299 + g * 587 + b * 114) / 1000 > 180;
+}
+
+export function tintColorDark(hex: string, amount = 0.8) {
+  // amount: 0 = original, 1 = black
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  const newR = Math.round(r * (1 - amount));
+  const newG = Math.round(g * (1 - amount));
+  const newB = Math.round(b * (1 - amount));
+
+  return (
+    "#" +
+    newR.toString(16).padStart(2, "0") +
+    newG.toString(16).padStart(2, "0") +
+    newB.toString(16).padStart(2, "0")
+  );
+}
+
+export function tintColorInvert(hex: string, amount = 0.8) {
+  if (isLightColor(hex)) {
+    return tintColorDark(hex, amount);
+  }
+
+  return tintColorLight(hex, amount);
+}

@@ -11,7 +11,7 @@ interface FocusCardProps {
 }
 
 export function FocusCard({ card }: FocusCardProps) {
-    const { cardBackground, cardText, theme } = useSettingsStore();
+    const { cardColors, cardText, theme } = useSettingsStore();
     const { heldCards } = useGameStore();
     const rankLetter = getCardRankLetterFromRep(card.repetition);
 
@@ -27,7 +27,7 @@ export function FocusCard({ card }: FocusCardProps) {
                 height: cardHeight,
                 borderRadius: 16,
                 padding: 8,
-                backgroundColor: isHeld ? theme.select : cardBackground,
+                backgroundColor: isHeld ? theme.select : cardColors.background,
                 borderWidth: 4,
                 borderTopWidth: 0,
                 borderLeftWidth: 1,
@@ -40,8 +40,8 @@ export function FocusCard({ card }: FocusCardProps) {
                 elevation: 8,
                 zIndex: 1,
             }} >
-            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>{rankLetter}</Text>
-            <Text style={{ fontSize: 24, color: cardText }}>{card.text}</Text>
+            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardColors.text }}>{rankLetter}</Text>
+            <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>
         </Pressable>
     );
 }

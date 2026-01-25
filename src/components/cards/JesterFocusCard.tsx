@@ -11,7 +11,7 @@ interface JesterFocusCardProps {
 
 export function JesterFocusCard({ card }: JesterFocusCardProps) {
     const { addCard } = useGameStore();
-    const { cardBackground, cardText, theme } = useSettingsStore();
+    const { cardColors, theme } = useSettingsStore();
     const cardHeight = (WIDTH - 48) * 1.4;
     const cardWidth = WIDTH - 48;
 
@@ -30,7 +30,7 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                 height: cardHeight,
                 borderRadius: 16,
                 padding: 8,
-                backgroundColor: cardBackground,
+                backgroundColor: cardColors.background,
                 borderWidth: 4,
                 borderTopWidth: 0,
                 borderLeftWidth: 1,
@@ -46,17 +46,17 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
             onPress={() => setFocus(!focus)}
             onLongPress={handleLongPress}
         >
-            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardText }}>X</Text>
+            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardColors.text }}>X</Text>
             {focus ?
                 <TextInput
-                    style={{ fontSize: 24, color: cardText }}
+                    style={{ fontSize: 24, color: cardColors.text }}
                     value={text}
                     onChangeText={setText}
                     onBlur={() => setFocus(false)}
                     autoFocus
                 />
                 :
-                <Text style={{ fontSize: 24, color: cardText }}>{text}</Text>}
+                <Text style={{ fontSize: 24, color: cardColors.text }}>{text}</Text>}
         </Pressable>
     );
 }

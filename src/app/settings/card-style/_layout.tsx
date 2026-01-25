@@ -1,6 +1,8 @@
 import { Tabs } from "expo-router";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Ionicons } from "@expo/vector-icons";
+import { haptic } from "@/utils/useHaptics";
+import { Pressable, type PressableProps } from "react-native";
 
 export default function Layout() {
     const { theme } = useSettingsStore();
@@ -9,7 +11,6 @@ export default function Layout() {
         <Tabs
             screenOptions={{
                 headerShown: false,
-                headerShadowVisible: false,
                 tabBarStyle: {
                     backgroundColor: theme.darkSurface,
                     height: 144,
@@ -30,6 +31,15 @@ export default function Layout() {
                 },
                 tabBarActiveTintColor: theme.lightSurface,
                 tabBarInactiveTintColor: theme.lightSurface + "80",
+                tabBarButton: (props: PressableProps) => (
+                    <Pressable
+                        {...props}
+                        onPress={(e) => {
+                            haptic("sharp");
+                            props.onPress?.(e);
+                        }}
+                    />
+                ),
             }}
         >
             <Tabs.Screen

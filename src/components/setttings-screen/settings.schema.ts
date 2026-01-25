@@ -35,7 +35,7 @@ export const SETTINGS_SCHEMA: SettingsSchema[] = [
         icon: "color-palette-outline",
         title: "Card Style",
         onPress: () => {
-            router.push("/settings/card-style");
+            router.push("/settings/card-style/color");
         },
     },
     {

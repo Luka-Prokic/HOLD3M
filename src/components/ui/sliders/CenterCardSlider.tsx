@@ -21,7 +21,7 @@ import { hapticMax } from "@/utils/useHaptics";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-type AnimationType = "card" | "wheel" | "album" | "flat";
+type AnimationType = "card" | "wheel" | "album" | "flat" | "none";
 
 interface CenterCardSliderProps<T>
   extends Omit<FlatListProps<T>, "renderItem" | "onScroll"> {
@@ -41,7 +41,7 @@ interface CenterCardSliderProps<T>
   lastDot?: ReactNode;
   maxDotsShown?: number;
   showDotsTop?: boolean;
-  selectedIndex: number;
+  selectedIndex?: number;
   onSelect?: (index: number) => void;
   showDistanceBubble?: boolean;
   distanceTolerance?: number;
@@ -70,7 +70,7 @@ export function CenterCardSlider<T>({
   lastDot,
   maxDotsShown = 5,
   showDotsTop = false,
-  selectedIndex,
+  selectedIndex = 0,
   onSelect,
   showDistanceBubble = false,
   distanceTolerance = 0,
@@ -97,7 +97,7 @@ export function CenterCardSlider<T>({
   }, [data, firstCard, lastCard]);
 
   const horizontalPadding = (sliderWidth - cardWidth) / 2;
-  const visualIndex = firstCard ? selectedIndex + 1 : selectedIndex;
+  const visualIndex = firstCard ? 0 : selectedIndex < 0 ? 0 : selectedIndex;
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -198,6 +198,7 @@ export function CenterCardSlider<T>({
         style={{
           width: sliderWidth,
           height: sliderHeight || cardHeight,
+          flexGrow: 0,
           ...(styleSlider as any),
         }}
         renderItem={({ item, index }) => {

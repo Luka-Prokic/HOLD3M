@@ -7,7 +7,7 @@ import Animated, {
   Extrapolate,
 } from "react-native-reanimated";
 
-type AnimationType = "card" | "wheel" | "album" | "flat";
+type AnimationType = "card" | "wheel" | "album" | "flat" | "none";
 
 interface SlideCardProps {
   scrollX: SharedValue<number>;
