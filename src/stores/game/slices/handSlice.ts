@@ -59,7 +59,8 @@ export const createHandSlice: StateCreator<
     const newJesterCount = 5 - newHand.length;
 
     const newJesters: Card[] = Array.from({ length: newJesterCount }).map(() => ({
-      id: `jester_${nanoid()}`,
+      id: `jester${nanoid()}`,
+      originalId: `jester`,
       text: "",
       repetition: -1,
       suit: getRandomCardSuit(),

@@ -28,6 +28,7 @@ export interface Hand {
 
 export interface Card {
     id: string;
+    originalId: string;
     text: string;
     repetition: number;
     suit: CardSuit;

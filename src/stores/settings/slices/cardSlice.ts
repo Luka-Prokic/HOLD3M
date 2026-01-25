@@ -21,7 +21,7 @@ export const createCardSlice: StateCreator<
     background: "#F1EFEA",
   },
   cardText: {
-    size: 12,
+    size: 18,
     weight: "400",
     family: "sans-serif",
   },

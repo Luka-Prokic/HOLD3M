@@ -69,3 +69,27 @@ export function tintColorInvert(hex: string, amount = 0.8) {
 
   return tintColorLight(hex, amount);
 }
+
+export function mixColors(
+  colorA: string,
+  colorB: string,
+  ratio = 0.5 // 0 = all A, 1 = all B
+) {
+  const rA = parseInt(colorA.slice(1, 3), 16);
+  const gA = parseInt(colorA.slice(3, 5), 16);
+  const bA = parseInt(colorA.slice(5, 7), 16);
+
+  const rB = parseInt(colorB.slice(1, 3), 16);
+  const gB = parseInt(colorB.slice(3, 5), 16);
+  const bB = parseInt(colorB.slice(5, 7), 16);
+
+  const mix = (a: number, b: number) =>
+    Math.round(a * (1 - ratio) + b * ratio);
+
+  return (
+    "#" +
+    mix(rA, rB).toString(16).padStart(2, "0") +
+    mix(gA, gB).toString(16).padStart(2, "0") +
+    mix(bA, bB).toString(16).padStart(2, "0")
+  );
+}

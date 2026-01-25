@@ -4,18 +4,12 @@ import { IText } from "@/components/ui/texts/IText";
 import { WIDTH } from "@/utils/Dimensions";
 import { HapticButton } from "@/components/ui/buttons/HapticButton";
 import { CardTextSize } from "@/stores/settings/types";
-
-const TEXT_SIZES: CardTextSize[] = [
-    12,
-    18,
-    24,
-    32,
-];
+import { CARD_TEXT_SIZES } from "@/stores/settings/constant";
 
 export function CardTextSizeSelector() {
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            {TEXT_SIZES.map((size) => (
+            {CARD_TEXT_SIZES.map((size: CardTextSize) => (
                 <CardTextSizeCard key={size} size={size} />
             ))}
         </View>

@@ -4,6 +4,8 @@ import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Text, Pressable } from "react-native";
 import { useGameStore } from "@/stores/game/gameStore";
+import { View } from "react-native";
+import { mixColors } from "@/utils/hexToRGBA";
 
 
 interface FocusCardProps {
@@ -12,7 +14,7 @@ interface FocusCardProps {
 
 export function FocusCard({ card }: FocusCardProps) {
     const { cardColors, cardText, theme } = useSettingsStore();
-    const { heldCards } = useGameStore();
+    const { heldCards, releaseCard, holdCard } = useGameStore();
     const rankLetter = getCardRankLetterFromRep(card.repetition);
 
     const isHeld = heldCards.some((heldCard) => heldCard.id === card.id);
@@ -20,14 +22,25 @@ export function FocusCard({ card }: FocusCardProps) {
     const cardHeight = (WIDTH - 48) * 1.4;
     const cardWidth = WIDTH - 48;
 
+    const backgroundColor = mixColors(cardColors.background, theme.select, isHeld ? 0.4 : 0);
+
+    function handleLongPress() {
+        if (isHeld) {
+            releaseCard(card.id);
+        } else {
+            holdCard(card.id);
+        }
+    }
+
     return (
         <Pressable
+            onLongPress={handleLongPress}
             style={{
                 width: cardWidth,
                 height: cardHeight,
                 borderRadius: 16,
                 padding: 8,
-                backgroundColor: isHeld ? theme.select : cardColors.background,
+                backgroundColor,
                 borderWidth: 4,
                 borderTopWidth: 0,
                 borderLeftWidth: 1,

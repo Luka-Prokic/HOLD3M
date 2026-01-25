@@ -4,18 +4,12 @@ import { IText } from "@/components/ui/texts/IText";
 import { WIDTH } from "@/utils/Dimensions";
 import { HapticButton } from "@/components/ui/buttons/HapticButton";
 import { CardTextWeight } from "@/stores/settings/types";
-
-const TEXT_WEIGHTS: CardTextWeight[] = [
-    "200",
-    "400",
-    "600",
-    "800",
-];
+import { CARD_TEXT_WEIGHTS } from "@/stores/settings/constant";
 
 export function CardTextWeightSelector() {
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            {TEXT_WEIGHTS.map((weight) => (
+            {CARD_TEXT_WEIGHTS.map((weight: CardTextWeight) => (
                 <CardTextWeightCard key={weight} weight={weight} />
             ))}
         </View>

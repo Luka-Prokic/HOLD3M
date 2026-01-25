@@ -4,17 +4,13 @@ import { IText } from "@/components/ui/texts/IText";
 import { WIDTH } from "@/utils/Dimensions";
 import { HapticButton } from "@/components/ui/buttons/HapticButton";
 import { CardTextFamily } from "@/stores/settings/types";
+import { CARD_TEXT_FONTS } from "@/stores/settings/constant";
 
-const TEXT_FONTS: CardTextFamily[] = [
-    "sans-serif",
-    "serif",
-    "monospace",
-];
 
 export function CardTextFontSelector() {
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            {TEXT_FONTS.map((font) => (
+            {CARD_TEXT_FONTS.map((font: CardTextFamily) => (
                 <CardTextFontCard key={font} font={font} />
             ))}
         </View>

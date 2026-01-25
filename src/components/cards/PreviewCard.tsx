@@ -4,6 +4,7 @@ import { Card } from "@/stores/game/types";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { WIDTH } from "@/utils/Dimensions";
 import { useGameStore } from "@/stores/game/gameStore";
+import { mixColors } from "@/utils/hexToRGBA";
 
 interface PreviewCardProps {
     card: Card;
@@ -21,6 +22,8 @@ export function PreviewCard({ card, onPress }: PreviewCardProps) {
 
     const rankLetter = getCardRankLetterFromRep(card.repetition);
 
+    const backgroundColor = mixColors(cardColors.background, theme.select, isHeld ? 0.4 : 0);
+
     function handleLongPress() {
         if (isHeld) {
             releaseCard(card.id);
@@ -30,7 +33,16 @@ export function PreviewCard({ card, onPress }: PreviewCardProps) {
     }
 
     return (
-        <Pressable style={{ width: cardWidth, height: cardHeight, backgroundColor: isHeld ? theme.select : cardColors.background, borderRadius: 8, padding: 4 }} onPress={onPress} onLongPress={handleLongPress}>
+        <Pressable
+            style={{
+                width: cardWidth,
+                height: cardHeight,
+                backgroundColor,
+                borderRadius: 8,
+                padding: 4
+            }}
+            onPress={onPress}
+            onLongPress={handleLongPress}>
             <Text style={{ fontSize: 24, fontWeight: "bold", color: cardColors.text }}>{rankLetter}</Text>
         </Pressable>
     );

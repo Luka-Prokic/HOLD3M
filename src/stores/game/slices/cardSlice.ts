@@ -19,11 +19,19 @@ export const createCardSlice: StateCreator<
 > = (set, get) => ({
   burnsAvailable: 1,
 
+
+  /*
+  * Turn Jester into real card and add it to the current hand.
+  * @param card - The Jester card into a real card.
+  */
   addCard: (card: Card) => {
     const { currentHand } = get();
 
+    const id = `card_${nanoid()}`;
+
     const newCard: Card = {
-      id: `card_${nanoid()}`,
+      id,
+      originalId: id,
       text: card.text,
       repetition: 0,
       suit: card.suit,
@@ -37,6 +45,10 @@ export const createCardSlice: StateCreator<
     });
   },
 
+  /*
+  * Burn unheld cards from the current hand.
+  * @param cards - The cards to burn.
+  */
   burnCards: () => {
     const { burnsAvailable, currentHand, heldCards } = get();
     if (burnsAvailable <= 0) return;
@@ -51,6 +63,7 @@ export const createCardSlice: StateCreator<
 
     const jesters: Card[] = Array.from({ length: burnedCount }).map(() => ({
       id: `jester_${nanoid()}`,
+      originalId: "jester",
       text: "",
       repetition: -1,
       suit: getRandomCardSuit(),
@@ -62,6 +75,10 @@ export const createCardSlice: StateCreator<
       burnsAvailable: burnsAvailable - 1,
     });
   },
+
+  /*
+  * Reset the number of burns available to 1.
+  */
 
   resetBurns: () => {
     set({ burnsAvailable: 1 });
