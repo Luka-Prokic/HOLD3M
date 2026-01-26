@@ -41,17 +41,17 @@ export function CurrentAnimatedHand() {
 
                 translateX[i].value = withTiming(
                     fanOffsets[i].x,
-                    { duration: 500 + extraDelay, easing: Easing.out(Easing.exp) }
+                    { duration: 300 + extraDelay, easing: Easing.out(Easing.exp) }
                 );
 
                 translateY[i].value = withTiming(
                     fanOffsets[i].y,
-                    { duration: 500 + extraDelay, easing: Easing.out(Easing.exp) }
+                    { duration: 300 + extraDelay, easing: Easing.out(Easing.exp) }
                 );
 
                 rotation[i].value = withTiming(
                     fanOffsets[i].rot,
-                    { duration: 500 + extraDelay, easing: Easing.out(Easing.exp) }
+                    { duration: 300 + extraDelay, easing: Easing.out(Easing.exp) }
                 );
             });
         }, 500); // your updated delay

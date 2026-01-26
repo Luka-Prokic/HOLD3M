@@ -8,11 +8,12 @@ import { isLightColor, mixColors, tintColorInvert } from "@/utils/hexToRGBA";
 
 interface PreviewCardProps {
     card: Card;
-    onPress: () => void;
+    onPress?: () => void;
     width?: number;
+    privewOnly?: boolean;
 }
 
-export function PreviewCard({ card, onPress, width = WIDTH / 3 }: PreviewCardProps) {
+export function PreviewCard({ card, onPress, width = WIDTH / 3, privewOnly = false }: PreviewCardProps) {
     const { cardColors, theme } = useSettingsStore();
     const { holdCard, heldCards, releaseCard } = useGameStore();
 
@@ -27,13 +28,20 @@ export function PreviewCard({ card, onPress, width = WIDTH / 3 }: PreviewCardPro
     const backgroundColor = mixColors(cardColors.background, theme.select, isHeld ? (isItLightColor ? 0.8 : 0.2) : 0);
     const borderColor = tintColorInvert(cardColors.background, 0.2);
 
+    function handlePress() {
+        if (privewOnly) return;
+        onPress?.();
+    }
+
     function handleLongPress() {
+        if (privewOnly) return;
         if (isHeld) {
             releaseCard(card.id);
         } else {
             holdCard(card.id);
         }
     }
+
 
     return (
         <Pressable
@@ -49,7 +57,7 @@ export function PreviewCard({ card, onPress, width = WIDTH / 3 }: PreviewCardPro
                 borderRightWidth: 3,
                 borderColor: borderColor,
             }}
-            onPress={onPress}
+            onPress={handlePress}
             onLongPress={handleLongPress}>
             <Text style={{ fontSize: 24, fontWeight: "bold", color: cardColors.text }}>{rankLetter}</Text>
         </Pressable>

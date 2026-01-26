@@ -49,8 +49,8 @@ export function CurrentHand() {
                     >
                         <PreviewCard
                             card={card}
-                            onPress={() => handlePress(index)}
                             width={WIDTH / 4}
+                            privewOnly={true}
                         />
                     </View>
                 );

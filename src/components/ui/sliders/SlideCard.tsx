@@ -16,6 +16,7 @@ interface SlideCardProps {
   width: number;
   height: number;
   animationType?: AnimationType;
+  style?: ViewStyle | ViewStyle[];
 }
 
 export const memoizedSlideCard = memo(SlideCard);
@@ -27,6 +28,7 @@ export function SlideCard({
   width,
   height,
   animationType = "card",
+  style,
 }: SlideCardProps) {
   const animatedStyle = useAnimatedStyle(() => {
     const center = index * width;
@@ -97,6 +99,7 @@ export function SlideCard({
         {
           justifyContent: "center",
           alignItems: "center",
+          ...(style as any),
         },
       ]}
     >

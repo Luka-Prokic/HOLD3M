@@ -49,6 +49,7 @@ interface CenterCardSliderProps<T>
   disableScroll?: boolean;
   delayedSelect?: boolean;
   selectDelay?: number;
+  cardStyle?: ViewStyle | ViewStyle[];
 }
 
 export function CenterCardSlider<T>({
@@ -78,6 +79,7 @@ export function CenterCardSlider<T>({
   disableScroll = false,
   delayedSelect = false,
   selectDelay = 100,
+  cardStyle,
   ...flatListProps
 }: CenterCardSliderProps<T>) {
   const { theme } = useSettingsStore();
@@ -211,6 +213,7 @@ export function CenterCardSlider<T>({
                 width={cardWidth}
                 height={cardHeight}
                 animationType={animationType}
+                style={cardStyle}
               />
             );
           }
@@ -224,6 +227,7 @@ export function CenterCardSlider<T>({
                 width={cardWidth}
                 height={cardHeight}
                 animationType={animationType}
+                style={cardStyle}
               />
             );
           }
@@ -241,6 +245,7 @@ export function CenterCardSlider<T>({
               width={cardWidth}
               height={cardHeight}
               animationType={animationType}
+              style={cardStyle}
             />
           );
         }}
@@ -275,8 +280,8 @@ function DistanceBubble({
   currentIndex,
   selectedIndex,
   theme,
-  style,
   tolerance = 0,
+  style,
 }: {
   currentIndex: number;
   selectedIndex: number;

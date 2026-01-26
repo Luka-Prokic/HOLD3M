@@ -26,7 +26,7 @@ export function HandHeader() {
 
     return (
         <Animated.View
-            entering={FadeIn.duration(500).delay(400)}
+            entering={FadeIn.duration(300).delay(800)}
             style={{
                 flexDirection: "row",
                 width: WIDTH,

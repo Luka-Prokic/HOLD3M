@@ -10,7 +10,7 @@ export function FocusedHand() {
 
     if (currentCardIndex === -1) return null;
 
-    const cardHeight = (WIDTH - 32) * 1.4 + 88;
+    const cardHeight = (WIDTH - 32) * 1.4 + 64;
 
     return (
         <CenterCardSlider
@@ -30,6 +30,7 @@ export function FocusedHand() {
             onSelect={(index) => setCurrentCardIndex(index)}
             animationType="album"
             hideDots
+            cardStyle={{ paddingBottom: 64 }}
         />
     );
 }

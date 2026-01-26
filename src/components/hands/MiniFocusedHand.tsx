@@ -5,6 +5,7 @@ import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Ionicons } from "@expo/vector-icons";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 
 export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) {
@@ -14,7 +15,7 @@ export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) 
     const cardHeight = cardWidth * 1.4;
 
 
-    return (<View style={[{
+    return (<Animated.View entering={FadeIn.duration(300).delay(800)} style={[{
         flexDirection: "row",
         width: WIDTH,
         height: cardHeight,
@@ -27,7 +28,7 @@ export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) 
         {currentHand.map((card: Card, index: number) =>
             <CardItem key={index} card={card} index={index} />
         )}
-    </View>)
+    </Animated.View>)
 }
 
 function CardItem({ card, index }: { card: Card, index: number }) {

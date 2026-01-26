@@ -11,7 +11,7 @@ export default function Page() {
     <Fragment>
       <CardScreenBackground />
       <ScreenContent
-        edges={["top", "bottom"]}
+        edges={["top"]}
         HeaderComponent={<MiniFocusedHand style={{ marginTop: 16 }} />}
         FooterComponent={<CardFooter />}>
         <FocusedHand />
