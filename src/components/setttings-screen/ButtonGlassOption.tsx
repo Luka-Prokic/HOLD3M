@@ -11,7 +11,7 @@ interface ButtonGlassOptionProps {
     title?: string;
     description?: string;
     label?: string;
-    onPress: () => void;
+    onPress?: () => void;
     style?: ViewStyle | ViewStyle[];
     buttonConfig?: QueenButtonProps;
     paragraphConfig?: ParagraphProps;
@@ -19,10 +19,14 @@ interface ButtonGlassOptionProps {
 
 export function ButtonGlassOption({ icon, title, description, label, onPress, style, buttonConfig, paragraphConfig }: ButtonGlassOptionProps) {
 
+    function handlePress() {
+        onPress?.();
+    }
+
     return (
         <GlassCard style={{ gap: 8, ...style }}>
             <Paragraph icon={icon} title={title} description={description} {...paragraphConfig} />
-            {label && <QueenButton title={label} onPress={onPress} width={WIDTH - 64} {...buttonConfig} />}
+            {label && <QueenButton title={label} onPress={handlePress} width={WIDTH - 64} {...buttonConfig} />}
         </GlassCard >
     );
 }

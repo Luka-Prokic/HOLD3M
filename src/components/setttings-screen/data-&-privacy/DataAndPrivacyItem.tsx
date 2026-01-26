@@ -23,10 +23,10 @@ export function DataAndPrivacyItem({ item }: DataAndPrivacyItemProps) {
             <SwitchGlassOption title={item.title} description={item.description} value={isIncognitoModeEnabled} onChange={setIsIncognitoModeEnabled} />
         }
         {item.title === "Export Data" &&
-            <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label={item.label} onPress={() => { }} />
+            <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label={item.label} onPress={item.onPress} />
         }
         {item.title === "Import Data" &&
-            <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label={item.label} onPress={() => { }} />
+            <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label={item.label} onPress={item.onPress} />
         }
         {item.title === "About Your Data" &&
             <Paragraph icon={item.icon} title={item.title} description={item.description} style={{ paddingHorizontal: 16 }} />
@@ -34,7 +34,7 @@ export function DataAndPrivacyItem({ item }: DataAndPrivacyItemProps) {
         {item.title === "Reset All Data" &&
             <GlassCard style={{ gap: 8 }}>
                 <Paragraph icon={item.icon} title={item.title} description={item.description} />
-                <QueenButton title={item.label} onPress={() => { }} themeType="custom" width={WIDTH - 64} gradientColor={theme.warning} buttonColor={theme.darkSurface} />
+                <QueenButton title={item.label} onPress={item.onPress} themeType="custom" width={WIDTH - 64} gradientColor={theme.warning} buttonColor={theme.darkSurface} />
             </GlassCard>
         }
 

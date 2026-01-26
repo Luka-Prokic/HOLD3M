@@ -21,7 +21,7 @@ export const SETTINGS_SCHEMA: SettingsSchema[] = [
         title: "Data & Privacy",
         description: "All your data stays offline, but you can export or reset it anytime.",
         onPress: () => {
-            router.push("/settings/data-privacy");
+            router.push("/settings/data-and-privacy");
         },
     },
     {

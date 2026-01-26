@@ -1,10 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 export interface DataAndPrivacy {
     icon?: keyof typeof Ionicons.glyphMap;
     title: string;
     description: string;
     label?: string;
+    onPress?: () => void;
 }
 
 export const DATA_AND_PRIVACY_SCHEMA: DataAndPrivacy[] = [
@@ -22,12 +24,18 @@ export const DATA_AND_PRIVACY_SCHEMA: DataAndPrivacy[] = [
         title: "Export Data",
         description: "Save a copy of all your app data in JSON format for backup or transfer.",
         label: "Download JSON",
+        onPress: () => {
+            router.push("/settings/data-and-privacy/export-data");
+        },
     },
     {
         icon: "archive-outline",
         title: "Import Data",
         description: "Bring your data back into the app from a previously exported file. This will replace your current data with the imported one.",
         label: "Update App",
+        onPress: () => {
+            router.push("/settings/data-and-privacy/import-data");
+        },
     },
     {
         title: "About Your Data",
@@ -38,5 +46,8 @@ export const DATA_AND_PRIVACY_SCHEMA: DataAndPrivacy[] = [
         title: "Reset All Data",
         description: "Permanently delete all your habits, entries, and app settings. This cannot be undone.",
         label: "Start Over",
+        onPress: () => {
+            router.push("/settings/data-and-privacy/reset-app");
+        },
     },
 ];
