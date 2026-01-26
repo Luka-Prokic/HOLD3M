@@ -6,14 +6,14 @@ import {
   withTiming,
   Easing,
 } from "react-native-reanimated";
-import { HandAnimationPosition } from "../types";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
+import { useAnimationStore } from "../animationStore";
 
 export function useCurrentHandAnimation(
   index: number,
-  position: HandAnimationPosition
 ) {
   const isAnimationsEnabled = useSettingsStore.getState().isAnimationsEnabled;
+  const handAnimationPosition = useAnimationStore.getState().handAnimationPosition;
 
   // progress for animation
   const progress = useSharedValue(isAnimationsEnabled ? 0 : 1); // instantly fanned out if animations disabled
@@ -32,20 +32,20 @@ export function useCurrentHandAnimation(
 
   // react to pose change
   useEffect(() => {
-    if (position === "hand" && isAnimationsEnabled) {
+    if (handAnimationPosition === "hand" && isAnimationsEnabled) {
       // 500ms delay, then animate 0 → 1 in 300ms
       progress.value = withDelay(
         500,
         withTiming(1, { duration: 300, easing: Easing.out(Easing.exp) })
       );
-    } else if (position !== "hand") {
+    } else if (handAnimationPosition !== "hand") {
       // reset instantly when going back to "stack"
       progress.value = 0;
     } else {
       // animations disabled → immediately fanned out
       progress.value = 1;
     }
-  }, [position, isAnimationsEnabled]);
+  }, [handAnimationPosition, isAnimationsEnabled]);
 
   const style = useAnimatedStyle(() => ({
     position: "absolute",

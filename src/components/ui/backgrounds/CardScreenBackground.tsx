@@ -11,7 +11,7 @@ export function CardScreenBackground() {
 
     return (
         <Animated.View
-            entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : FadeIn.duration(0)}
+            entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : undefined}
             style={{
                 flex: 1,
                 position: "absolute", top: 0, left: 0, bottom: 0, right: 0,
@@ -20,7 +20,7 @@ export function CardScreenBackground() {
                 backgroundColor: theme.background,
             }}>
             <Animated.Text
-                entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : FadeIn.duration(0)}
+                entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : undefined}
                 style={{
                     fontFamily,
                     fontSize: 96,
