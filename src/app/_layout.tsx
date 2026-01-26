@@ -30,8 +30,7 @@ export default function Layout() {
             <Stack.Screen
               name="hand"
               options={{
-                presentation: "transparentModal",
-                animation: isAnimationsEnabled ? "slide_from_bottom" : "none",
+                presentation: isAnimationsEnabled ? "transparentModal" : "card",
                 contentStyle: {
                   backgroundColor: "transparent",
                 },
@@ -40,8 +39,7 @@ export default function Layout() {
             <Stack.Screen
               name="card"
               options={{
-                presentation: "transparentModal",
-                animation: isAnimationsEnabled ? "slide_from_bottom" : "none",
+                presentation: isAnimationsEnabled ? "transparentModal" : "card",
                 contentStyle: {
                   backgroundColor: "transparent",
                 },
