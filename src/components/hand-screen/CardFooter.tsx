@@ -3,9 +3,9 @@ import { router } from "expo-router";
 import { HEIGHT, WIDTH } from "@/utils/Dimensions";
 import { Ionicons } from "@expo/vector-icons";
 import { useGameStore } from "@/stores/game/gameStore";
-import { HapticButton } from "../ui/buttons/HapticButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAnimationStore } from "@/stores/animation/animationStore";
+import { TouchableOpacity } from "react-native";
 
 export function CardFooter() {
     const { setHandAnimationPosition } = useAnimationStore();
@@ -22,8 +22,8 @@ export function CardFooter() {
     }
     return (
 
-        <HapticButton style={{ width: WIDTH, height: footerHeight, alignItems: "center" }} onPress={handlePress} >
+        <TouchableOpacity style={{ width: WIDTH, height: footerHeight, alignItems: "center" }} onPress={handlePress} >
             <Ionicons name="chevron-down" size={96} color={accentColor} />
-        </HapticButton>
+        </TouchableOpacity>
     );
 }

@@ -15,6 +15,11 @@ export const createPrivacySlice: StateCreator<
 > = (set, get) => ({
   isNotificationsEnabled: true,
   isIncognitoModeEnabled: false,
-  setIsNotificationsEnabled: (isNotificationsEnabled: boolean) => set({ isNotificationsEnabled: isNotificationsEnabled }),
+  setIsNotificationsEnabled: (isNotificationsEnabled: boolean) => {
+    set({ isNotificationsEnabled: isNotificationsEnabled });
+    if (!isNotificationsEnabled) {
+      set({ isIncognitoModeEnabled: false });
+    }
+  },
   setIsIncognitoModeEnabled: (isIncognitoModeEnabled: boolean) => set({ isIncognitoModeEnabled: isIncognitoModeEnabled }),
 });

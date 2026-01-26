@@ -20,7 +20,7 @@ export function DataAndPrivacyItem({ item }: DataAndPrivacyItemProps) {
             <SwitchGlassOption title={item.title} description={item.description} value={isNotificationsEnabled} onChange={setIsNotificationsEnabled} />
         }
         {item.title === "Incognito" &&
-            <SwitchGlassOption title={item.title} description={item.description} value={isIncognitoModeEnabled} onChange={setIsIncognitoModeEnabled} />
+            <SwitchGlassOption title={item.title} description={item.description} value={isIncognitoModeEnabled} onChange={setIsIncognitoModeEnabled} disabled={!isNotificationsEnabled} />
         }
         {item.title === "Export Data" &&
             <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label={item.label} onPress={item.onPress} />

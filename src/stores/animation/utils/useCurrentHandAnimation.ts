@@ -8,6 +8,7 @@ import {
 } from "react-native-reanimated";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useAnimationStore } from "../animationStore";
+import { haptic, hapticMax } from "@/utils/useHaptics";
 
 export function useCurrentHandAnimation(index: number) {
   const handAnimationPosition = useAnimationStore(state => state.handAnimationPosition);
@@ -34,21 +35,36 @@ export function useCurrentHandAnimation(index: number) {
       return;
     }
 
+    const staggerDelay = index * 20;
+
+
     if (handAnimationPosition === "hand") {
+
       // fan in quickly
       progress.value = withDelay(
-        500,
-        withTiming(1, { duration: 300, easing: Easing.out(Easing.exp) })
+        400 + staggerDelay,
+        withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
       );
       // entering: fade in + move up (with delay like original)
       exitProgress.value = withDelay(
-        500,
-        withTiming(1, { duration: 300, easing: Easing.out(Easing.exp) })
+        400 + staggerDelay,
+        withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
       );
+
+
+      setTimeout(() => {
+        hapticMax("sharp");
+      }, 400 + staggerDelay);
+
     } else {
       // fan out in reverse: animate 1 -> 0 while moving down / fading
       progress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
       exitProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
+
+
+      setTimeout(() => {
+        haptic("bold");
+      }, staggerDelay);
     }
   }, [handAnimationPosition, isAnimationsEnabled]);
 

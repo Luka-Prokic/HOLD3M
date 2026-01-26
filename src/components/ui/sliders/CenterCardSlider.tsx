@@ -212,7 +212,7 @@ export function CenterCardSlider<T>({
                 content={firstCard}
                 width={cardWidth}
                 height={cardHeight}
-                animationType={animationType}
+                animationType={isAnimationsEnabled ? animationType : "none"}
                 style={cardStyle}
               />
             );
@@ -226,7 +226,7 @@ export function CenterCardSlider<T>({
                 content={lastCard}
                 width={cardWidth}
                 height={cardHeight}
-                animationType={animationType}
+                animationType={isAnimationsEnabled ? animationType : "none"}
                 style={cardStyle}
               />
             );
@@ -244,7 +244,7 @@ export function CenterCardSlider<T>({
               })}
               width={cardWidth}
               height={cardHeight}
-              animationType={animationType}
+              animationType={isAnimationsEnabled ? animationType : "none"}
               style={cardStyle}
             />
           );

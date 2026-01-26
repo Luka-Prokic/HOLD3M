@@ -18,6 +18,7 @@ interface BooleanSwitchProps {
   width?: number;
   height?: number;
   style?: ViewStyle;
+  disabled?: boolean;
 }
 
 export function HearthSwitch({
@@ -26,6 +27,7 @@ export function HearthSwitch({
   width = 128,
   height = 54,
   style,
+  disabled,
 }: BooleanSwitchProps) {
   const { theme, accentColor, isAnimationsEnabled } = useSettingsStore();
 
@@ -79,6 +81,7 @@ export function HearthSwitch({
         ...style,
       }}
       buttonStyle={{ paddingHorizontal: 0 }}
+      disabled={disabled}
     >
 
       {/* Labels */}

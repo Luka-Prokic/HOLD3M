@@ -2,6 +2,7 @@ import { useSharedValue, useAnimatedStyle, withTiming, Easing, withDelay } from 
 import { useEffect } from "react";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useAnimationStore } from "../animationStore";
+import { haptic } from "@/utils/useHaptics";
 
 export function useHomeHandAnimation(index: number) {
     const handAnimationPosition = useAnimationStore(state => state.handAnimationPosition);
@@ -21,6 +22,7 @@ export function useHomeHandAnimation(index: number) {
     else if (distance === 1) fanY = -24;
     const fanRot = offset * 12;
 
+
     // react to home position change
     useEffect(() => {
         if (!isAnimationsEnabled) {
@@ -39,11 +41,16 @@ export function useHomeHandAnimation(index: number) {
                 200, // same delay as original
                 withTiming(1, { duration: 500, easing: Easing.out(Easing.exp) })
             );
+            setTimeout(() => {
+                haptic("sharp");
+            }, 500);
         } else {
             // fan in quickly
             fanProgress.value = withTiming(0, { duration: 200, easing: Easing.in(Easing.exp) });
             // exiting: fade in + move down
             enterExitProgress.value = withTiming(0, { duration: 200, easing: Easing.in(Easing.exp) });
+
+            haptic("bold");
         }
     }, [handAnimationPosition, isAnimationsEnabled]);
 

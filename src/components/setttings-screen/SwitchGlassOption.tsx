@@ -10,16 +10,17 @@ interface SwitchGlassOptionProps {
     value: boolean;
     onChange: (value: boolean) => void;
     style?: ViewStyle | ViewStyle[];
+    disabled?: boolean;
 }
 
-export function SwitchGlassOption({ title, description, value, onChange, style }: SwitchGlassOptionProps) {
+export function SwitchGlassOption({ title, description, value, onChange, style, disabled }: SwitchGlassOptionProps) {
     const { theme } = useSettingsStore();
 
     return (
-        <GlassCard style={{ gap: 8, ...style }}>
+        <GlassCard style={{ gap: 8, opacity: disabled ? 0.5 : 1, ...style }}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8, width: "100%" }}>
                 {title && <Text style={{ fontSize: 20, fontWeight: "800", color: theme.text }}>{title}</Text>}
-                <HearthSwitch value={value} onChange={onChange} />
+                <HearthSwitch value={value} onChange={onChange} disabled={disabled} />
             </View>
             {description && <Text style={{ fontSize: 18, fontWeight: "600", color: theme.text }}>{description}</Text>}
         </GlassCard >
