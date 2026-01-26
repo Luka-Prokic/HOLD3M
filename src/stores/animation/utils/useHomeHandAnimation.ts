@@ -4,13 +4,13 @@ import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useAnimationStore } from "../animationStore";
 
 export function useHomeHandAnimation(index: number) {
-    const handAnimationPosition = useAnimationStore.getState().handAnimationPosition;
-    const isAnimationsEnabled = useSettingsStore.getState().isAnimationsEnabled;
+    const handAnimationPosition = useAnimationStore(state => state.handAnimationPosition);
+    const isAnimationsEnabled = useSettingsStore(state => state.isAnimationsEnabled);
 
     // fan progress
-    const fanProgress = useSharedValue(handAnimationPosition === "home" ? 1 : 0);
+    const fanProgress = useSharedValue(isAnimationsEnabled ? handAnimationPosition === "home" ? 1 : 0 : 1);
     // entering/exiting progress (for fade + vertical offset)
-    const enterExitProgress = useSharedValue(handAnimationPosition === "home" ? 1 : 0);
+    const enterExitProgress = useSharedValue(isAnimationsEnabled ? handAnimationPosition === "home" ? 1 : 0 : 1);
 
     // geometry
     const offset = index - 2;
@@ -51,7 +51,7 @@ export function useHomeHandAnimation(index: number) {
         const translateX = fanX * fanProgress.value;
         const translateY = fanY * fanProgress.value + 50 * (1 - enterExitProgress.value); // move down when exiting
         const rotate = fanRot * fanProgress.value;
-        const opacity = enterExitProgress.value; // fade in/out
+        const opacity = handAnimationPosition === "home" ? 1 : enterExitProgress.value; // fade out
 
         return {
             position: "absolute",

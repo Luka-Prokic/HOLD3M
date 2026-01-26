@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import Animated from "react-native-reanimated";
 import { useCurrentHandAnimation } from "../../stores/animation/utils/useCurrentHandAnimation";
 import { Card } from "@/stores/game/types";
+import { useAnimationStore } from "@/stores/animation/animationStore";
 
 export function CurrentAnimatedHand() {
     const { currentHand } = useGameStore();
@@ -26,11 +27,13 @@ export function CurrentAnimatedHand() {
 
 function CurrentCard({ card, index }: { card: Card, index: number }) {
     const { setCurrentCardIndex } = useGameStore();
+    const { setHandAnimationPosition } = useAnimationStore();
     const animatedStyle = useCurrentHandAnimation(index);
 
     function handlePress(index: number) {
         setCurrentCardIndex(index);
         router.push("/card");
+        setHandAnimationPosition("card");
     }
 
     return (

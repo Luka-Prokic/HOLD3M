@@ -5,8 +5,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useGameStore } from "@/stores/game/gameStore";
 import { HapticButton } from "../ui/buttons/HapticButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAnimationStore } from "@/stores/animation/animationStore";
 
 export function CardFooter() {
+    const { setHandAnimationPosition } = useAnimationStore();
     const { accentColor } = useSettingsStore();
     const { clearSelection } = useGameStore();
     const insets = useSafeAreaInsets();
@@ -16,6 +18,7 @@ export function CardFooter() {
     function handlePress() {
         router.back();
         clearSelection();
+        setHandAnimationPosition("hand");
     }
     return (
 

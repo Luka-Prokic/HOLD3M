@@ -9,41 +9,46 @@ import {
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useAnimationStore } from "../animationStore";
 
-export function useCurrentHandAnimation(
-  index: number,
-) {
-  const isAnimationsEnabled = useSettingsStore.getState().isAnimationsEnabled;
-  const handAnimationPosition = useAnimationStore.getState().handAnimationPosition;
+export function useCurrentHandAnimation(index: number) {
+  const handAnimationPosition = useAnimationStore(state => state.handAnimationPosition);
+  const isAnimationsEnabled = useSettingsStore(state => state.isAnimationsEnabled);
 
-  // progress for animation
-  const progress = useSharedValue(isAnimationsEnabled ? 0 : 1); // instantly fanned out if animations disabled
+  // main fan progress
+  const progress = useSharedValue(isAnimationsEnabled ? 0 : 1);
+  // enter/exit progress for moving/fading while exiting
+  const exitProgress = useSharedValue(isAnimationsEnabled ? 0 : 1);
 
   // geometry
   const offset = index - 2;
   const distance = Math.abs(offset);
-
   const fanX = offset * 54;
-
   let fanY = 0;
   if (distance === 0) fanY = -36;
   else if (distance === 1) fanY = -24;
-
   const fanRot = offset * 12;
 
-  // react to pose change
   useEffect(() => {
-    if (handAnimationPosition === "hand" && isAnimationsEnabled) {
-      // 500ms delay, then animate 0 → 1 in 300ms
+    if (!isAnimationsEnabled) {
+      progress.value = 1;
+      exitProgress.value = 1;
+      return;
+    }
+
+    if (handAnimationPosition === "hand") {
+      // fan in quickly
       progress.value = withDelay(
         500,
         withTiming(1, { duration: 300, easing: Easing.out(Easing.exp) })
       );
-    } else if (handAnimationPosition !== "hand") {
-      // reset instantly when going back to "stack"
-      progress.value = 0;
+      // entering: fade in + move up (with delay like original)
+      exitProgress.value = withDelay(
+        500,
+        withTiming(1, { duration: 300, easing: Easing.out(Easing.exp) })
+      );
     } else {
-      // animations disabled → immediately fanned out
-      progress.value = 1;
+      // fan out in reverse: animate 1 -> 0 while moving down / fading
+      progress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
+      exitProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
     }
   }, [handAnimationPosition, isAnimationsEnabled]);
 
@@ -51,7 +56,7 @@ export function useCurrentHandAnimation(
     position: "absolute",
     transform: [
       { translateX: fanX * progress.value },
-      { translateY: fanY * progress.value },
+      { translateY: fanY * progress.value * exitProgress.value }, // combine fan and exit move
       { rotate: `${fanRot * progress.value}deg` },
     ],
   }));
