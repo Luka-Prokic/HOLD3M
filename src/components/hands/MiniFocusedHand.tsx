@@ -66,7 +66,7 @@ function CardItem({ card, index }: { card: Card, index: number }) {
                 borderLeftWidth: 0.2,
                 borderRightWidth: 0.2,
                 borderColor: colorTwo,
-                borderRadius: 8,
+                borderRadius: 12,
                 shadowColor: colorOne,
                 shadowOffset: { width: 1, height: 1 },
                 shadowOpacity: isCurrent ? 0.8 : 0.4,

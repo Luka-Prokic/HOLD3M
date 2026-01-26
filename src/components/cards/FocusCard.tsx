@@ -39,7 +39,7 @@ export function FocusCard({ card }: FocusCardProps) {
             style={{
                 width: cardWidth,
                 height: cardHeight,
-                borderRadius: 16,
+                borderRadius: 32,
                 padding: 8,
                 backgroundColor,
                 borderWidth: 4,

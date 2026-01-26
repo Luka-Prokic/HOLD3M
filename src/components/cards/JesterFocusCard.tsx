@@ -31,7 +31,7 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
             style={{
                 width: cardWidth,
                 height: cardHeight,
-                borderRadius: 16,
+                borderRadius: 32,
                 padding: 8,
                 backgroundColor: cardColors.background,
                 borderWidth: 4,
