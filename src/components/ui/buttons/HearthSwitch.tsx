@@ -27,7 +27,7 @@ export function HearthSwitch({
   height = 54,
   style,
 }: BooleanSwitchProps) {
-  const { theme, accentColor } = useSettingsStore();
+  const { theme, accentColor, isAnimationsEnabled } = useSettingsStore();
 
   const gColor = getGradientColor("default", theme.lightSurface);
 
@@ -39,15 +39,18 @@ export function HearthSwitch({
   );
 
   useDerivedValue(() => {
-    translateX.value = withSpring(
-      value ? width - knobWidth - padding * 2 : 0,
-      {
+    const target = value ? width - knobWidth - padding * 2 : 0;
+
+    if (isAnimationsEnabled) {
+      translateX.value = withSpring(target, {
         mass: 1,
         stiffness: 420,
         damping: 16,
-      }
-    );
-  }, [value]);
+      });
+    } else {
+      translateX.value = target; // instant change, no animation
+    }
+  }, [value, isAnimationsEnabled]);
 
   const knobStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }],

@@ -5,7 +5,7 @@ import { HomeHeader } from "@/components/home-screen/HomeHeader";
 import { HomeFooter } from "@/components/home-screen/HomeFooter";
 import { HomeScreenBackground } from "@/components/ui/backgrounds/HomeScreenBackground";
 import { CurrentRound } from "@/components/home-screen/CurrentRound";
-import { CurrentHand } from "@/components/hands/CurrentHand";
+import { CurrentHomeHand } from "@/components/hands/CurrentHomeHand";
 
 export default function Page() {
 
@@ -19,7 +19,7 @@ export default function Page() {
       >
         <View style={{ flex: 1, justifyContent: "space-between", alignItems: "center", paddingVertical: 32 }}>
           <CurrentRound />
-          <CurrentHand />
+          <CurrentHomeHand />
         </View>
       </ScreenContent>
     </Fragment >

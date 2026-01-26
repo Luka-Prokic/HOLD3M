@@ -6,7 +6,7 @@ import { useSettingsStore } from '@/stores/settings/settingsStore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Layout() {
-  const { themeName, theme } = useSettingsStore();
+  const { themeName, theme, isAnimationsEnabled } = useSettingsStore();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -31,6 +31,7 @@ export default function Layout() {
               name="hand"
               options={{
                 presentation: "transparentModal",
+                animation: isAnimationsEnabled ? "slide_from_bottom" : "none",
                 contentStyle: {
                   backgroundColor: "transparent",
                 },
@@ -40,6 +41,7 @@ export default function Layout() {
               name="card"
               options={{
                 presentation: "transparentModal",
+                animation: isAnimationsEnabled ? "slide_from_bottom" : "none",
                 contentStyle: {
                   backgroundColor: "transparent",
                 },

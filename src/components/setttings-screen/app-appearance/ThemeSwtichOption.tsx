@@ -15,7 +15,7 @@ import { GlassCard } from "@/components/ui/buttons/GlassCard";
 import { haptic } from "@/utils/useHaptics";
 
 export function ThemeSwtichOption() {
-    const { theme, accentColor, themeName, setTheme } = useSettingsStore();
+    const { theme, accentColor, themeName, setTheme, isAnimationsEnabled } = useSettingsStore();
 
     const width = (WIDTH - 32) / 2;
     const knobWidth = width * 0.5;
@@ -26,17 +26,18 @@ export function ThemeSwtichOption() {
     );
 
     useDerivedValue(() => {
-        translateX.value = withSpring(
-            themeName === "light"
-                ? 0
-                : width - knobWidth - padding * 2,
-            {
+        const target = themeName === "light" ? 0 : width - knobWidth - padding * 2;
+
+        if (isAnimationsEnabled) {
+            translateX.value = withSpring(target, {
                 mass: 0.9,
                 stiffness: 420,
                 damping: 22,
-            }
-        );
-    }, [themeName]);
+            });
+        } else {
+            translateX.value = target; // instantly jump, no animation
+        }
+    }, [themeName, isAnimationsEnabled]);
 
     const knobStyle = useAnimatedStyle(() => ({
         transform: [{ translateX: translateX.value }],

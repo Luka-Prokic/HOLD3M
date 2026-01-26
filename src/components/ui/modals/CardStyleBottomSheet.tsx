@@ -8,12 +8,13 @@ interface CardStyleBottomSheetProps {
 
 export const CardStyleBottomSheet = forwardRef<BottomSheet, CardStyleBottomSheetProps>(
     ({ children }, ref) => {
-        const { theme } = useSettingsStore();
+        const { theme, isAnimationsEnabled } = useSettingsStore();
         return (
             <BottomSheet
                 ref={ref}
                 handleStyle={{ opacity: 0, height: 0 }}
                 backgroundStyle={{ backgroundColor: theme.darkSurface }}
+                animateOnMount={isAnimationsEnabled}
             >
                 <BottomSheetView
                     style={{

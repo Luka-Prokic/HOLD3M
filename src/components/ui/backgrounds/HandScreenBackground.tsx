@@ -6,14 +6,14 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { PremadeDiamondBackground } from "./PremadeDiamondBackground";
 
 export function HandScreenBackground() {
-    const { theme, tintColor, accentColor } = useSettingsStore();
+    const { theme, tintColor, accentColor, isAnimationsEnabled } = useSettingsStore();
     const { fontFamily } = useBalletFont();
     const middleColor = getPerfectGradientMiddleColor();
 
 
     return (
         <Animated.View
-            entering={FadeIn.duration(400).delay(400)}
+            entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : FadeIn.duration(0)}
             style={{
                 flex: 1,
                 position: "absolute", top: 0, left: 0, bottom: 0, right: 0,
@@ -30,7 +30,7 @@ export function HandScreenBackground() {
                     alignItems: "center"
                 }} >
                 <PremadeDiamondBackground />
-                <Animated.Text entering={FadeIn.duration(400).delay(400)} style={{
+                <Animated.Text entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : FadeIn.duration(0)} style={{
                     fontFamily,
                     fontSize: 96,
                     color: accentColor,

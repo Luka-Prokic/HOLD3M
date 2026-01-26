@@ -5,13 +5,13 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { getPerfectGradientMiddleColor } from "@/utils/getPerfectGradientMiddleColor";
 
 export function CardScreenBackground() {
-    const { theme, tintColor } = useSettingsStore();
+    const { theme, tintColor, isAnimationsEnabled } = useSettingsStore();
     const { fontFamily } = useBalletFont();
     const middleColor = getPerfectGradientMiddleColor();
 
     return (
         <Animated.View
-            entering={FadeIn.duration(400).delay(400)}
+            entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : FadeIn.duration(0)}
             style={{
                 flex: 1,
                 position: "absolute", top: 0, left: 0, bottom: 0, right: 0,
@@ -20,7 +20,7 @@ export function CardScreenBackground() {
                 backgroundColor: theme.background,
             }}>
             <Animated.Text
-                entering={FadeIn.duration(400).delay(400)}
+                entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : FadeIn.duration(0)}
                 style={{
                     fontFamily,
                     fontSize: 96,

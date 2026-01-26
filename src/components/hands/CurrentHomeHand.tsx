@@ -1,17 +1,10 @@
 import { View } from "react-native";
 import { useGameStore } from "@/stores/game/gameStore";
 import { PreviewCard } from "../cards/PreviewCard";
-import { router } from "expo-router";
 import { WIDTH } from "@/utils/Dimensions";
 
-export function CurrentHand() {
-    const { currentHand, setCurrentCardIndex } = useGameStore();
-
-    function handlePress(index: number) {
-        setCurrentCardIndex(index);
-        router.push("/card");
-    }
-
+export function CurrentHomeHand() {
+    const { currentHand } = useGameStore();
 
     return (
         <View

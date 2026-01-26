@@ -28,7 +28,7 @@ export function SuitButton<T extends string>({
   height = 54,
   style,
 }: SuitButtonProps<T>) {
-  const { theme, accentColor } = useSettingsStore();
+  const { theme, accentColor, isAnimationsEnabled } = useSettingsStore();
 
   const gColor = getGradientColor("default", theme.lightSurface);
 
@@ -47,12 +47,17 @@ export function SuitButton<T extends string>({
 
   // Animate knob whenever value changes
   useEffect(() => {
-    knobX.value = withSpring(offset, {
-      mass: 1,
-      stiffness: 420,
-      damping: 24,
-    });
-  }, [value]);
+    const target = offset;
+    if (isAnimationsEnabled) {
+      knobX.value = withSpring(target, {
+        mass: 1,
+        stiffness: 420,
+        damping: 24,
+      });
+    } else {
+      knobX.value = target; // instant change, no animation
+    }
+  }, [value, isAnimationsEnabled]);
 
   const knobStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: knobX.value }],

@@ -82,7 +82,7 @@ export function CenterCardSlider<T>({
   cardStyle,
   ...flatListProps
 }: CenterCardSliderProps<T>) {
-  const { theme } = useSettingsStore();
+  const { theme, isAnimationsEnabled } = useSettingsStore();
   const listRef = useRef<FlatList>(null);
   const scrollStoppedTimeout = useRef<number | null>(null);
 
@@ -150,7 +150,7 @@ export function CenterCardSlider<T>({
     currentIndex.value = visualIndex;
     listRef.current?.scrollToIndex({
       index: visualIndex,
-      animated: true,
+      animated: isAnimationsEnabled,
     });
   }, [visualIndex]);
 

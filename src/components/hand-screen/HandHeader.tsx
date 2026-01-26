@@ -5,11 +5,12 @@ import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Card } from "@/stores/game/types";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { WIDTH } from "@/utils/Dimensions";
+import { useAnimationStore } from "@/stores/animation/animationStore";
 
 export function HandHeader() {
     const { burnCards, burnsAvailable, currentHand, heldCards } = useGameStore();
-    const { themeName } = useSettingsStore();
-
+    const { themeName, isAnimationsEnabled } = useSettingsStore();
+    const { setHandAnimationPosition } = useAnimationStore();
     const unHeldCards = currentHand.filter((card: Card) => !heldCards.includes(card));
     const jesterCards = currentHand.filter((card: Card) => card.repetition === -1);
 
@@ -24,9 +25,19 @@ export function HandHeader() {
 
     const buttonWidth = WIDTH / 2 - 36;
 
+
+    function handleHome() {
+        router.dismissTo("/");
+        setHandAnimationPosition("home");
+    }
+
+    function handleBurn() {
+        burnCards();
+    }
+
     return (
         <Animated.View
-            entering={FadeIn.duration(300).delay(800)}
+            entering={isAnimationsEnabled ? FadeIn.duration(300).delay(800) : FadeIn.duration(0)}
             style={{
                 flexDirection: "row",
                 width: WIDTH,
@@ -35,8 +46,8 @@ export function HandHeader() {
                 gap: 24,
                 zIndex: 1
             }}>
-            <AceButton title="Home" onPress={() => router.dismissTo("/")} buttonStyle={{ width: buttonWidth }} />
-            <AceButton title={burnLabel} onPress={() => burnCards()} disabled={!burnableCards} themeType={burnStyle} buttonStyle={{ width: buttonWidth }} />
+            <AceButton title="Home" onPress={handleHome} buttonStyle={{ width: buttonWidth }} />
+            <AceButton title={burnLabel} onPress={handleBurn} disabled={!burnableCards} themeType={burnStyle} buttonStyle={{ width: buttonWidth }} />
         </Animated.View>
     );
 }

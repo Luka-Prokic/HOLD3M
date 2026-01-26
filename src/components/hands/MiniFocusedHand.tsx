@@ -1,6 +1,6 @@
 import { Card } from "@/stores/game/types";
 import { useGameStore } from "@/stores/game/gameStore"
-import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
+import { Text, TouchableOpacity, ViewStyle } from "react-native";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
@@ -10,12 +10,13 @@ import Animated, { FadeIn } from "react-native-reanimated";
 
 export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) {
     const { currentHand } = useGameStore();
+    const { isAnimationsEnabled } = useSettingsStore();
 
     const cardWidth = (WIDTH - 118) / 5;
     const cardHeight = cardWidth * 1.4;
 
 
-    return (<Animated.View entering={FadeIn.duration(300).delay(800)} style={[{
+    return (<Animated.View entering={isAnimationsEnabled ? FadeIn.duration(300).delay(800) : FadeIn.duration(0)} style={[{
         flexDirection: "row",
         width: WIDTH,
         height: cardHeight,

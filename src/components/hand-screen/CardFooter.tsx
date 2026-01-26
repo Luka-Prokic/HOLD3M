@@ -11,7 +11,7 @@ export function CardFooter() {
     const { clearSelection } = useGameStore();
     const insets = useSafeAreaInsets();
 
-    const footerHeight = HEIGHT - (insets.top + (WIDTH - 118) / 5 * 1.4 + (WIDTH - 32) * 1.4 + 32);
+    const footerHeight = HEIGHT - (insets.top + (WIDTH - 118) / 5 * 1.4 + (WIDTH - 32) * 1.4 + 64);
 
     function handlePress() {
         router.back();
