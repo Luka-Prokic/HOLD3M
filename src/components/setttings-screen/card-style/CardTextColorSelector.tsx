@@ -14,7 +14,7 @@ export function CardTextColorSelector() {
 
     return (
         <View style={{ gap: 8 }}>
-            <IText text="TEXT" inverted center />
+            <IText text="TEXT" white center />
             <CenterCardSlider
                 data={CARD_TEXT_COLORS}
                 card={(item) => <CardTextColorCard color={item.item} />}

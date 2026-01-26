@@ -16,7 +16,7 @@ export default function Page() {
                 HeaderComponent={<SettingsHeader title="Deck of Cards" backToSettings />} >
 
                 <CardStyleBottomSheet ref={bottomSheetRef}>
-                    <IText text="Cooming soon..." inverted header />
+                    <IText text="Cooming soon..." white header />
                 </CardStyleBottomSheet>
             </ScreenContent>
         </Fragment >

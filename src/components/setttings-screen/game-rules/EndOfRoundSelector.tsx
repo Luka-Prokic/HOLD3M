@@ -39,6 +39,7 @@ interface EndOfRoundSelectorProps {
 }
 
 export function EndOfRoundSelector({ width = WIDTH - 64 }: EndOfRoundSelectorProps) {
+    const { theme } = useSettingsStore();
     const { setEndOfRoundTime, endOfRoundTime } = useGameStore();
     const selectedIndex = TIME_STAMPS.indexOf(endOfRoundTime);
 
@@ -47,8 +48,9 @@ export function EndOfRoundSelector({ width = WIDTH - 64 }: EndOfRoundSelectorPro
     }
 
     return (
-        <View style={{ width, height: 108 }}>
-            <View style={{ width: "100%", height: 54, borderRadius: 27, backgroundColor: "black", position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }} />
+        <View style={{ width, height: 120, gap: 4, alignItems: "center" }}>
+            <View style={{ width: "100%", height: 54, borderRadius: 27, backgroundColor: theme.darkSurface, position: "absolute", top: 12, left: 0, right: 0, bottom: 0 }} />
+            <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: theme.darkSurface }} />
             <MaskedView
                 maskElement={
                     <LinearGradient

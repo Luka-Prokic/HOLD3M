@@ -2,8 +2,8 @@ import { Fragment } from "react";
 import { ScreenContent } from "@/components/ui/screens/ScreenContent";
 import { HandScreenBackground } from "@/components/ui/backgrounds/HandScreenBackground";
 import { View } from "react-native";
-import { CurrentHand } from "@/components/hands/CurrentHand";
 import { HandHeader } from "@/components/hand-screen/HandHeader";
+import { CurrentAnimatedHand } from "@/components/hands/CurrentAnimatedHand";
 
 export default function Page() {
 
@@ -13,8 +13,8 @@ export default function Page() {
       <ScreenContent
         edges={["top"]}
         HeaderComponent={<HandHeader />}>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <CurrentHand />
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingBottom: 128 }}>
+          <CurrentAnimatedHand />
         </View>
       </ScreenContent>
     </Fragment >

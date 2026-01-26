@@ -4,25 +4,28 @@ import { Card } from "@/stores/game/types";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { WIDTH } from "@/utils/Dimensions";
 import { useGameStore } from "@/stores/game/gameStore";
-import { mixColors } from "@/utils/hexToRGBA";
+import { isLightColor, mixColors, tintColorInvert } from "@/utils/hexToRGBA";
 
 interface PreviewCardProps {
     card: Card;
     onPress: () => void;
+    width?: number;
 }
 
-export function PreviewCard({ card, onPress }: PreviewCardProps) {
+export function PreviewCard({ card, onPress, width = WIDTH / 3 }: PreviewCardProps) {
     const { cardColors, theme } = useSettingsStore();
     const { holdCard, heldCards, releaseCard } = useGameStore();
 
     const isHeld = heldCards.some((c) => c.id === card.id);
 
-    const cardWidth = WIDTH / 6;
+    const cardWidth = width;
     const cardHeight = cardWidth * 1.4;
 
     const rankLetter = getCardRankLetterFromRep(card.repetition);
 
-    const backgroundColor = mixColors(cardColors.background, theme.select, isHeld ? 0.4 : 0);
+    const isItLightColor = isLightColor(cardColors.background);
+    const backgroundColor = mixColors(cardColors.background, theme.select, isHeld ? (isItLightColor ? 0.8 : 0.2) : 0);
+    const borderColor = tintColorInvert(cardColors.background, 0.2);
 
     function handleLongPress() {
         if (isHeld) {
@@ -38,8 +41,13 @@ export function PreviewCard({ card, onPress }: PreviewCardProps) {
                 width: cardWidth,
                 height: cardHeight,
                 backgroundColor,
-                borderRadius: 8,
-                padding: 4
+                borderRadius: 16,
+                padding: 4,
+                borderWidth: 4,
+                borderTopWidth: 0,
+                borderLeftWidth: 1,
+                borderRightWidth: 3,
+                borderColor: borderColor,
             }}
             onPress={onPress}
             onLongPress={handleLongPress}>

@@ -14,7 +14,7 @@ export function CardBackgroundColorSelector() {
     const selectedIndex = CARD_BACKGROUND_COLORS.indexOf(cardColors.background);
     return (
         <View style={{ gap: 8 }}>
-            <IText text="BACKGROUND" inverted center />
+            <IText text="BACKGROUND" white center />
             <CenterCardSlider
                 data={CARD_BACKGROUND_COLORS}
                 card={(item) => <CardBackgroundColorCard color={item.item as string} />}

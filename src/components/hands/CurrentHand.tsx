@@ -2,22 +2,59 @@ import { View } from "react-native";
 import { useGameStore } from "@/stores/game/gameStore";
 import { PreviewCard } from "../cards/PreviewCard";
 import { router } from "expo-router";
+import { WIDTH } from "@/utils/Dimensions";
 
 export function CurrentHand() {
-    const { currentHand } = useGameStore();
-
-    const { setCurrentCardIndex } = useGameStore();
+    const { currentHand, setCurrentCardIndex } = useGameStore();
 
     function handlePress(index: number) {
         setCurrentCardIndex(index);
         router.push("/card");
     }
 
+
     return (
-        <View style={{ flexDirection: "row", paddingBottom: 128, width: "100%", justifyContent: "space-between", paddingHorizontal: 8 }}>
-            {currentHand.map((card, index) =>
-                <PreviewCard key={card.id} card={card} onPress={() => handlePress(index)} />
-            )}
+        <View
+            style={{
+                width: "100%",
+                height: 200,
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
+            {currentHand.map((card, index) => {
+                const offset = index - 2;
+                const distance = Math.abs(offset);
+
+                const translateX = offset * 44;
+                let translateY = 0;
+
+                // Middle card highest, immediate neighbors slightly raised
+                if (distance === 0) translateY = -34; // middle card up
+                else if (distance === 1) translateY = -24; // next to middle slightly up
+
+                const rotation = offset * 12;
+
+                return (
+                    <View
+                        key={card.id}
+                        style={{
+                            position: "absolute",
+                            transform: [
+                                { translateX },
+                                { translateY },
+                                { rotate: `${rotation}deg` },
+                            ],
+                        }}
+                    >
+                        <PreviewCard
+                            card={card}
+                            onPress={() => handlePress(index)}
+                            width={WIDTH / 4}
+                        />
+                    </View>
+                );
+            })}
         </View>
     );
 }

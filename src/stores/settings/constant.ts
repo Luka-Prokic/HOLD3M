@@ -25,6 +25,10 @@ export const CARD_TEXT_COLORS: string[] = [
     "#4A2323", // dried red ink
     "#5A1F1F", // deep burgundy ink
 
+    "#9A3A3A", // deep rose red
+    "#6F7FA6", // dusty pencil blue
+    "#8A5A5A", // muted pencil red
+
     "#E0E0E0", // soft white
     "#F2F2F2", // paper white
     "#F4EEDC", // warm parchment

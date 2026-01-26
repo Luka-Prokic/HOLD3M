@@ -15,6 +15,7 @@ interface ITextProps extends TextProps {
   gray?: boolean;
   header?: boolean;
   center?: boolean;
+  white?: boolean;
 }
 
 export function IText({
@@ -29,6 +30,7 @@ export function IText({
   gray = false,
   header = false,
   center = false,
+  white = false,
   ...rest
 }: ITextProps) {
   const { theme } = useSettingsStore();
@@ -37,7 +39,7 @@ export function IText({
       style={{
         fontSize: size ?? (header ? 24 : 18),
         fontWeight: weight ?? (header ? "800" : "600"),
-        color: color ?? (inverted ? theme.textInverted : gray ? theme.textGrey : theme.text),
+        color: color ?? (inverted ? theme.textInverted : gray ? theme.textGrey : white ? theme.lightSurface : theme.text),
         textAlign: center ? "center" : align,
         ...style,
       }}

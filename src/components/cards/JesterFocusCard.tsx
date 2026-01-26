@@ -4,6 +4,7 @@ import { Text, Pressable, TextInput } from "react-native";
 import { useState } from "react";
 import { useGameStore } from "@/stores/game/gameStore";
 import { Card } from "@/stores/game/types";
+import { tintColorInvert } from "@/utils/hexToRGBA";
 
 interface JesterFocusCardProps {
     card: Card;
@@ -14,6 +15,8 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
     const { cardColors, theme, cardText } = useSettingsStore();
     const cardHeight = (WIDTH - 48) * 1.4;
     const cardWidth = WIDTH - 48;
+
+    const borderColor = tintColorInvert(cardColors.background, 0.2);
 
     const [text, setText] = useState("");
     const [focus, setFocus] = useState(false);
@@ -35,7 +38,7 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                 borderTopWidth: 0,
                 borderLeftWidth: 1,
                 borderRightWidth: 3,
-                borderColor: theme.shadow,
+                borderColor: borderColor,
                 shadowColor: theme.shadow,
                 shadowOffset: { width: 0, height: 32 },
                 shadowOpacity: 1,
@@ -46,7 +49,7 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
             onPress={() => setFocus(!focus)}
             onLongPress={handleLongPress}
         >
-            <Text style={{ fontSize: 48, fontWeight: "bold", color: cardColors.text }}>X</Text>
+            <Text style={{ fontSize: 48, fontWeight: "800", color: cardColors.text }}>X</Text>
             {focus ?
                 <TextInput
                     style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}
