@@ -6,7 +6,7 @@ import { CardTextSize, CardTextWeight } from "@/stores/settings/types";
 interface ITextProps extends TextProps {
   text: string;
   style?: TextStyle | TextStyle[];
-  size?: CardTextSize;
+  size?: CardTextSize | 48 | 64 | 96;
   weight?: CardTextWeight;
   color?: string;
   children?: React.ReactNode;
@@ -16,6 +16,7 @@ interface ITextProps extends TextProps {
   header?: boolean;
   center?: boolean;
   white?: boolean;
+  black?: boolean;
 }
 
 export function IText({
@@ -31,6 +32,7 @@ export function IText({
   header = false,
   center = false,
   white = false,
+  black = false,
   ...rest
 }: ITextProps) {
   const { theme } = useSettingsStore();
@@ -39,7 +41,7 @@ export function IText({
       style={{
         fontSize: size ?? (header ? 24 : 18),
         fontWeight: weight ?? (header ? "800" : "600"),
-        color: color ?? (inverted ? theme.textInverted : gray ? theme.textGrey : white ? theme.lightSurface : theme.text),
+        color: color ?? (inverted ? theme.textInverted : gray ? theme.textGrey : white ? theme.lightSurface : black ? theme.darkSurface : theme.text),
         textAlign: center ? "center" : align,
         ...style,
       }}

@@ -48,6 +48,15 @@ export default function Layout() {
             <Stack.Screen
               name="board"
             />
+            <Stack.Screen
+              name="ranks"
+              options={{
+                presentation: "modal",
+                contentStyle: {
+                  backgroundColor: theme.darkSurface,
+                },
+              }}
+            />
           </Stack>
         </BottomSheetModalProvider>
       </SafeAreaProvider>

@@ -3,12 +3,14 @@ import { WIDTH } from "@/utils/Dimensions";
 import { hexToRGBA } from "@/utils/hexToRGBA";
 import { DiamondTileBackground } from "./DiamondTileBackground";
 
+interface PremadeDiamondBackgroundProps {
+    color?: string;
+}
 
-
-export function PremadeDiamondBackground() {
+export function PremadeDiamondBackground({ color }: PremadeDiamondBackgroundProps) {
     const { theme, themeName } = useSettingsStore();
     const squareSize = WIDTH / 6;
-    const squareColor = hexToRGBA(theme.background, themeName === "dark" ? 0.05 : 0.1);
+    const squareColor = color ?? hexToRGBA(theme.background, themeName === "dark" ? 0.05 : 0.1);
     return (
         <DiamondTileBackground
             columns={6}

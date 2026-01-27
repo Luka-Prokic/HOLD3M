@@ -12,6 +12,7 @@ export interface QueenButtonProps extends TouchableOpacityProps {
     textColor?: string;
     gradientColor?: string;
     buttonStyle?: ViewStyle | ViewStyle[];
+    gradientStyle?: ViewStyle | ViewStyle[];
     textStyle?: TextStyle | TextStyle[];
     themeType?: ButtonThemeType;
     children?: React.ReactNode;
@@ -26,6 +27,7 @@ export function QueenButton({
     textColor = "#000",
     gradientColor = "#DBA8F7",
     buttonStyle,
+    gradientStyle,
     textStyle,
     themeType = "default",
     children,
@@ -45,6 +47,7 @@ export function QueenButton({
     }
     return (
         <TouchableOpacity
+            activeOpacity={0.8}
             {...touchableOpacityProps}
             onPressIn={handlePressIn}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
@@ -63,18 +66,20 @@ export function QueenButton({
             <LinearGradient
                 colors={[gColor, gColor + "80", hexToRGBA(gColor as string, 0.8)]}
                 locations={[0, 0.8, 1]}
-                style={{
+                style={[{
                     minHeight: height,
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "center",
                     paddingHorizontal: 16,
-                }}>
+                },
+                    gradientStyle
+                ]}>
                 {children ? children : <Text style={[{ color: tColor, fontSize: 24, fontWeight: "600" }, textStyle]}>
                     {title}
                 </Text>}
             </LinearGradient>
-        </TouchableOpacity>
+        </TouchableOpacity >
     );
 }
 

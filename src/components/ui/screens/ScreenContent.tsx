@@ -75,6 +75,12 @@ export type ScreenContentProps = {
   FooterComponent?: React.ReactNode;
 
   children?: React.ReactNode;
+
+  /**
+   * If true, the faded edges effect will be disabled.
+   * @default false
+   */
+  disableFadedEdges?: boolean;
 };
 
 /**
@@ -105,6 +111,7 @@ export const ScreenContent = memo(function ScreenContent({
   keyboardAvoidingView,
   HeaderComponent,
   FooterComponent,
+  disableFadedEdges = false,
 }: ScreenContentProps) {
   const { orientation } = useOrientation();
   const headerHeight = useHeaderHeight();
@@ -154,22 +161,29 @@ export const ScreenContent = memo(function ScreenContent({
         <MaskedView
           style={{ flex: 1 }}
           maskElement={
-            FooterComponent ?
-              <LinearGradient
-                colors={['transparent', 'black', 'black', 'transparent']} // fade top + bottom
-                locations={[0, 0.02, 0.98, 1]}
-                style={{ flex: 1 }}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }}
-              />
-              :
-              <LinearGradient
-                colors={['transparent', 'black']} // fade top only
-                locations={[0, 0.02]}
-                style={{ flex: 1 }}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }}
-              />
+            disableFadedEdges ? <LinearGradient
+              colors={['black', 'black']} // fade top + bottom
+              locations={[0, 1]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 1 }}
+            /> :
+              FooterComponent ?
+                <LinearGradient
+                  colors={['transparent', 'black', 'black', 'transparent']} // fade top + bottom
+                  locations={[0, 0.02, 0.98, 1]}
+                  style={{ flex: 1 }}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                />
+                :
+                <LinearGradient
+                  colors={['transparent', 'black']} // fade top only
+                  locations={[0, 0.02]}
+                  style={{ flex: 1 }}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                />
           }
         >
           {scrollable ? (

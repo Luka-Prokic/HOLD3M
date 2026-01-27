@@ -14,7 +14,7 @@ export function BoardHeader() {
                 <Ionicons name="chevron-back" size={32} color={theme.lightSurface} />
             </AceButton>
             <Text style={{ fontSize: 32, fontWeight: "bold", color: theme.text }}>Board</Text>
-            <AceButton title="Back" onPress={() => router.dismissTo("/")} style={{ marginTop: 8 }} circle>
+            <AceButton title="Back" onPress={() => router.push("/ranks")} style={{ marginTop: 8 }} circle>
                 <Ionicons name="ribbon" size={32} color={theme.lightSurface} />
             </AceButton>
         </View>

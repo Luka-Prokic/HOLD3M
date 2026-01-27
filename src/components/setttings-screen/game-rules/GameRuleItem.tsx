@@ -5,6 +5,7 @@ import { Paragraph } from "@/components/ui/texts/Paragraph";
 import { EndOfRoundSelector } from "@/components/setttings-screen/game-rules/EndOfRoundSelector";
 import { useGameStore } from "@/stores/game/gameStore";
 import { Fragment } from "react";
+import { router } from "expo-router";
 
 interface GameRuleItemProps {
     item: GameRule;
@@ -23,7 +24,7 @@ export function GameRuleItem({ item }: GameRuleItemProps) {
             }
 
             {item.title === "Hands & Ranks" &&
-                <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label="View Ranks" onPress={() => { }} />
+                <ButtonGlassOption icon={item.icon} title={item.title} description={item.description} label="View Ranks" onPress={() => router.push("/ranks")} />
             }
 
             {item.title !== "End of Round" && item.title !== "Hands & Ranks" &&
