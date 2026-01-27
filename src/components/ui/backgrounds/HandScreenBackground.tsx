@@ -10,7 +10,6 @@ export function HandScreenBackground() {
     const { fontFamily } = useBalletFont();
     const middleColor = getPerfectGradientMiddleColor();
 
-
     return (
         <Animated.View
             entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : undefined}
@@ -22,7 +21,7 @@ export function HandScreenBackground() {
                 backgroundColor: theme.background,
             }}>
             <LinearGradient
-                colors={[middleColor + "00", tintColor]}
+                colors={[tintColor + "00", tintColor]}
                 style={{
                     flex: 1,
                     position: "absolute", top: 0, left: 0, bottom: 0, right: 0,

@@ -19,24 +19,24 @@ export const DATA_AND_PRIVACY_SCHEMA: DataAndPrivacy[] = [
         description: "When enabled, habit names and details won't appear in notifications, keeping your activity private.\n\n*This only works when notifications are turned on.",
 
     },
-    {
-        icon: "download-outline",
-        title: "Export Data",
-        description: "Save a copy of all your app data in JSON format for backup or transfer.",
-        label: "Download JSON",
-        onPress: () => {
-            router.push("/settings/data-and-privacy/export-data");
-        },
-    },
-    {
-        icon: "archive-outline",
-        title: "Import Data",
-        description: "Bring your data back into the app from a previously exported file. This will replace your current data with the imported one.",
-        label: "Update App",
-        onPress: () => {
-            router.push("/settings/data-and-privacy/import-data");
-        },
-    },
+    // {
+    //     icon: "download-outline",
+    //     title: "Export Data",
+    //     description: "Save a copy of all your app data in JSON format for backup or transfer.",
+    //     label: "Download JSON",
+    //     onPress: () => {
+    //         router.push("/settings/data-and-privacy/export-data");
+    //     },
+    // },
+    // {
+    //     icon: "archive-outline",
+    //     title: "Import Data",
+    //     description: "Bring your data back into the app from a previously exported file. This will replace your current data with the imported one.",
+    //     label: "Update App",
+    //     onPress: () => {
+    //         router.push("/settings/data-and-privacy/import-data");
+    //     },
+    // },
     {
         title: "About Your Data",
         description: "All your habits and entries are stored locally on your device. The app works fully offline and doesn't track or send any personal data.",
