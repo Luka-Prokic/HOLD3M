@@ -51,9 +51,18 @@ export default function Layout() {
             <Stack.Screen
               name="ranks"
               options={{
-                presentation: "modal",
+                presentation: isAnimationsEnabled ? "transparentModal" : "card",
                 contentStyle: {
-                  backgroundColor: theme.darkSurface,
+                  backgroundColor: "transparent",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="[hand]"
+              options={{
+                presentation: isAnimationsEnabled ? "transparentModal" : "card",
+                contentStyle: {
+                  backgroundColor: "transparent",
                 },
               }}
             />

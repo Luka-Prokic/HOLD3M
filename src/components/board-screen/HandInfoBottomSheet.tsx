@@ -1,10 +1,12 @@
-import { IBottomSheet } from "../ui/modals/IBottomSheet"
+import { BlackBottomSheet } from "../ui/modals/BlackBottomSheet"
 import { BottomSheetModal } from "@gorhom/bottom-sheet"
-import { Text } from "react-native"
-import { forwardRef } from "react"
+import { forwardRef, useState } from "react"
 import { Hand } from "@/stores/game/types"
 import { useSettingsStore } from "@/stores/settings/settingsStore"
 import { useBalletFont } from "@/utils/fonts/useBalletFont"
+import { IText } from "../ui/texts/IText"
+import { MiniHand } from "../hands/MiniHand"
+import { PreviewHand } from "../hands/PreviewHand"
 
 interface HandInfoBottomSheetProps {
     hand: Hand;
@@ -14,12 +16,29 @@ export const HandInfoBottomSheet = forwardRef<BottomSheetModal, HandInfoBottomSh
     const { theme } = useSettingsStore();
     const { fontFamily } = useBalletFont();
     const rank = hand.rank.type;
+    const rankText = rank.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+    const [selectedCardIndex, setSelectedCardIndex] = useState<number>(0);
 
     return (
-        <IBottomSheet ref={ref}>
-            <Text style={{ fontSize: 48, padding: 16, color: theme.text, fontFamily }}>
-                {rank.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
-            </Text>
-        </IBottomSheet>
+        <BlackBottomSheet ref={ref}>
+            <IText
+                text={rankText}
+                size={48}
+                style={{
+                    padding: 16,
+                    fontFamily,
+                    shadowColor: theme.lightSurface,
+                    shadowOffset: { width: 1, height: 0 },
+                    shadowOpacity: 1,
+                    shadowRadius: 0,
+                    elevation: 4
+                }}
+                white
+                black
+            />
+            <MiniHand hand={hand} selectedCardIndex={selectedCardIndex} setSelectedCardIndex={setSelectedCardIndex} />
+            <PreviewHand hand={hand} selectedCardIndex={selectedCardIndex} setSelectedCardIndex={setSelectedCardIndex} />
+        </BlackBottomSheet>
     );
 });

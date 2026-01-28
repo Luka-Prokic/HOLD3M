@@ -6,22 +6,21 @@ import {
 } from "@gorhom/bottom-sheet";
 
 import { useSettingsStore } from "@/stores/settings/settingsStore";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ViewStyle } from "react-native";
 import { forwardRef } from "react";
+import { PremadeDiamondBackground } from "../backgrounds/PremadeDiamondBackground";
 
-interface IBottomSheetProps extends BottomSheetModalProps {
+interface BlackBottomSheetProps extends BottomSheetModalProps {
   children: React.ReactNode;
   bottomSheetStyle?: ViewStyle | ViewStyle[];
 }
 
-export const IBottomSheet = forwardRef<BottomSheetModal, IBottomSheetProps>(({
+export const BlackBottomSheet = forwardRef<BottomSheetModal, BlackBottomSheetProps>(({
   children,
   bottomSheetStyle,
   ...props
 }, ref) => {
   const { theme } = useSettingsStore();
-  const insets = useSafeAreaInsets();
 
   return (
     <BottomSheetModal
@@ -31,7 +30,8 @@ export const IBottomSheet = forwardRef<BottomSheetModal, IBottomSheetProps>(({
       keyboardBehavior="fillParent"
       keyboardBlurBehavior="restore"
       handleIndicatorStyle={{ backgroundColor: theme.handle }}
-      backgroundStyle={{ backgroundColor: theme.surface }}
+      handleStyle={{ backgroundColor: theme.darkSurface }}
+      backgroundStyle={{ backgroundColor: theme.darkSurface }}
       backdropComponent={(props) => (
         <BottomSheetBackdrop
           {...props}
@@ -44,19 +44,16 @@ export const IBottomSheet = forwardRef<BottomSheetModal, IBottomSheetProps>(({
       {...props}
     >
       <BottomSheetView
-        style={[
-          {
-            flex: 1,
-            padding: 16,
-            paddingVertical: 32,
-            justifyContent: "flex-start",
-            paddingBottom: insets.bottom,
-            alignItems: "center",
-            ...bottomSheetStyle,
-          },
-        ]}
+        style={{
+          flex: 1,
+          paddingVertical: 16,
+          gap: 16,
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
       >
-        {children}
+        <PremadeDiamondBackground color={theme.lightSurface + "10"} />
+        {children || null}
       </BottomSheetView>
     </BottomSheetModal>
   );

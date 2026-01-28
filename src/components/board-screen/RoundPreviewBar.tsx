@@ -2,10 +2,8 @@ import { Text, View } from "react-native";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Card, CardSuit, Hand } from "@/stores/game/types";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
-import { Fragment, useRef } from "react";
-import { HandInfoBottomSheet } from "./HandInfoBottomSheet";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { QueenButton } from "../ui/buttons/QueenButton";
+import { router } from "expo-router";
 
 interface RoundPreviewBarProps {
     round: Hand;
@@ -14,31 +12,33 @@ interface RoundPreviewBarProps {
 
 export function RoundPreviewBar({ round, roundNumber }: RoundPreviewBarProps) {
     const { theme } = useSettingsStore();
-    const handInfoBottomSheetRef = useRef<BottomSheetModal>(null);
     const cards = getCards(round.cards);
     const date = formatDateDMY(new Date(round.createdAt));
 
+    function handlePress() {
+        router.push({
+            pathname: "/[hand]",
+            params: { hand: JSON.stringify(round) },
+        });
+    }
+
     return (
-        <Fragment>
-            <QueenButton onPress={() => handInfoBottomSheetRef.current?.present()}>
-                <View
-                    style={{
-                        height: 54,
-                        width: "100%",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                    }}>
-                    <Text style={{ fontSize: 24, fontWeight: "800", color: theme.darkSurface }}>#{roundNumber}</Text>
+        <QueenButton onPress={handlePress}>
+            <View
+                style={{
+                    height: 54,
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                }}>
+                <Text style={{ fontSize: 24, fontWeight: "800", color: theme.darkSurface }}>#{roundNumber}</Text>
 
-                    <Text style={{ fontSize: 18, fontWeight: "600", color: theme.darkSurface }}>{cards}</Text>
+                <Text style={{ fontSize: 18, fontWeight: "600", color: theme.darkSurface }}>{cards}</Text>
 
-                    <Text style={{ fontSize: 12, fontWeight: "600", color: theme.darkSurface }}>{date}</Text>
-                </View>
-            </QueenButton>
-            <HandInfoBottomSheet ref={handInfoBottomSheetRef} hand={round} />
-        </Fragment>
-
+                <Text style={{ fontSize: 12, fontWeight: "600", color: theme.darkSurface }}>{date}</Text>
+            </View>
+        </QueenButton>
     );
 }
 

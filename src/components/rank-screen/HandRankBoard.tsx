@@ -9,7 +9,7 @@ export default function HandRankBoard() {
     const { theme } = useSettingsStore();
 
     return (
-        <View style={{ paddingHorizontal: 16, gap: 8 }}>
+        <View style={{ padding: 16, gap: 8 }}>
             {HAND_RANKS_CHEATSHEET.map((rank: HandRankCheatsheet) => (
                 <QueenButton key={rank.rank} gradientStyle={{ paddingHorizontal: 0 }} >
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
