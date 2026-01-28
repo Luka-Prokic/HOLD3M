@@ -1,6 +1,7 @@
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { PremadeDiamondBackground } from "./PremadeDiamondBackground";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 export function BlackTileBackground() {
@@ -17,6 +18,13 @@ export function BlackTileBackground() {
                 backgroundColor: theme.darkSurface,
             }}>
             <PremadeDiamondBackground color={theme.lightSurface + "10"} />
+            <LinearGradient
+                colors={[theme.lightSurface + "40", theme.lightSurface + "00", theme.lightSurface + "10"]}
+                locations={[0, 0.5, 1]}
+                style={{
+                    flex: 1,
+                    position: "absolute", top: 0, left: 0, bottom: 0, right: 0,
+                }} />
         </Animated.View>
     );
 }
