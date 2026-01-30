@@ -17,7 +17,7 @@ export const createCardSlice: StateCreator<
   [],
   CardSlice
 > = (set, get) => ({
-  burnsAvailable: 1,
+  burnsAvailable: 20,
 
 
   /*
@@ -59,7 +59,9 @@ export const createCardSlice: StateCreator<
       heldIds.has(card.id)
     );
 
-    const burnedCount = currentHand.length - keptCards.length;
+    const jesterCards = currentHand.filter(card => card.repetition === -1);
+
+    const burnedCount = currentHand.length - keptCards.length - jesterCards.length;
 
     const jesters: Card[] = Array.from({ length: burnedCount }).map(() => ({
       id: `jester_${nanoid()}`,
@@ -71,7 +73,7 @@ export const createCardSlice: StateCreator<
     }));
 
     set({
-      currentHand: [...keptCards, ...jesters],
+      currentHand: [...keptCards, ...jesterCards, ...jesters],
       burnsAvailable: burnsAvailable - 1,
     });
   },

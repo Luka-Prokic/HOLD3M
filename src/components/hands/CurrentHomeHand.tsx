@@ -1,9 +1,11 @@
 import { useGameStore } from "@/stores/game/gameStore";
-import { PreviewCard } from "../cards/PreviewCard";
+import { JackCard } from "../cards/JackCard";
 import { WIDTH } from "@/utils/Dimensions";
 import Animated from "react-native-reanimated";
 import { Card } from "@/stores/game/types";
 import { useHomeHandAnimation } from "@/stores/animation/utils/useHomeHandAnimation";
+import { router } from "expo-router";
+import { useAnimationStore } from "@/stores/animation/animationStore";
 
 export function CurrentHomeHand() {
     const { currentHand } = useGameStore();
@@ -23,11 +25,17 @@ export function CurrentHomeHand() {
 }
 
 function CurrentHomeCard({ card, index }: { card: Card, index: number }) {
+    const { setHandAnimationPosition } = useAnimationStore();
     const style = useHomeHandAnimation(index);
+
+    function handlePress() {
+        router.push(`/hand`);
+        setHandAnimationPosition("hand");
+    }
 
     return (
         <Animated.View key={card.id} style={style}>
-            <PreviewCard card={card} width={WIDTH / 4} privewOnly />
+            <JackCard card={card} width={WIDTH / 4} onPress={handlePress} noHold />
         </Animated.View>
     );
 }

@@ -1,5 +1,5 @@
 import { useGameStore } from "@/stores/game/gameStore";
-import { PreviewCard } from "../cards/PreviewCard";
+import { JackCard } from "../cards/JackCard";
 import { router } from "expo-router";
 import Animated from "react-native-reanimated";
 import { useCurrentHandAnimation } from "../../stores/animation/utils/useCurrentHandAnimation";
@@ -38,7 +38,7 @@ function CurrentCard({ card, index }: { card: Card, index: number }) {
 
     return (
         <Animated.View key={card.id} style={animatedStyle}>
-            <PreviewCard
+            <JackCard
                 card={card}
                 onPress={() => handlePress(index)}
             />

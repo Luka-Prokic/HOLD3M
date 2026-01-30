@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   useSharedValue,
   useAnimatedStyle,
@@ -9,17 +9,19 @@ import {
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useAnimationStore } from "../animationStore";
 import { haptic, hapticMax } from "@/utils/useHaptics";
+import { useGameStore } from "@/stores/game/gameStore";
 
 export function useCurrentHandAnimation(index: number) {
   const handAnimationPosition = useAnimationStore(state => state.handAnimationPosition);
   const isAnimationsEnabled = useSettingsStore(state => state.isAnimationsEnabled);
+  const currentHand = useGameStore(state => state.currentHand);
+  const heldCards = useGameStore(state => state.heldCards);
 
-  // main fan progress
   const progress = useSharedValue(isAnimationsEnabled ? 0 : 1);
-  // enter/exit progress for moving/fading while exiting
   const exitProgress = useSharedValue(isAnimationsEnabled ? 0 : 1);
 
-  // geometry
+  const burnProgress = useSharedValue(0);
+
   const offset = index - 2;
   const distance = Math.abs(offset);
   const fanX = offset * 54;
@@ -28,27 +30,34 @@ export function useCurrentHandAnimation(index: number) {
   else if (distance === 1) fanY = -24;
   const fanRot = offset * 12;
 
+
+  const isHeld = useMemo(() => heldCards.some(card => card.id === currentHand[index].id), [heldCards, currentHand, index]);
+  const isJester = useMemo(() => currentHand[index].repetition === -1, [currentHand, index]);
+
   useEffect(() => {
     if (!isAnimationsEnabled) {
       progress.value = 1;
       exitProgress.value = 1;
+      burnProgress.value = handAnimationPosition === "burn" ? 1 : 0;
       return;
     }
 
     const staggerDelay = index * 20;
 
 
-    if (handAnimationPosition === "hand") {
+    if (handAnimationPosition === "hand" && (progress.value === 0 && exitProgress.value === 0 || burnProgress.value === 1)) {
 
-      // fan in quickly
       progress.value = withDelay(
         400 + staggerDelay,
         withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
       );
-      // entering: fade in + move up (with delay like original)
       exitProgress.value = withDelay(
         400 + staggerDelay,
         withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
+      );
+      burnProgress.value = withDelay(
+        400 + staggerDelay,
+        withTiming(0, { duration: 200, easing: Easing.out(Easing.exp) })
       );
 
 
@@ -56,10 +65,20 @@ export function useCurrentHandAnimation(index: number) {
         hapticMax("sharp");
       }, 400 + staggerDelay);
 
-    } else {
-      // fan out in reverse: animate 1 -> 0 while moving down / fading
+    }
+
+    else if (handAnimationPosition === "burn" && (isHeld || isJester)) {
+
+      burnProgress.value = withDelay(
+        200 + staggerDelay,
+        withTiming(1, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
+      );
+    }
+
+    else if (handAnimationPosition === "card") {
       progress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
       exitProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
+      burnProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
 
 
       setTimeout(() => {
@@ -70,9 +89,10 @@ export function useCurrentHandAnimation(index: number) {
 
   const style = useAnimatedStyle(() => ({
     position: "absolute",
+    opacity: 1 - burnProgress.value * 0.4,
     transform: [
       { translateX: fanX * progress.value },
-      { translateY: fanY * progress.value * exitProgress.value }, // combine fan and exit move
+      { translateY: fanY * progress.value * exitProgress.value - (1 - burnProgress.value * 54) },
       { rotate: `${fanRot * progress.value}deg` },
     ],
   }));

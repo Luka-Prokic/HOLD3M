@@ -11,9 +11,9 @@ export default function Page() {
     <Fragment>
       <HandScreenBackground />
       <ScreenContent
-        edges={["top"]}
+        edges={["top", "bottom"]}
         HeaderComponent={<HandHeader />}>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingBottom: 128 }}>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", position: "absolute", bottom: 0, left: 0, right: 0, top: 0 }}>
           <CurrentAnimatedHand />
         </View>
       </ScreenContent>

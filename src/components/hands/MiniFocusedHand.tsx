@@ -60,7 +60,7 @@ function CardItem({ card, index }: { card: Card, index: number }) {
                 backgroundColor: colorOne,
                 justifyContent: "center",
                 alignItems: "center",
-                opacity: isCurrent ? 1 : 0.4,
+                opacity: isCurrent ? 1 : 0.6,
                 borderWidth: 2,
                 borderTopWidth: 0,
                 borderLeftWidth: 0.2,

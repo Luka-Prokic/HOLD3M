@@ -8,31 +8,45 @@ import { WIDTH } from "@/utils/Dimensions";
 import { useAnimationStore } from "@/stores/animation/animationStore";
 
 export function HandHeader() {
-    const { burnCards, burnsAvailable, currentHand, heldCards } = useGameStore();
+    const { burnsAvailable, currentHand, heldCards, burnCards } = useGameStore();
     const { themeName, isAnimationsEnabled } = useSettingsStore();
-    const { setHandAnimationPosition } = useAnimationStore();
+    const { setHandAnimationPosition, handAnimationPosition } = useAnimationStore();
+
     const unHeldCards = currentHand.filter((card: Card) => !heldCards.includes(card));
     const jesterCards = currentHand.filter((card: Card) => card.repetition === -1);
-
 
     const unHeldCardsCount = unHeldCards.length;
     const jesterCardsCount = jesterCards.length;
 
-    const burnableCards = burnsAvailable > 0 && unHeldCardsCount > 0 && jesterCardsCount < unHeldCardsCount ? true : false;
+    const burnableCardsCount = burnsAvailable > 0 && unHeldCardsCount > 0 && jesterCardsCount < unHeldCardsCount ? unHeldCardsCount - jesterCardsCount : 0;
 
     const burnStyle = themeName === "dark" ? "tint" : "accent";
-    const burnLabel = `Burn (${unHeldCardsCount - jesterCardsCount})`;
+    const burnLabel = handAnimationPosition !== "burn" ? `Burn (${unHeldCardsCount - jesterCardsCount})` : "Don't";
+
+    const homeLabel = handAnimationPosition !== "burn" ? "Home" : burnableCardsCount > 1 ? `Burn'em` : "Burn";
 
     const buttonWidth = WIDTH / 2 - 36;
 
 
     function handleHome() {
+        if (handAnimationPosition === "burn") {
+            setTimeout(() => burnCards(), 600);
+            setHandAnimationPosition("hand");
+            return;
+        }
         router.dismissTo("/");
         setHandAnimationPosition("home");
+
+
+
     }
 
     function handleBurn() {
-        burnCards();
+        if (handAnimationPosition === "burn") {
+            setHandAnimationPosition("hand");
+            return;
+        }
+        setHandAnimationPosition("burn");
     }
 
     return (
@@ -46,8 +60,8 @@ export function HandHeader() {
                 gap: 24,
                 zIndex: 1
             }}>
-            <AceButton title="Home" onPress={handleHome} buttonStyle={{ width: buttonWidth }} />
-            <AceButton title={burnLabel} onPress={handleBurn} disabled={!burnableCards} themeType={burnStyle} buttonStyle={{ width: buttonWidth }} />
+            <AceButton title={homeLabel} onPress={handleHome} buttonStyle={{ width: buttonWidth }} />
+            <AceButton title={burnLabel} onPress={handleBurn} disabled={burnableCardsCount === 0} themeType={burnStyle} buttonStyle={{ width: buttonWidth }} />
         </Animated.View>
     );
 }
