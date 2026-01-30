@@ -1,10 +1,10 @@
-import { View } from "react-native";
 import { IText } from "../ui/texts/IText";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { useBalletFont } from "@/utils/fonts/useBalletFont";
 import { router } from "expo-router";
 import { AceButton } from "../ui/buttons/AceButton";
 import { Ionicons } from "@expo/vector-icons";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 
 
@@ -12,19 +12,23 @@ import { Ionicons } from "@expo/vector-icons";
 export function RanksHeader() {
     const { theme } = useSettingsStore();
     const { fontFamily } = useBalletFont();
+    const { isAnimationsEnabled } = useSettingsStore();
 
     function handlePress() {
         router.back();
     }
+
     return (
-        <View style={{
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingLeft: 16,
-            paddingRight: 24,
-            paddingTop: 16,
-        }}>
+        <Animated.View
+            entering={isAnimationsEnabled ? FadeIn.duration(400).delay(400) : undefined}
+            style={{
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingLeft: 16,
+                paddingRight: 24,
+                paddingTop: 16,
+            }}>
             <IText
                 text="Hand Ranks"
                 size={48}
@@ -44,6 +48,6 @@ export function RanksHeader() {
             <AceButton title="Back" onPress={handlePress} circle >
                 <Ionicons name="close" size={32} color={theme.lightSurface} />
             </AceButton>
-        </View>
+        </Animated.View>
     )
 }

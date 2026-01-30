@@ -21,16 +21,15 @@ export function HandHeader() {
     const burnableCardsCount = burnsAvailable > 0 && unHeldCardsCount > 0 && jesterCardsCount < unHeldCardsCount ? unHeldCardsCount - jesterCardsCount : 0;
 
     const burnStyle = themeName === "dark" ? "tint" : "accent";
-    const burnLabel = handAnimationPosition !== "burn" ? `Burn (${unHeldCardsCount - jesterCardsCount})` : "Don't";
+    const burnLabel = !burnsAvailable ? "Used" : handAnimationPosition !== "burn" ? `Burn (${burnableCardsCount})` : burnableCardsCount > 1 ? "Burn'em" : "Burn";
 
-    const homeLabel = handAnimationPosition !== "burn" ? "Home" : burnableCardsCount > 1 ? `Burn'em` : "Burn";
+    const homeLabel = handAnimationPosition !== "burn" ? "Home" : "Back";
 
     const buttonWidth = WIDTH / 2 - 36;
 
 
     function handleHome() {
         if (handAnimationPosition === "burn") {
-            setTimeout(() => burnCards(), 600);
             setHandAnimationPosition("hand");
             return;
         }
@@ -43,6 +42,7 @@ export function HandHeader() {
 
     function handleBurn() {
         if (handAnimationPosition === "burn") {
+            setTimeout(() => burnCards(), 600);
             setHandAnimationPosition("hand");
             return;
         }
@@ -51,7 +51,7 @@ export function HandHeader() {
 
     return (
         <Animated.View
-            entering={isAnimationsEnabled ? FadeIn.duration(300).delay(800) : FadeIn.duration(0)}
+            entering={isAnimationsEnabled ? FadeIn.duration(300).delay(800) : undefined}
             style={{
                 flexDirection: "row",
                 width: WIDTH,

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import {
   useSharedValue,
   useAnimatedStyle,
@@ -18,7 +18,6 @@ export function useCurrentHandAnimation(index: number) {
   const heldCards = useGameStore(state => state.heldCards);
 
   const progress = useSharedValue(isAnimationsEnabled ? 0 : 1);
-  const exitProgress = useSharedValue(isAnimationsEnabled ? 0 : 1);
 
   const burnProgress = useSharedValue(0);
 
@@ -31,68 +30,79 @@ export function useCurrentHandAnimation(index: number) {
   const fanRot = offset * 12;
 
 
-  const isHeld = useMemo(() => heldCards.some(card => card.id === currentHand[index].id), [heldCards, currentHand, index]);
-  const isJester = useMemo(() => currentHand[index].repetition === -1, [currentHand, index]);
-
   useEffect(() => {
+    const isHeld = heldCards.some(card => card.id === currentHand[index].id);
+    const isJester = currentHand[index].repetition === -1;
+
+    const notBurnable = isJester || isHeld;
+
     if (!isAnimationsEnabled) {
       progress.value = 1;
-      exitProgress.value = 1;
-      burnProgress.value = handAnimationPosition === "burn" ? 1 : 0;
+      burnProgress.value = handAnimationPosition === "burn" ? notBurnable ? 1 : 0 : 0;
       return;
     }
 
     const staggerDelay = index * 20;
 
+    switch (handAnimationPosition) {
+      case "hand": // FOCUSED ON HAND
+        if (progress.value === 0 || burnProgress.value === 1) {
+          progress.value = withDelay(
+            400 + staggerDelay,
+            withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
+          );
+          burnProgress.value = withDelay(
+            400 + staggerDelay,
+            withTiming(0, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
+          );
 
-    if (handAnimationPosition === "hand" && (progress.value === 0 && exitProgress.value === 0 || burnProgress.value === 1)) {
+          setTimeout(() => {
+            hapticMax("sharp");
+          }, 400 + staggerDelay);
+        }
+        break;
 
-      progress.value = withDelay(
-        400 + staggerDelay,
-        withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
-      );
-      exitProgress.value = withDelay(
-        400 + staggerDelay,
-        withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
-      );
-      burnProgress.value = withDelay(
-        400 + staggerDelay,
-        withTiming(0, { duration: 200, easing: Easing.out(Easing.exp) })
-      );
+      case "burn": // READY TO BURN
+        if (notBurnable) {
+
+          burnProgress.value = withDelay(
+            200 + staggerDelay,
+            withTiming(1, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
+          );
+
+        }
+        else if (burnProgress.value === 1) {
+          burnProgress.value = withDelay(
+            200 + staggerDelay,
+            withTiming(0, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
+          );
+
+          setTimeout(() => {
+            haptic("bold");
+          }, 200 + staggerDelay);
+        }
+        break;
+
+      case "card": // FOCUSED ON CARD
+        if (progress.value === 1) {
+          progress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
+          burnProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
 
 
-      setTimeout(() => {
-        hapticMax("sharp");
-      }, 400 + staggerDelay);
-
+          setTimeout(() => {
+            haptic("bold");
+          }, staggerDelay);
+        }
+        break;
     }
-
-    else if (handAnimationPosition === "burn" && (isHeld || isJester)) {
-
-      burnProgress.value = withDelay(
-        200 + staggerDelay,
-        withTiming(1, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
-      );
-    }
-
-    else if (handAnimationPosition === "card") {
-      progress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
-      exitProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
-      burnProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
-
-
-      setTimeout(() => {
-        haptic("bold");
-      }, staggerDelay);
-    }
-  }, [handAnimationPosition, isAnimationsEnabled]);
+  }, [handAnimationPosition, isAnimationsEnabled, heldCards, currentHand, index]);
 
   const style = useAnimatedStyle(() => ({
     position: "absolute",
     opacity: 1 - burnProgress.value * 0.4,
     transform: [
       { translateX: fanX * progress.value },
-      { translateY: fanY * progress.value * exitProgress.value - (1 - burnProgress.value * 54) },
+      { translateY: fanY * progress.value - (1 - burnProgress.value * 54) },
       { rotate: `${fanRot * progress.value}deg` },
     ],
   }));

@@ -2,9 +2,10 @@ import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Card } from "@/stores/game/types";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
-import { Text, Pressable } from "react-native";
+import { Text, Pressable, View } from "react-native";
 import { useGameStore } from "@/stores/game/gameStore";
 import { isLightColor, mixColors, tintColorInvert } from "@/utils/hexToRGBA";
+import { ShakyLongPress } from "./TestCard";
 
 
 interface FocusCardProps {
@@ -34,28 +35,30 @@ export function FocusCard({ card }: FocusCardProps) {
     }
 
     return (
-        <Pressable
-            onLongPress={handleLongPress}
-            style={{
-                width: cardWidth,
-                height: cardHeight,
-                borderRadius: 32,
-                padding: 8,
-                backgroundColor,
-                borderWidth: 4,
-                borderTopWidth: 0,
-                borderLeftWidth: 1,
-                borderRightWidth: 3,
-                borderColor: borderColor,
-                shadowColor: theme.shadow,
-                shadowOffset: { width: 0, height: 32 },
-                shadowOpacity: 1,
-                shadowRadius: 8,
-                elevation: 8,
-                zIndex: 1,
-            }} >
-            <Text style={{ fontSize: 48, fontWeight: "800", color: cardColors.text }}>{rankLetter}</Text>
-            <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>
-        </Pressable>
+        <ShakyLongPress onRelease={handleLongPress}>
+            <View
+                style={{
+                    width: cardWidth,
+                    height: cardHeight,
+                    borderRadius: 32,
+                    padding: 8,
+                    backgroundColor,
+                    borderWidth: 4,
+                    borderTopWidth: 0,
+                    borderLeftWidth: 1,
+                    borderRightWidth: 3,
+                    borderColor: borderColor,
+                    shadowColor: theme.shadow,
+                    shadowOffset: { width: 0, height: 32 },
+                    shadowOpacity: 1,
+                    shadowRadius: 8,
+                    elevation: 8,
+                    zIndex: 1,
+                }} >
+                <Text style={{ fontSize: 48, fontWeight: "800", color: cardColors.text }}>{rankLetter}</Text>
+                <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>
+            </View>
+        </ShakyLongPress>
+
     );
 }

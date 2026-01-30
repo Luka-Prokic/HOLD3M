@@ -9,6 +9,7 @@ import Animated, {
 import * as Haptics from "expo-haptics";
 import { useRef } from "react";
 import { scheduleOnRN } from "react-native-worklets";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 
 interface ShakyLongPressProps {
     children: React.ReactNode;
@@ -27,6 +28,8 @@ export function ShakyLongPress({
     successThreshold = 1000,
     disableHold = false,
 }: ShakyLongPressProps) {
+    const { isAnimationsEnabled } = useSettingsStore();
+
     const shake = useSharedValue(0);
     const isHolding = useRef(false);
     const state = useRef<'idle' | 'holding' | 'success'>('idle');
@@ -43,10 +46,11 @@ export function ShakyLongPress({
     };
 
     const startShake = () => {
-        shake.value = withRepeat(withTiming(4, { duration: 50 }), -1, true);
         isHolding.current = true;
         scheduleOnRN(startHapticLoop);
         state.current = 'holding';
+        if (!isAnimationsEnabled) return;
+        shake.value = withRepeat(withTiming(4, { duration: 50 }), -1, true);
     };
 
     const stopShake = () => {
@@ -56,9 +60,9 @@ export function ShakyLongPress({
     };
 
     const smallErrorShake = () => {
-        shake.value = withRepeat(withTiming(6, { duration: 50 }), 4, true);
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-        setTimeout(() => shake.value = withTiming(0, { duration: 80 }), 200);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        if (!isAnimationsEnabled) return;
+        shake.value = withRepeat(withTiming(6, { duration: 25 }), 8, true);
     };
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -83,7 +87,6 @@ export function ShakyLongPress({
                     if (state.current === 'holding') {
                         state.current = 'success';
                         stopShake();
-                        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
                         onRelease();
                     }
                 }, remaining);

@@ -4,12 +4,14 @@ import { HandScreenBackground } from "@/components/ui/backgrounds/HandScreenBack
 import { View } from "react-native";
 import { HandHeader } from "@/components/hand-screen/HandHeader";
 import { CurrentAnimatedHand } from "@/components/hands/CurrentAnimatedHand";
+import { useAnimationStore } from "@/stores/animation/animationStore";
+import { BurnScreenBackground } from "@/components/ui/backgrounds/BurnScreenBackground";
 
 export default function Page() {
-
+  const { handAnimationPosition } = useAnimationStore();
   return (
     <Fragment>
-      <HandScreenBackground />
+      {handAnimationPosition === "burn" ? <BurnScreenBackground /> : <HandScreenBackground />}
       <ScreenContent
         edges={["top", "bottom"]}
         HeaderComponent={<HandHeader />}>

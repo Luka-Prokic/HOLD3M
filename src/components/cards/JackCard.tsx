@@ -6,7 +6,7 @@ import { WIDTH } from "@/utils/Dimensions";
 import { useGameStore } from "@/stores/game/gameStore";
 import { isLightColor, mixColors, tintColorInvert } from "@/utils/hexToRGBA";
 import { ShakyLongPress } from "./TestCard";
-import Animated, { FadeIn, FadeInDown, SlideOutUp } from "react-native-reanimated";
+import Animated, { FadeInDown, SlideOutUp } from "react-native-reanimated";
 
 interface JackCardProps {
     card: Card;
@@ -19,8 +19,10 @@ interface JackCardProps {
 export function JackCard({ card, onPress, width = WIDTH / 3, privewOnly = false, noHold = false }: JackCardProps) {
     const { cardColors, theme } = useSettingsStore();
     const { holdCard, heldCards, releaseCard } = useGameStore();
+    const { isAnimationsEnabled } = useSettingsStore();
 
     const isHeld = heldCards.some((c) => c.id === card.id);
+    const isJester = card.repetition === -1;
 
     const cardWidth = width;
     const cardHeight = cardWidth * 1.4;
@@ -46,10 +48,10 @@ export function JackCard({ card, onPress, width = WIDTH / 3, privewOnly = false,
     }
 
     return (
-        <ShakyLongPress onRelease={handleLongPress} onPress={handlePress} disableHold={noHold}>
+        <ShakyLongPress onRelease={handleLongPress} onPress={handlePress} disableHold={noHold || isJester}>
             <Animated.View
-                entering={FadeInDown}
-                exiting={SlideOutUp}
+                entering={isAnimationsEnabled ? FadeInDown.delay(100) : undefined}
+                exiting={isAnimationsEnabled ? SlideOutUp : undefined}
                 style={{
                     width: cardWidth,
                     height: cardHeight,
