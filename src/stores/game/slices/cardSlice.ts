@@ -7,6 +7,7 @@ import { getRandomCardSuit } from "../utils/getRandomCardSuit";
 export interface CardSlice {
   burnsAvailable: number;
   addCard: (card: Card) => void;
+  writeOnJester: (card: Card, text: string) => void;
   burnCards: () => void;
   resetBurns: () => void;
 }
@@ -40,6 +41,19 @@ export const createCardSlice: StateCreator<
 
     const newCurrentHand = currentHand.map(c => c.id === card.id ? newCard : c);
 
+    set({
+      currentHand: newCurrentHand,
+    });
+  },
+
+  /*
+  * Write on a Jester card.
+  * @param card - The Jester card to write on.
+  * @param text - The text to write on the card.
+  */
+  writeOnJester: (card: Card, text: string) => {
+    const { currentHand } = get();
+    const newCurrentHand = currentHand.map(c => c.id === card.id ? { ...c, text } : c);
     set({
       currentHand: newCurrentHand,
     });

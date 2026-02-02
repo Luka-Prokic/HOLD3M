@@ -1,14 +1,27 @@
 import { AceButton } from "@/components/ui/buttons/AceButton";
+import { useAnimationStore } from "@/stores/animation/animationStore";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { Ionicons } from "@expo/vector-icons";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { useGameStore } from "@/stores/game/gameStore";
 
 export function KeyboardButtons() {
     const { theme, themeName, isAnimationsEnabled } = useSettingsStore();
-
+    const { currentCardIndex, currentHand, addCard } = useGameStore();
+    const { setHandAnimationPosition } = useAnimationStore();
     const themeType = themeName === "light" ? "accent" : "tint";
+
+    function handleAddHabit() {
+        const card = currentHand[currentCardIndex];
+        addCard(card);
+        setHandAnimationPosition("card");
+    }
+
+    function handleCollapseKeyboard() {
+        setHandAnimationPosition("card");
+    }
 
     return (
         <KeyboardAvoidingView
@@ -36,13 +49,13 @@ export function KeyboardButtons() {
             >
                 <AceButton
                     title="Add Habit"
-                    onPress={() => { }}
+                    onPress={handleAddHabit}
                     themeType={themeType}
                     buttonStyle={{ flexGrow: 1 }}
                 />
 
-                <AceButton circle onPress={() => { }}>
-                    <Ionicons name="heart" size={24} color={theme.lightSurface} />
+                <AceButton circle onPress={handleCollapseKeyboard}>
+                    <Ionicons name="chevron-down" size={24} color={theme.lightSurface} />
                 </AceButton>
             </Animated.View>
         </KeyboardAvoidingView>

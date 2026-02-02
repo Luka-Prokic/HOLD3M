@@ -1,47 +1,43 @@
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { Text, Pressable, TextInput } from "react-native";
-import { Fragment, useState } from "react";
-import { useGameStore } from "@/stores/game/gameStore";
+import { Fragment, useEffect, useState } from "react";
 import { Card } from "@/stores/game/types";
 import { tintColorInvert } from "@/utils/hexToRGBA";
 import { useAnimationStore } from "@/stores/animation/animationStore";
+import { useGameStore } from "@/stores/game/gameStore";
 
 interface JesterFocusCardProps {
     card: Card;
 }
 
 export function JesterFocusCard({ card }: JesterFocusCardProps) {
-    const { addCard } = useGameStore();
     const { cardColors, theme, cardText } = useSettingsStore();
-    const { setHandAnimationPosition } = useAnimationStore();
+    const { setHandAnimationPosition, handAnimationPosition } = useAnimationStore();
+    const { writeOnJester } = useGameStore();
+
     const cardHeight = (WIDTH - 48) * 1.4;
     const cardWidth = WIDTH - 48;
 
     const borderColor = tintColorInvert(cardColors.background, 0.2);
 
-    const [text, setText] = useState("");
-    const [focus, setFocus] = useState(false);
-
-    function handleLongPress() {
-        setFocus(false);
-        addCard({ ...card, text });
-    }
-
-
-    function handleBlur() {
-        setHandAnimationPosition("card");
-        setFocus(false);
-    }
+    const [isFocused, setIsFocused] = useState(false);
 
     function handlePress() {
-        if (focus) {
-            handleBlur();
-        } else {
-            setFocus(true);
-            setHandAnimationPosition("focus");
-        }
+        setIsFocused(true);
+        setHandAnimationPosition("focus");
     }
+
+    function handleBlur() {
+        setIsFocused(false);
+        setHandAnimationPosition("card");
+    }
+
+    useEffect(() => {
+        if (handAnimationPosition !== "focus") {
+            setIsFocused(false);
+        }
+    }, [handAnimationPosition]);
 
     return (
         <Fragment>
@@ -65,23 +61,18 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                     zIndex: 1,
                 }}
                 onPress={handlePress}
-                onLongPress={handleLongPress}
             >
                 <Text style={{ fontSize: 48, fontWeight: "800", color: cardColors.text }}>X</Text>
-                {focus ?
+                {isFocused ?
                     <TextInput
                         style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}
-                        value={text}
-                        onChangeText={setText}
+                        value={card.text}
                         onBlur={handleBlur}
-                        autoCorrect
-                        spellCheck
-                        textContentType="none"
-                        keyboardType="default"
+                        onChangeText={(text) => writeOnJester(card, text)}
                         autoFocus
                     />
                     :
-                    <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{text}</Text>}
+                    <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>}
             </Pressable>
         </Fragment>
 

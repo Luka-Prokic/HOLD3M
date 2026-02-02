@@ -20,7 +20,6 @@ export default function Page() {
         HeaderComponent={<MiniFocusedHand style={{ marginTop: 16 }} />}
         FooterComponent={<CardFooter />}>
         <FocusedHand />
-
       </ScreenContent>
     </Fragment >
   );
