@@ -27,7 +27,7 @@ const data: ColorComboPickerProps[] = [
     },
     {
         title: "Eco",
-        tint: "#8CB24A",
+        tint: "#B7DB78",
         accent: "#007F59"
     },
     {

@@ -13,6 +13,8 @@ interface PreviewHandProps {
 export function PreviewHand({ hand, selectedCardIndex, setSelectedCardIndex }: PreviewHandProps) {
     const cardHeight = (WIDTH - 32) * 1.4 + 64;
 
+    if (selectedCardIndex === -1) return null;
+
     return (
         <CenterCardSlider
             data={hand.cards}

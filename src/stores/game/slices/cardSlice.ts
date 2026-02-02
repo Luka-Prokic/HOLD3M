@@ -17,7 +17,7 @@ export const createCardSlice: StateCreator<
   [],
   CardSlice
 > = (set, get) => ({
-  burnsAvailable: 20,
+  burnsAvailable: 1,
 
 
   /*

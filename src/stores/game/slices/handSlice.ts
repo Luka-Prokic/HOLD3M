@@ -40,7 +40,7 @@ export const createHandSlice: StateCreator<
 
   startNewHand: () => {
     const { burnsAvailable, rounds } = get();
-    if (!burnsAvailable) set({ burnsAvailable: 20 }); // TODO: change to 1
+    if (!burnsAvailable) set({ burnsAvailable: 1 });
 
     const lastHand = rounds[rounds.length - 1];
 
@@ -66,15 +66,6 @@ export const createHandSlice: StateCreator<
       suit: getRandomCardSuit(),
       createdAt: Date.now(),
     }));
-
-    // const newJesters: Card[] = Array.from({ length: newJesterCount }).map(() => ({
-    //   id: `card_${nanoid()}`,
-    //   originalId: `card_${nanoid()}`,
-    //   text: "",
-    //   repetition: 0,
-    //   suit: getRandomCardSuit(),
-    //   createdAt: Date.now(),
-    // }));
 
     set({ currentHand: [...newHand, ...newJesters], heldCards: [] });
   },

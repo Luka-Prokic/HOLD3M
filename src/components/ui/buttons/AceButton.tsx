@@ -1,5 +1,6 @@
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Text, ViewStyle, TextStyle, Pressable, PressableProps } from "react-native";
+import { IText } from "../texts/IText";
 
 type ButtonThemeType = "theme" | "tint" | "accent" | "custom" | "default";
 
@@ -50,9 +51,8 @@ export function AceButton({
                 ...buttonStyle,
             }}
         >
-            {children ? children : <Text style={{ color: tColor, fontSize: 24, fontWeight: "600", ...textStyle }}>
-                {title}
-            </Text>
+            {children ? children : <IText text={title ?? ""} size={24} weight="600" color={tColor} style={textStyle} />
+
             }
         </Pressable>
     );

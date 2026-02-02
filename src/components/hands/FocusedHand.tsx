@@ -8,9 +8,10 @@ import { CenterCardSlider } from "../ui/sliders/CenterCardSlider";
 export function FocusedHand() {
     const { currentHand, currentCardIndex, setCurrentCardIndex } = useGameStore();
 
-    if (currentCardIndex === -1) return null;
 
     const cardHeight = (WIDTH - 32) * 1.4 + 64;
+
+    if (currentCardIndex === -1) return null;
 
     return (
         <CenterCardSlider
