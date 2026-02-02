@@ -4,9 +4,11 @@ import { JesterFocusCard } from "../cards/JesterFocusCard";
 import { WIDTH } from "@/utils/Dimensions";
 import { Card } from "@/stores/game/types";
 import { CenterCardSlider } from "../ui/sliders/CenterCardSlider";
+import { useAnimationStore } from "@/stores/animation/animationStore";
 
 export function FocusedHand() {
     const { currentHand, currentCardIndex, setCurrentCardIndex } = useGameStore();
+    const { handAnimationPosition } = useAnimationStore();
 
 
     const cardHeight = (WIDTH - 32) * 1.4 + 64;
@@ -32,6 +34,7 @@ export function FocusedHand() {
             animationType="album"
             hideDots
             cardStyle={{ paddingBottom: 64 }}
+            disableScroll={handAnimationPosition === "focus"}
         />
     );
 }

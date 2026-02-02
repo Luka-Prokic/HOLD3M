@@ -5,16 +5,35 @@ import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 import { getCardRankLetterFromRep } from "@/utils/getCardRank";
 import { Ionicons } from "@expo/vector-icons";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { FadeIn, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { useAnimationStore } from "@/stores/animation/animationStore";
+import { useEffect } from "react";
 
 
 export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) {
     const { currentHand } = useGameStore();
     const { isAnimationsEnabled } = useSettingsStore();
+    const { handAnimationPosition } = useAnimationStore();
+
 
     const cardWidth = (WIDTH - 118) / 5;
     const cardHeight = cardWidth * 1.4;
 
+    const height = useSharedValue(cardHeight);
+
+    useEffect(() => {
+        if (handAnimationPosition === "focus") {
+            height.value = withTiming(0, { duration: isAnimationsEnabled ? 200 : 0 });
+        } else {
+            height.value = withTiming(cardHeight, { duration: isAnimationsEnabled ? 200 : 0 });
+        }
+    }, [cardHeight, handAnimationPosition]);
+
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        height: height.value,
+        opacity: height.value === 0 ? 0 : 1,
+    }));
 
     return (
         <Animated.View
@@ -22,11 +41,11 @@ export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) 
             style={[{
                 flexDirection: "row",
                 width: WIDTH,
-                height: cardHeight,
-                alignItems: "center",
+                alignItems: "flex-start",
                 paddingHorizontal: 24,
-                gap: 16
+                gap: 16,
             },
+                animatedStyle,
                 style
             ]}>
             {currentHand.map((card: Card, index: number) =>

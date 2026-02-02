@@ -1,18 +1,19 @@
 import { useState, useRef, Fragment } from "react";
-import { Keyboard, TouchableOpacity, TextInput, ViewStyle, Pressable, Text, View } from "react-native";
+import { Keyboard, TouchableOpacity, TextInput, ViewStyle, Pressable, Text, View, TextStyle } from "react-native";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { TransparentBottomSheet } from "./TransparentBottomSheet";
+import { TransparentBottomSheet } from "./TransparentModal";
 
 interface InputModalProps {
   style?: ViewStyle | ViewStyle[];
   placeholder?: string;
   value?: string;
   onChangeText?: (text: string) => void;
+  textStyle?: TextStyle | TextStyle[];
 }
 
-export function InputModal({ style, placeholder = "Type something...", value = "", onChangeText }: InputModalProps) {
+export function InputModal({ style, placeholder = "Type something...", value = "", onChangeText, textStyle }: InputModalProps) {
   const { theme } = useSettingsStore();
   const [newValue, setNewValue] = useState(value);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -26,7 +27,7 @@ export function InputModal({ style, placeholder = "Type something...", value = "
   return (
     <Fragment>
       <Pressable style={[{ flex: 1 }, style]} onPress={() => bottomSheetRef.current?.present()}>
-        <Text style={{
+        <Text style={[{
           flex: 1,
           backgroundColor: theme.input,
           color: newValue.length > 0 ? theme.text : theme.handle,
@@ -34,12 +35,14 @@ export function InputModal({ style, placeholder = "Type something...", value = "
           padding: 12,
           textAlignVertical: "top",
           fontSize: 16,
-        }}>{newValue || placeholder}</Text>
+        }, textStyle]}>
+          {newValue || placeholder}
+        </Text>
       </Pressable>
       <TransparentBottomSheet ref={bottomSheetRef} bottomSheetStyle={{ flex: 1 }}>
         <View style={[{ flex: 1 }, style]}>
           <TextInput
-            style={{
+            style={[{
               flex: 1,
               backgroundColor: theme.input,
               color: theme.text,
@@ -48,7 +51,7 @@ export function InputModal({ style, placeholder = "Type something...", value = "
               padding: 12,
               textAlignVertical: "top",
               fontSize: 16,
-            }}
+            }, textStyle]}
             multiline
             value={newValue}
             onChangeText={setNewValue}

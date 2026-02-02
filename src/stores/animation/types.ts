@@ -1,3 +1,3 @@
 
 
-export type HandAnimationPosition = "home" | "hand" | "card" | "burn";
+export type HandAnimationPosition = "home" | "hand" | "card" | "burn" | "focus";
