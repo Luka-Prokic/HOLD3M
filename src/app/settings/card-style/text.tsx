@@ -9,9 +9,11 @@ import { FocusCard } from "@/components/cards/FocusCard";
 import { CardTextWeightSelector } from "@/components/setttings-screen/card-style/CardTextWeightSelector";
 import { CardTextFontSelector } from "@/components/setttings-screen/card-style/CardTextFontSelector";
 import { CardTextSizeSelector } from "@/components/setttings-screen/card-style/CardTextSizeSelector";
+import { CardTextColorSelector } from "@/components/setttings-screen/card-style/CardTextColorSelector";
 
 export default function Page() {
     const bottomSheetRef = useRef<BottomSheet>(null);
+
     return (
         <Fragment>
             <SettingsScreenBackground />
@@ -23,6 +25,7 @@ export default function Page() {
                         card={
                             {
                                 id: "color",
+                                originalId: "color",
                                 text: `"Your habit here"`,
                                 repetition: 1,
                                 suit: "hearts",
@@ -35,6 +38,7 @@ export default function Page() {
                     <CardTextSizeSelector />
                     <CardTextWeightSelector />
                     <CardTextFontSelector />
+                    <CardTextColorSelector />
                 </CardStyleBottomSheet>
             </ScreenContent>
         </Fragment >

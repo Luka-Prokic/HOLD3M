@@ -17,7 +17,7 @@ import { WIDTH } from "../../../utils/Dimensions";
 import { ScrollableDots } from "@/components/ui/sliders/ScrollableDots";
 import { SlideCard } from "@/components/ui/sliders/SlideCard";
 import { scheduleOnRN } from "react-native-worklets";
-import { hapticMax } from "@/utils/useHaptics";
+import { haptic } from "@/utils/useHaptics";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -124,7 +124,7 @@ export function CenterCardSlider<T>({
 
       if (!onSelect) return;
 
-      scheduleOnRN(hapticMax, "sharp");
+      scheduleOnRN(haptic, "sharp");
       if (!delayedSelect) {
         scheduleOnRN(onSelect, firstCard ? next - 1 : next);
 

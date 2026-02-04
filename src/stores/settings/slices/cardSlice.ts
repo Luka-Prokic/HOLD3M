@@ -1,13 +1,21 @@
 import type { StateCreator } from "zustand";
 import type { CardColors, CardText, CardDeck } from "../types";
 
+
+const defaultDeck: CardDeck = {
+  name: "default",
+  icon: "default",
+  colors: ["#000000", "#F1EFEA"],
+};
+
 export interface CardSlice {
+  decks: CardDeck[];
   cardColors: CardColors;
   cardText: CardText;
   cardDeck: CardDeck;
   setCardColorsField: (field: keyof CardColors, value: CardColors[keyof CardColors]) => void;
   setCardTextField: (field: keyof CardText, value: CardText[keyof CardText]) => void;
-  setCardDeckField: (field: keyof CardDeck, value: CardDeck[keyof CardDeck]) => void;
+  setCardDeck: (deck: CardDeck) => void;
 }
 
 export const createCardSlice: StateCreator<
@@ -16,6 +24,11 @@ export const createCardSlice: StateCreator<
   [],
   CardSlice
 > = (set, get) => ({
+  decks: [
+    {
+      ...defaultDeck,
+    },
+  ],
   cardColors: {
     text: "#000000",
     background: "#F1EFEA",
@@ -26,7 +39,7 @@ export const createCardSlice: StateCreator<
     family: "sans-serif",
   },
   cardDeck: {
-    deck: "default",
+    ...defaultDeck,
   },
 
   setCardColorsField: (field, value) => {
@@ -39,9 +52,16 @@ export const createCardSlice: StateCreator<
       cardText: { ...state.cardText, [field]: value },
     }));
   },
-  setCardDeckField: (field, value) => {
-    set((state) => ({
-      cardDeck: { ...state.cardDeck, [field]: value },
-    }));
+
+  setCardDeck: (deck) => {
+    const { decks } = get();
+
+    const existingDeck = decks.find((d) => d.name === deck.name);
+
+    if (!existingDeck) return;
+
+    set({
+      cardDeck: existingDeck,
+    });
   },
 });

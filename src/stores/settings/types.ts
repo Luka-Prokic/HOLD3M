@@ -21,5 +21,7 @@ export interface CardText {
 };
 
 export interface CardDeck {
-    deck: string;
-};
+    name: string;
+    icon: string;
+    colors: string[];
+}

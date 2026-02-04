@@ -55,7 +55,7 @@ export function KeyboardButtons() {
                 />
 
                 <AceButton circle onPress={handleCollapseKeyboard}>
-                    <Ionicons name="chevron-down" size={24} color={theme.lightSurface} />
+                    <Ionicons name="chevron-down" size={32} color={theme.lightSurface} />
                 </AceButton>
             </Animated.View>
         </KeyboardAvoidingView>

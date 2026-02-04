@@ -5,7 +5,7 @@ import { FocusedHand } from "@/components/hands/FocusedHand";
 import { MiniFocusedHand } from "@/components/hands/MiniFocusedHand";
 import { CardFooter } from "@/components/hand-screen/CardFooter";
 import { useAnimationStore } from "@/stores/animation/animationStore";
-import { KeyboardButtons } from "@/components/cards/card-screen/KeyboardButtons";
+import { KeyboardButtons } from "@/components/card-screen/KeyboardButtons";
 
 export default function Page() {
   const { handAnimationPosition } = useAnimationStore();

@@ -69,6 +69,7 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                         value={card.text}
                         onBlur={handleBlur}
                         onChangeText={(text) => writeOnJester(card, text)}
+                        multiline
                         autoFocus
                     />
                     :
