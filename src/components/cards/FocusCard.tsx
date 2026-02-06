@@ -6,6 +6,7 @@ import { Text, Pressable, View } from "react-native";
 import { useGameStore } from "@/stores/game/gameStore";
 import { isLightColor, mixColors, tintColorInvert } from "@/utils/hexToRGBA";
 import { ShakyLongPress } from "./TestCard";
+import { CardFace } from "./CardFace";
 
 
 interface FocusCardProps {
@@ -55,7 +56,7 @@ export function FocusCard({ card }: FocusCardProps) {
                     elevation: 8,
                     zIndex: 1,
                 }} >
-                <Text style={{ fontSize: 48, fontWeight: "800", color: cardColors.text }}>{rankLetter}</Text>
+                <CardFace card={card} width={cardWidth - 8} height={cardHeight - 8} />
                 <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>
             </View>
         </ShakyLongPress>

@@ -1,11 +1,12 @@
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
-import { Text, Pressable, TextInput } from "react-native";
+import { Text, Pressable, TextInput, View } from "react-native";
 import { Fragment, useEffect, useState } from "react";
 import { Card } from "@/stores/game/types";
 import { tintColorInvert } from "@/utils/hexToRGBA";
 import { useAnimationStore } from "@/stores/animation/animationStore";
 import { useGameStore } from "@/stores/game/gameStore";
+import { CardFace } from "./CardFace";
 
 interface JesterFocusCardProps {
     card: Card;
@@ -62,18 +63,21 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                 }}
                 onPress={handlePress}
             >
-                <Text style={{ fontSize: 48, fontWeight: "800", color: cardColors.text }}>X</Text>
-                {isFocused ?
-                    <TextInput
-                        style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}
-                        value={card.text}
-                        onBlur={handleBlur}
-                        onChangeText={(text) => writeOnJester(card, text)}
-                        multiline
-                        autoFocus
-                    />
-                    :
-                    <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>}
+                <CardFace card={card} width={cardWidth - 8} height={cardHeight - 8} />
+                <View style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "transparent" }}>
+                    {isFocused ?
+                        <TextInput
+                            style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}
+                            value={card.text}
+                            onBlur={handleBlur}
+                            onChangeText={(text) => writeOnJester(card, text)}
+                            multiline
+                            autoFocus
+                        />
+                        :
+                        <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>}
+                </View>
+
             </Pressable>
         </Fragment>
 
