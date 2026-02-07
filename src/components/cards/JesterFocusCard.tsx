@@ -1,12 +1,14 @@
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
-import { Text, Pressable, TextInput, View } from "react-native";
+import { Text, Pressable, TextInput } from "react-native";
 import { Fragment, useEffect, useState } from "react";
 import { Card } from "@/stores/game/types";
 import { tintColorInvert } from "@/utils/hexToRGBA";
 import { useAnimationStore } from "@/stores/animation/animationStore";
 import { useGameStore } from "@/stores/game/gameStore";
 import { CardFace } from "./CardFace";
+import { BlurView } from "expo-blur";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 interface JesterFocusCardProps {
     card: Card;
@@ -60,26 +62,68 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                     shadowRadius: 8,
                     elevation: 8,
                     zIndex: 1,
+                    overflow: "hidden",
                 }}
                 onPress={handlePress}
             >
                 <CardFace card={card} width={cardWidth - 8} height={cardHeight - 8} />
-                <View style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "transparent" }}>
-                    {isFocused ?
-                        <TextInput
-                            style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}
-                            value={card.text}
-                            onBlur={handleBlur}
-                            onChangeText={(text) => writeOnJester(card, text)}
-                            multiline
-                            autoFocus
-                        />
-                        :
-                        <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>}
-                </View>
+                {isFocused ?
+                    <Animated.View
+                        entering={FadeIn}
+                        exiting={FadeOut}
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                        }}
+                    >
+                        <BlurView
+                            intensity={8} tint="light"
+                            style={{
+                                flex: 1,
+                                paddingVertical: 48,
+                                paddingHorizontal: 48,
+                                backgroundColor: cardColors.background + "80"
+                            }}>
+                            <TextInput
+                                style={{
+                                    fontSize: cardText.size,
+                                    fontWeight: cardText.weight,
+                                    fontFamily: cardText.family,
+                                    color: cardColors.text,
+                                    padding: 8,
+                                    borderRadius: 27,
+                                    backgroundColor: cardColors.background,
+                                }}
+                                value={card.text}
+                                onBlur={handleBlur}
+                                onChangeText={(text) => writeOnJester(card, text)}
+                                multiline
+                                autoFocus
+                            />
+                        </BlurView>
+                    </Animated.View>
+                    :
+                    <Text
+                        style={{
+                            position: "absolute",
+                            top: 48,
+                            left: 48,
+                            right: 48,
+                            fontSize: cardText.size,
+                            fontWeight: cardText.weight,
+                            fontFamily: cardText.family,
+                            color: cardColors.text,
+                            padding: 8,
+                            borderRadius: 27,
+                            backgroundColor: cardColors.background,
+                        }}>
+                        {card.text}
+                    </Text>}
 
             </Pressable>
-        </Fragment>
-
+        </Fragment >
     );
 }

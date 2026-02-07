@@ -1,8 +1,7 @@
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { Card } from "@/stores/game/types";
 import { WIDTH } from "@/utils/Dimensions";
-import { getCardRankLetterFromRep } from "@/utils/getCardRank";
-import { Text, Pressable, View } from "react-native";
+import { Text, View } from "react-native";
 import { useGameStore } from "@/stores/game/gameStore";
 import { isLightColor, mixColors, tintColorInvert } from "@/utils/hexToRGBA";
 import { ShakyLongPress } from "./TestCard";
@@ -16,7 +15,6 @@ interface FocusCardProps {
 export function FocusCard({ card }: FocusCardProps) {
     const { cardColors, cardText, theme } = useSettingsStore();
     const { heldCards, releaseCard, holdCard } = useGameStore();
-    const rankLetter = getCardRankLetterFromRep(card.repetition);
 
     const isHeld = heldCards.some((heldCard) => heldCard.id === card.id);
 
