@@ -1,5 +1,5 @@
 import type { StateCreator } from "zustand";
-import type { CardColors, CardText, CardDeck } from "../types";
+import type { CardColors, CardText } from "../types";
 
 
 export interface CardSlice {
@@ -29,7 +29,7 @@ export const createCardSlice: StateCreator<
     weight: "400",
     family: "sans-serif",
   },
-  cardDeck: "classic",
+  cardDeck: "default",
 
   setCardColorsField: (field, value) => {
     set((state) => ({

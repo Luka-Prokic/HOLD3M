@@ -40,7 +40,8 @@ export function FocusCard({ card }: FocusCardProps) {
                     width: cardWidth,
                     height: cardHeight,
                     borderRadius: 32,
-                    padding: 8,
+                    // padding: 8,
+                    overflow: "hidden",
                     backgroundColor,
                     borderWidth: 4,
                     borderTopWidth: 0,
@@ -54,7 +55,7 @@ export function FocusCard({ card }: FocusCardProps) {
                     elevation: 8,
                     zIndex: 1,
                 }} >
-                <CardFace card={card} width={cardWidth - 8} height={cardHeight - 8} />
+                <CardFace card={card} width={cardWidth} height={cardHeight} />
                 <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>
             </View>
         </ShakyLongPress>

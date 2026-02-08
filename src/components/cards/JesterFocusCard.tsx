@@ -49,7 +49,6 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                     width: cardWidth,
                     height: cardHeight,
                     borderRadius: 32,
-                    padding: 8,
                     backgroundColor: cardColors.background,
                     borderWidth: 4,
                     borderTopWidth: 0,
@@ -66,7 +65,7 @@ export function JesterFocusCard({ card }: JesterFocusCardProps) {
                 }}
                 onPress={handlePress}
             >
-                <CardFace card={card} width={cardWidth - 8} height={cardHeight - 8} />
+                <CardFace card={card} width={cardWidth} height={cardHeight} />
                 {isFocused ?
                     <Animated.View
                         entering={FadeIn}
