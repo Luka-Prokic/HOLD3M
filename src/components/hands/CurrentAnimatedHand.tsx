@@ -17,6 +17,7 @@ export function CurrentAnimatedHand() {
                 width: "100%",
                 justifyContent: "center",
                 alignItems: "center",
+                zIndex: 1,
             }}
         >
             {currentHand.map((card: Card, index: number) => <CurrentCard key={card.id} card={card} index={index} />)}
