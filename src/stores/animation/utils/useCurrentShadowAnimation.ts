@@ -1,117 +1,105 @@
-import { useEffect } from "react";
 import {
-  useSharedValue,
+  useDerivedValue,
   useAnimatedStyle,
-  withDelay,
   withTiming,
   Easing,
 } from "react-native-reanimated";
-import { useSettingsStore } from "@/stores/settings/settingsStore";
-import { useAnimationStore } from "../animationStore";
-import { haptic, hapticMax } from "@/utils/useHaptics";
 import { useGameStore } from "@/stores/game/gameStore";
+import { useAnimationStore } from "@/stores/animation/animationStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "@/utils/Dimensions";
 
-interface CurrentShadowAnimationProps {
-  index: number;
-  height?: number;
+interface Props {
+  height?: number
 }
 
-export function useCurrentShadowAnimation({ index, height = WIDTH / 3 * 1.4 }: CurrentShadowAnimationProps) {
-  const handAnimationPosition = useAnimationStore(state => state.handAnimationPosition);
-  const isAnimationsEnabled = useSettingsStore(state => state.isAnimationsEnabled);
-  const currentHand = useGameStore(state => state.currentHand);
-  const heldCards = useGameStore(state => state.heldCards);
+export function useCurrentShadowAnimation({ height = WIDTH / 3 * 1.4 }: Props) {
+  const { currentHand, heldCards } = useGameStore();
+  const { handAnimationPosition } = useAnimationStore();
+  const { isAnimationsEnabled } = useSettingsStore();
 
-  const progress = useSharedValue(isAnimationsEnabled ? 0 : 1);
+  const cardSpacing = 34;
+  const baseWidth = 60;
 
-  const burnProgress = useSharedValue(0);
+  const span = useDerivedValue(() => {
+    if (!currentHand.length) return 0;
 
-  const offset = index - 2;
-  const distance = Math.abs(offset);
-  const fanX = offset * 34;
-  let fanY = -height / 2;
-  if (distance === 0) fanY += 18;
-  else if (distance === 1) fanY += 12;
-  const fanRot = offset * 12;
+    let first = -1;
+    let last = -1;
 
+    currentHand.forEach((card, i) => {
+      const isHeld = heldCards.some(c => c.id === card.id);
+      const isJester = card.repetition === -1;
+      const notBurnable = isHeld || isJester;
 
-  useEffect(() => {
-    const isHeld = heldCards.some(card => card.id === currentHand[index].id);
-    const isJester = currentHand[index].repetition === -1;
+      const visible =
+        handAnimationPosition === "card"
+          ? 0
+          : handAnimationPosition === "burn"
+            ? notBurnable ? 0 : 1
+            : 1;
 
-    const notBurnable = isJester || isHeld;
+      if (visible) {
+        if (first === -1) first = i;
+        last = i;
+      }
+    });
 
-    if (!isAnimationsEnabled) {
-      progress.value = 1;
-      burnProgress.value = handAnimationPosition === "burn" ? notBurnable ? 1 : 0 : 0;
-      return;
+    if (first === -1) return 0;
+
+    return last - first + 1;
+  });
+
+  const centerIndex = useDerivedValue(() => {
+    let total = 0;
+    let weighted = 0;
+
+    currentHand.forEach((card, i) => {
+      const isHeld = heldCards.some(c => c.id === card.id);
+      const isJester = card.repetition === -1;
+      const notBurnable = isHeld || isJester;
+
+      const visible =
+        handAnimationPosition === "card"
+          ? 0
+          : handAnimationPosition === "burn"
+            ? notBurnable ? 1 : 0
+            : 1;
+
+      if (visible) {
+        total += 1;
+        weighted += i;
+      }
+    });
+
+    if (total === 0) return 0;
+
+    return weighted / total;
+  });
+
+  const animatedStyle = useAnimatedStyle(() => {
+    if (span.value === 0) {
+      return { opacity: 0 };
     }
 
-    const staggerDelay = index * 20;
+    const width = baseWidth + span.value * cardSpacing * 1.4;
+    const center = (currentHand.length - 1) / 2;
+    const translateX = (centerIndex.value - center) * cardSpacing;
 
-    switch (handAnimationPosition) {
-      case "hand": // FOCUSED ON HAND
-        if (progress.value === 0 || burnProgress.value === 1) {
-          progress.value = withDelay(
-            400 + staggerDelay,
-            withTiming(1, { duration: 200, easing: Easing.out(Easing.exp) })
-          );
-          burnProgress.value = withDelay(
-            400 + staggerDelay,
-            withTiming(0, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
-          );
+    return {
+      opacity: withTiming(0.35, {
+        duration: isAnimationsEnabled ? 300 : 0,
+        easing: Easing.out(Easing.exp),
+      }),
+      width: withTiming(width, {
+        duration: isAnimationsEnabled ? 300 : 0,
+      }),
+      transform: [
+        { translateX },
+        { translateY: height },
+      ],
+    };
+  });
 
-          setTimeout(() => {
-            hapticMax("sharp");
-          }, 400 + staggerDelay);
-        }
-        break;
-
-      case "burn": // READY TO BURN
-        if (notBurnable) {
-
-          burnProgress.value = withDelay(
-            200 + staggerDelay,
-            withTiming(1, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
-          );
-
-        }
-        else if (burnProgress.value === 1) {
-          burnProgress.value = withDelay(
-            200 + staggerDelay,
-            withTiming(0, { duration: 400 + staggerDelay, easing: Easing.out(Easing.exp) })
-          );
-
-          setTimeout(() => {
-            haptic("bold");
-          }, 200 + staggerDelay);
-        }
-        break;
-
-      case "card": // FOCUSED ON CARD
-        if (progress.value === 1) {
-          progress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
-          burnProgress.value = withTiming(0, { duration: 300, easing: Easing.in(Easing.exp) });
-
-
-          setTimeout(() => {
-            haptic("bold");
-          }, staggerDelay);
-        }
-        break;
-    }
-  }, [handAnimationPosition, isAnimationsEnabled, heldCards, currentHand, index]);
-
-  const style = useAnimatedStyle(() => ({
-    position: "absolute",
-    opacity: 1 - burnProgress.value,
-    transform: [
-      { translateX: fanX * progress.value },
-      { translateY: -fanY * progress.value + (1 - burnProgress.value * 54) },
-      { rotate: `${fanRot * progress.value}deg` },
-    ],
-  }));
-
-  return style;
+  return animatedStyle;
 }

@@ -5,6 +5,8 @@ import Animated from "react-native-reanimated";
 import { useCurrentHandAnimation } from "../../stores/animation/utils/useCurrentHandAnimation";
 import { Card } from "@/stores/game/types";
 import { useAnimationStore } from "@/stores/animation/animationStore";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
+import { useCurrentShadowAnimation } from "@/stores/animation/utils/useCurrentShadowAnimation";
 
 export function CurrentAnimatedHand() {
     const { currentHand } = useGameStore();
@@ -21,6 +23,7 @@ export function CurrentAnimatedHand() {
             }}
         >
             {currentHand.map((card: Card, index: number) => <CurrentCard key={card.id} card={card} index={index} />)}
+            <Shadow />
         </Animated.View>
     );
 }
@@ -43,6 +46,27 @@ function CurrentCard({ card, index }: { card: Card, index: number }) {
                 card={card}
                 onPress={() => handlePress(index)}
             />
+        </Animated.View>
+    );
+}
+
+
+
+function Shadow() {
+    const { theme } = useSettingsStore();
+    const animatedStyle = useCurrentShadowAnimation({});
+
+    return (
+        <Animated.View
+            style={[
+                {
+                    height: 24,
+                    backgroundColor: theme.darkSurface,
+                    borderRadius: 12,
+                },
+                animatedStyle,
+            ]}
+        >
         </Animated.View>
     );
 }
