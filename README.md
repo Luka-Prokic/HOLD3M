@@ -1,11 +1,11 @@
-HOLDEM
+# HOLDEM
 
 Gamified Habit Strategy App
 React Native · Zustand · Local-First Architecture
 
 ⸻
 
-Overview
+## Overview
 
 HOLDEM is a strategic habit tracking application built around a constrained daily decision model.
 
@@ -21,7 +21,7 @@ This project was fully designed in Figma prior to implementation and engineered 
 
 ⸻
 
-Core Concept
+## Core Concept
 
 HOLDEM introduces a daily 5-card system:
 
@@ -34,19 +34,39 @@ HOLDEM introduces a daily 5-card system:
 Each day becomes a bounded decision environment rather than an open checklist.
 
 ⸻
+---
 
-Installation
+## Tech Stack
 
-Clone the repository:
+- [React Native](https://reactnative.dev/) + TypeScript  
+- [Expo](https://expo.dev/)  
+- [Zustand](https://github.com/pmndrs/zustand) for state management  
 
-git clone 
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+
+git clone https://github.com/Luka-Prokic/HOLD3M.git
+
+```
 
 Install dependencies:
 
+```bash
 npm install
+```
 or
+
+```bash
 yarn install
+```
 
 Run:
 
+```bash
 npx expo start
+```
