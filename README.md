@@ -48,9 +48,7 @@ Each day becomes a bounded decision environment rather than an open checklist.
 ### 1. Clone the repository
 
 ```bash
-
 git clone https://github.com/Luka-Prokic/HOLD3M.git
-
 ```
 
 ### 2. Install dependencies
