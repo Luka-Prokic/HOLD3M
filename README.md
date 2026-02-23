@@ -3,7 +3,7 @@
 Gamified Habit Strategy App
 React Native · Zustand · Local-First Architecture
 
-⸻
+---
 
 ## Overview
 
@@ -19,7 +19,7 @@ The product emphasizes:
 
 This project was fully designed in Figma prior to implementation and engineered as a structured UI system in React Native.
 
-⸻
+---
 
 ## Core Concept
 
@@ -33,7 +33,6 @@ HOLDEM introduces a daily 5-card system:
 
 Each day becomes a bounded decision environment rather than an open checklist.
 
-⸻
 ---
 
 ## Tech Stack
