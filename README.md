@@ -53,7 +53,7 @@ git clone https://github.com/Luka-Prokic/HOLD3M.git
 
 ```
 
-Install dependencies:
+### 2. Install dependencies
 
 ```bash
 npm install
@@ -64,7 +64,7 @@ or
 yarn install
 ```
 
-Run:
+### 3. Run
 
 ```bash
 npx expo start
