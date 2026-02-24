@@ -9,7 +9,7 @@ React Native · Zustand · Local-First Architecture
 
 HOLDEM is a strategic habit tracking application built around a constrained daily decision model.
 
-Instead of tracking unlimited habits, users receive a fixed 5-card “hand” each day. Each card represents a habit. The user chooses which cards to hold (complete) and which to burn (drop). The system transforms consistency into a structured progression model inspired by poker ranking logic — without using explicit evaluation language.
+Instead of tracking unlimited habits, users receive a fixed 5-card “hand” each day. Each card represents a habit. The user chooses which cards to hold (complete) and which to burn (drop). The system transforms consistency into a structured progression model inspired by poker ranking logic, without using explicit evaluation language.
 
 The product emphasizes:
 
