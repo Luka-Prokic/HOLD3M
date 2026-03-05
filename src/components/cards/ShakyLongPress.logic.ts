@@ -1,42 +1,50 @@
-import { Pressable } from "react-native";
-import Animated, {
-    useSharedValue,
-    useAnimatedStyle,
-    withTiming,
-    withRepeat,
-    cancelAnimation,
-} from "react-native-reanimated";
+import { useEffect, useRef } from "react";
 import * as Haptics from "expo-haptics";
-import { useRef } from "react";
+import {
+    cancelAnimation,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withTiming,
+} from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 
-interface ShakyLongPressProps {
-    children: React.ReactNode;
-    onRelease: () => void;       // called once on successful long press
-    onPress?: () => void;         // called on quick tap
-    holdThreshold?: number;       // min time to start shake
-    successThreshold?: number;    // time after which long press is auto-success
-    disableHold?: boolean;
+interface UseShakyLongPressParams {
+    onRelease: () => void;
+    onHoldFail?: () => void;
+    onPress?: () => void;
+    holdThreshold?: number;
+    successThreshold?: number;
 }
 
-export function ShakyLongPress({
-    children,
+export function useShakyLongPress({
     onRelease,
+    onHoldFail,
     onPress,
     holdThreshold = 500,
     successThreshold = 1000,
-    disableHold = false,
-}: ShakyLongPressProps) {
+}: UseShakyLongPressParams) {
     const { isAnimationsEnabled } = useSettingsStore();
 
     const shake = useSharedValue(0);
     const isHolding = useRef(false);
-    const state = useRef<'idle' | 'holding' | 'success'>('idle');
+    const state = useRef<"idle" | "holding" | "success">("idle");
     const pressStartTime = useRef(0);
 
-    const shakeTimeout = useRef<number | null>(null);
-    const successTimeout = useRef<number | null>(null);
+    const shakeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const successTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const clearTimers = () => {
+        if (shakeTimeout.current) {
+            clearTimeout(shakeTimeout.current);
+            shakeTimeout.current = null;
+        }
+        if (successTimeout.current) {
+            clearTimeout(successTimeout.current);
+            successTimeout.current = null;
+        }
+    };
 
     const startHapticLoop = () => {
         if (!isHolding.current) return;
@@ -48,7 +56,7 @@ export function ShakyLongPress({
     const startShake = () => {
         isHolding.current = true;
         scheduleOnRN(startHapticLoop);
-        state.current = 'holding';
+        state.current = "holding";
         if (!isAnimationsEnabled) return;
         shake.value = withRepeat(withTiming(4, { duration: 50 }), -1, true);
     };
@@ -71,21 +79,18 @@ export function ShakyLongPress({
 
     const handlePressIn = () => {
         pressStartTime.current = Date.now();
-        state.current = 'idle';
+        state.current = "idle";
 
-        // Schedule shake
         shakeTimeout.current = setTimeout(() => {
-            // Only start shake if still holding
-            if (state.current === 'idle') {
+            if (state.current === "idle") {
                 startShake();
 
                 const elapsed = Date.now() - pressStartTime.current;
                 const remaining = successThreshold - elapsed;
 
-                // Schedule success if still holding
                 successTimeout.current = setTimeout(() => {
-                    if (state.current === 'holding') {
-                        state.current = 'success';
+                    if (state.current === "holding") {
+                        state.current = "success";
                         stopShake();
                         onRelease();
                     }
@@ -95,43 +100,32 @@ export function ShakyLongPress({
     };
 
     const handlePressOut = () => {
-        // Cancel any pending timers
-        if (shakeTimeout.current) {
-            clearTimeout(shakeTimeout.current);
-            shakeTimeout.current = null;
-        }
-        if (successTimeout.current) {
-            clearTimeout(successTimeout.current);
-            successTimeout.current = null;
-        }
+        clearTimers();
 
-        if (state.current === 'success') {
-            // Already triggered success → do nothing
+        if (state.current === "success") {
             return;
         }
 
-        if (state.current === 'holding') {
-            // Early release → error
+        if (state.current === "holding") {
             stopShake();
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             setTimeout(() => smallErrorShake(), 200);
+            onHoldFail?.();
         } else {
-            // Released before shake → normal tap
             onPress?.();
         }
     };
 
-    if (disableHold) {
-        return (
-            <Pressable onPress={onPress}>
-                <Animated.View style={animatedStyle}>{children}</Animated.View>
-            </Pressable>
-        );
-    }
+    useEffect(() => {
+        return () => {
+            clearTimers();
+            stopShake();
+        };
+    }, []);
 
-    return (
-        <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
-            <Animated.View style={animatedStyle}>{children}</Animated.View>
-        </Pressable>
-    );
+    return {
+        animatedStyle,
+        handlePressIn,
+        handlePressOut,
+    };
 }

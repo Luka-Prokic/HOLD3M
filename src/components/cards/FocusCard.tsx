@@ -4,7 +4,7 @@ import { WIDTH } from "@/utils/Dimensions";
 import { Text, View } from "react-native";
 import { useGameStore } from "@/stores/game/gameStore";
 import { isLightColor, mixColors, tintColorInvert } from "@/utils/hexToRGBA";
-import { ShakyLongPress } from "./TestCard";
+import { ShakyLongPress } from "./ShakyLongPress";
 import { CardFace } from "./CardFace";
 
 
