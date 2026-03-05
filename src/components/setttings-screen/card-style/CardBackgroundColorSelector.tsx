@@ -5,7 +5,7 @@ import { IText } from "@/components/ui/texts/IText";
 import { WIDTH } from "@/utils/Dimensions";
 import { tintColorInvert } from "@/utils/hexToRGBA";
 import { HapticButton } from "@/components/ui/buttons/HapticButton";
-import { CARD_BACKGROUND_COLORS } from "@/stores/settings/constant";
+import { CARD_BACKGROUND_COLORS } from "@/stores/settings/constants";
 
 
 

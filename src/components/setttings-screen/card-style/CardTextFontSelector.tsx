@@ -4,7 +4,7 @@ import { IText } from "@/components/ui/texts/IText";
 import { WIDTH } from "@/utils/Dimensions";
 import { HapticButton } from "@/components/ui/buttons/HapticButton";
 import { CardTextFamily } from "@/stores/settings/types";
-import { CARD_TEXT_FONTS } from "@/stores/settings/constant";
+import { CARD_TEXT_FONTS } from "@/stores/settings/constants";
 
 
 export function CardTextFontSelector() {

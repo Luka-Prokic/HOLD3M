@@ -29,7 +29,7 @@ export const createCardSlice: StateCreator<
     weight: "400",
     family: "sans-serif",
   },
-  cardDeck: "default",
+  cardDeck: "classic",
 
   setCardColorsField: (field, value) => {
     set((state) => ({
