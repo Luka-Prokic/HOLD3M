@@ -31,13 +31,13 @@ export const SETTINGS_SCHEMA: SettingsSchema[] = [
             router.push("/settings/interactions");
         },
     },
-    {
-        icon: "color-palette-outline",
-        title: "Card Style",
-        onPress: () => {
-            router.push("/settings/card-style/text");
-        },
-    },
+    // {
+    //     icon: "color-palette-outline",
+    //     title: "Card Style",
+    //     onPress: () => {
+    //         router.push("/settings/card-style/text");
+    //     },
+    // },
     {
         icon: "color-filter-outline",
         title: "App Appearance",

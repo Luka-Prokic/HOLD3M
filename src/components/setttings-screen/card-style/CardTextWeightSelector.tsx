@@ -4,7 +4,7 @@ import { IText } from "@/components/ui/texts/IText";
 import { WIDTH } from "@/utils/Dimensions";
 import { HapticButton } from "@/components/ui/buttons/HapticButton";
 import { CardTextWeight } from "@/stores/settings/types";
-import { CARD_TEXT_WEIGHTS } from "@/stores/settings/constant";
+import { CARD_TEXT_WEIGHTS } from "@/stores/settings/constants";
 
 export function CardTextWeightSelector() {
     return (

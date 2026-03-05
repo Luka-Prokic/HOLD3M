@@ -23,7 +23,7 @@ export function CurrentAnimatedHand() {
             }}
         >
             {currentHand.map((card: Card, index: number) => <CurrentCard key={card.id} card={card} index={index} />)}
-            <Shadow />
+            {/* <Shadow /> */}
         </Animated.View>
     );
 }
