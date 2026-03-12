@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import {
   FlatList,
   FlatListProps,
@@ -6,18 +6,12 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedReaction,
-  BounceIn,
-} from "react-native-reanimated";
+import Animated, { BounceIn } from "react-native-reanimated";
 import { useSettingsStore } from "@/stores/settings/settingsStore";
 import { WIDTH } from "../../../utils/Dimensions";
 import { ScrollableDots } from "@/components/ui/sliders/ScrollableDots";
 import { SlideCard } from "@/components/ui/sliders/SlideCard";
-import { scheduleOnRN } from "react-native-worklets";
-import { haptic } from "@/utils/useHaptics";
+import { useCenterCardSlider } from "./useCenterCardSlider";
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -83,85 +77,29 @@ export function CenterCardSlider<T>({
   ...flatListProps
 }: CenterCardSliderProps<T>) {
   const { theme, isAnimationsEnabled } = useSettingsStore();
-  const listRef = useRef<FlatList>(null);
-  const scrollStoppedTimeout = useRef<number | null>(null);
 
-  const scrollX = useSharedValue(0);
-  const currentIndex = useSharedValue(selectedIndex);
-  const isReady = useSharedValue(false);
-
-  const fullData = useMemo<Array<"first" | "last" | T | string>>(() => {
-    return [
-      ...(firstCard ? ["first"] : []),
-      ...(data ? Array.from(data) : []),
-      ...(lastCard ? ["last"] : []),
-    ];
-  }, [data, firstCard, lastCard]);
-
-  const horizontalPadding = (sliderWidth - cardWidth) / 2;
-  const visualIndex = firstCard ? 0 : selectedIndex < 0 ? 0 : selectedIndex;
-
-  const onScroll = useAnimatedScrollHandler({
-    onScroll: (event) => {
-      scrollX.value = event.contentOffset.x;
-
-      if (!delayedSelect || !onSelect) return;
-
-      if (scrollStoppedTimeout.current) clearTimeout(scrollStoppedTimeout.current);
-
-      scrollStoppedTimeout.current = setTimeout(() => {
-        const newIndex = Math.round(scrollX.value / cardWidth);
-        scheduleOnRN(onSelect, firstCard ? newIndex - 1 : newIndex);
-      }, selectDelay);
-    },
+  const {
+    listRef,
+    scrollX,
+    fullData,
+    horizontalPadding,
+    onScroll,
+    onScrollBeginDrag,
+    onScrollEndDrag,
+    onMomentumScrollEnd,
+    defaultKeyExtractor,
+    getItemLayout,
+  } = useCenterCardSlider({
+    data,
+    firstCard,
+    lastCard,
+    cardWidth,
+    sliderWidth,
+    selectedIndex,
+    onSelect,
+    delayedSelect,
+    selectDelay,
   });
-
-  useAnimatedReaction(
-    () => Math.round(scrollX.value / cardWidth),
-    (next, prev) => {
-      if (!isReady.value || next === prev) return;
-      currentIndex.value = next;
-
-      if (!onSelect) return;
-
-      scheduleOnRN(haptic, "sharp");
-      if (!delayedSelect) {
-        scheduleOnRN(onSelect, firstCard ? next - 1 : next);
-
-      }
-    }
-  );
-
-  useEffect(() => {
-    currentIndex.value = visualIndex;
-    listRef.current?.scrollToIndex({
-      index: visualIndex,
-      animated: false,
-    });
-    requestAnimationFrame(() => {
-      isReady.value = true;
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!isReady.value) return;
-    if (currentIndex.value === visualIndex) return;
-
-    currentIndex.value = visualIndex;
-    listRef.current?.scrollToIndex({
-      index: visualIndex,
-      animated: isAnimationsEnabled,
-    });
-  }, [visualIndex]);
-
-  useEffect(() => {
-    return () => {
-      if (scrollStoppedTimeout.current) clearTimeout(scrollStoppedTimeout.current);
-    };
-  }, []);
-
-  const defaultKeyExtractor = (item: any, index: number) =>
-    item?.id ? `${item.id}-${index}` : `${index}`;
 
   return (
     <View style={{ position: "relative" }}>
@@ -188,12 +126,11 @@ export function CenterCardSlider<T>({
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
         onScroll={onScroll}
+        onScrollBeginDrag={onScrollBeginDrag}
+        onScrollEndDrag={onScrollEndDrag}
+        onMomentumScrollEnd={onMomentumScrollEnd}
         keyExtractor={(keyExtractor || defaultKeyExtractor) as any}
-        getItemLayout={(_, index) => ({
-          length: cardWidth,
-          offset: cardWidth * index,
-          index,
-        })}
+        getItemLayout={getItemLayout}
         contentContainerStyle={{
           paddingHorizontal: horizontalPadding,
         }}
