@@ -35,7 +35,7 @@ export const CardTag = forwardRef<CardTagRef, CardTagProps>(
             ],
         }));
 
-        const trigger = () => {
+        function trigger() {
             opacity.value = 0;
             translateY.value = 8;
             scale.value = 0.96;
@@ -57,7 +57,7 @@ export const CardTag = forwardRef<CardTagRef, CardTagProps>(
                 fadeInMs,
                 withTiming(1, { duration: 180 })
             );
-        };
+        }
 
         useImperativeHandle(ref, () => ({ trigger }));
 
