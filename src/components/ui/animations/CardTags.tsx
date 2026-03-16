@@ -22,7 +22,7 @@ export interface CardTagRef {
 }
 
 export const CardTag = forwardRef<CardTagRef, CardTagProps>(
-    ({ tag, color, delayMs = 0, fadeInMs = 180, visibleForMs = 120, children }, ref) => {
+    ({ tag, color, delayMs = 0, fadeInMs = 200, visibleForMs = 800, children }, ref) => {
         const opacity = useSharedValue(0);
         const translateY = useSharedValue(8);
         const scale = useSharedValue(0.96);

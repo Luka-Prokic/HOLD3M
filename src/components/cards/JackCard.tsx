@@ -8,6 +8,7 @@ import { ShakyLongPress } from "./ShakyLongPress";
 import { CardTag, CardTagRef } from "../ui/animations/CardTags";
 import Animated, { FadeInDown, SlideOutUp } from "react-native-reanimated";
 import { CardFace } from "./CardFace";
+import { Text, View } from "react-native";
 
 interface JackCardProps {
     card: Card;
@@ -96,6 +97,7 @@ export function JackCard({
                         overflow: "hidden",
                     }}
                 >
+                    <CardText card={card} />
                     <CardFace
                         card={card}
                         width={cardWidth - 8}
@@ -108,18 +110,42 @@ export function JackCard({
                 ref={successRef}
                 tag={isHeld ? "Held" : "unHeld"}
                 color={tintColor}
-                fadeInMs={200}
-                visibleForMs={800}
             />
 
             <CardTag
                 ref={failRef}
                 tag="X"
                 color={theme.error}
-                fadeInMs={200}
-                visibleForMs={600}
             />
         </Animated.View>
     );
 }
 
+
+
+function CardText({ card }: { card: Card }) {
+    const { cardColors, cardText } = useSettingsStore();
+
+    return (
+        <View style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: "100%",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: 4,
+        }}>
+            <Text style={{
+                fontSize: cardText.size * 0.4,
+                fontWeight: cardText.weight,
+                fontFamily: cardText.family,
+                color: cardColors.text,
+                textAlign: "center",
+            }}>{card.text}</Text>
+        </View>
+    );
+}

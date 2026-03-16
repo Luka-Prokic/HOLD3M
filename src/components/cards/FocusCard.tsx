@@ -59,7 +59,6 @@ export function FocusCard({ card }: FocusCardProps) {
                         width: cardWidth,
                         height: cardHeight,
                         borderRadius: 32,
-                        // padding: 8,
                         overflow: "hidden",
                         backgroundColor,
                         borderWidth: 4,
@@ -74,8 +73,9 @@ export function FocusCard({ card }: FocusCardProps) {
                         elevation: 8,
                         zIndex: 1,
                     }} >
+                    <CardText card={card} />
                     <CardFace card={card} width={cardWidth} height={cardHeight} />
-                    <Text style={{ fontSize: cardText.size, fontWeight: cardText.weight, fontFamily: cardText.family, color: cardColors.text }}>{card.text}</Text>
+
                 </View>
             </ShakyLongPress>
 
@@ -83,17 +83,41 @@ export function FocusCard({ card }: FocusCardProps) {
                 ref={successRef}
                 tag={isHeld ? "Held" : "unHeld"}
                 color={tintColor}
-                fadeInMs={200}
-                visibleForMs={800}
             />
 
             <CardTag
                 ref={failRef}
                 tag="X"
                 color={theme.error}
-                fadeInMs={200}
-                visibleForMs={600}
             />
+        </View>
+    );
+}
+
+
+function CardText({ card }: { card: Card }) {
+    const { cardColors, cardText } = useSettingsStore();
+
+    return (
+        <View style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: "100%",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: 16,
+        }}>
+            <Text style={{
+                fontSize: cardText.size,
+                fontWeight: cardText.weight,
+                fontFamily: cardText.family,
+                color: cardColors.text,
+                textAlign: "center",
+            }}>{card.text}</Text>
         </View>
     );
 }
