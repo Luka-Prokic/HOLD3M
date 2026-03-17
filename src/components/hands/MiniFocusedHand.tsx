@@ -55,47 +55,40 @@ export function MiniFocusedHand({ style }: { style?: ViewStyle | ViewStyle[] }) 
 }
 
 function CardItem({ card, index }: { card: Card, index: number }) {
-    const { accentColor, tintColor } = useSettingsStore();
+    const { accentColor, tintColor, theme, themeName } = useSettingsStore();
     const { heldCards, currentCardIndex, setCurrentCardIndex } = useGameStore();
     const rankLabel = getCardRankLetterFromRep(card.repetition)
 
 
     const cardWidth = (WIDTH - 118) / 5;
-    const cardHeight = cardWidth * 1.4;
 
     const isHeld = heldCards.some((heldCard) => heldCard.id === card.id);
     const isCurrent = currentCardIndex === index;
 
 
-    const colorOne = isHeld ? accentColor : tintColor;
-    const colorTwo = isHeld ? tintColor : accentColor;
+    const colorOne = themeName === "light" ? theme.darkSurface : theme.lightSurface;
+    const colorTwo = isHeld ? accentColor : tintColor;
 
     return (
         <TouchableOpacity
             onPress={() => setCurrentCardIndex(index)}
             style={{
                 width: cardWidth,
-                height: cardHeight,
-                backgroundColor: colorOne,
+                height: cardWidth,
                 justifyContent: "center",
                 alignItems: "center",
                 opacity: isCurrent ? 1 : 0.6,
-                borderWidth: 2,
-                borderTopWidth: 0,
-                borderLeftWidth: 0.2,
-                borderRightWidth: 0.2,
-                borderColor: colorTwo,
-                borderRadius: 12,
-                shadowColor: colorOne,
-                shadowOffset: { width: 1, height: 1 },
-                shadowOpacity: isCurrent ? 0.8 : 0.4,
-                shadowRadius: 1,
-                elevation: 2,
             }} >
             {rankLabel === "X" ?
-                <Ionicons name="star" size={24} color={colorTwo} />
+                <>
+                    <Ionicons name="star" size={44} color={colorOne} style={{ position: "absolute" }} />
+                    <Ionicons name="star" size={24} color={colorTwo} style={{ position: "absolute" }} />
+                </>
                 :
-                <Text style={{ fontSize: 24, fontWeight: "bold", color: colorTwo }}>{rankLabel}</Text>
+                <>
+                    <Text style={{ fontSize: 44, fontWeight: "900", color: colorOne, position: "absolute", transform: [{ scale: 1.1 }] }}>{rankLabel}</Text>
+                    <Text style={{ fontSize: 44, fontWeight: "700", color: colorTwo, position: "absolute" }}>{rankLabel}</Text>
+                </>
             }
         </TouchableOpacity>)
 }

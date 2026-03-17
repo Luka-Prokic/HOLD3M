@@ -7,14 +7,17 @@ import Animated, {
     withDelay,
     withSequence,
 } from "react-native-reanimated";
+import { useSettingsStore } from "@/stores/settings/settingsStore";
 
 interface CardTagProps {
     tag?: string;
     color: string;
+    textColor?: string;
     delayMs?: number;
     fadeInMs?: number;
     visibleForMs?: number;
     children?: React.ReactNode;
+    top?: number;
 }
 
 export interface CardTagRef {
@@ -22,7 +25,8 @@ export interface CardTagRef {
 }
 
 export const CardTag = forwardRef<CardTagRef, CardTagProps>(
-    ({ tag, color, delayMs = 0, fadeInMs = 200, visibleForMs = 800, children }, ref) => {
+    ({ tag, color, textColor, delayMs = 0, fadeInMs = 200, visibleForMs = 800, children, top = -32 }, ref) => {
+        const { theme } = useSettingsStore();
         const opacity = useSharedValue(0);
         const translateY = useSharedValue(8);
         const scale = useSharedValue(0.96);
@@ -67,6 +71,7 @@ export const CardTag = forwardRef<CardTagRef, CardTagProps>(
                 style={[
                     {
                         position: "absolute",
+                        top: top,
                         alignSelf: "center",
                         paddingHorizontal: 16,
                         paddingVertical: 8,
@@ -80,9 +85,9 @@ export const CardTag = forwardRef<CardTagRef, CardTagProps>(
                 {children ?? (
                     <Text
                         style={{
-                            color: "white",
+                            color: textColor ?? theme.textInverted,
                             fontWeight: "600",
-                            fontSize: 14,
+                            fontSize: 18,
                         }}
                     >
                         {tag}

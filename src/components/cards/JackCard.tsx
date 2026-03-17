@@ -25,7 +25,7 @@ export function JackCard({
     privewOnly = false,
     noHold = false,
 }: JackCardProps) {
-    const { cardColors, theme, isAnimationsEnabled, tintColor } = useSettingsStore();
+    const { cardColors, theme, isAnimationsEnabled, tintColor, accentColor, themeName } = useSettingsStore();
     const { holdCard, heldCards, releaseCard } = useGameStore();
 
     const successRef = useRef<CardTagRef>(null);
@@ -36,6 +36,9 @@ export function JackCard({
 
     const cardWidth = width;
     const cardHeight = cardWidth * 1.4;
+
+    const tagColor = themeName === "light" ? accentColor : tintColor;
+    const tagTextColor = themeName === "light" ? tintColor : accentColor;
 
     const isItLightColor = isLightColor(cardColors.background);
     const backgroundColor = mixColors(
@@ -109,13 +112,15 @@ export function JackCard({
             <CardTag
                 ref={successRef}
                 tag={isHeld ? "Held" : "unHeld"}
-                color={tintColor}
+                color={tagColor}
+                textColor={tagTextColor}
             />
 
             <CardTag
                 ref={failRef}
                 tag="X"
-                color={theme.error}
+                color={theme.darkSurface}
+                textColor={theme.lightSurface}
             />
         </Animated.View>
     );

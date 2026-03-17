@@ -15,7 +15,7 @@ interface FocusCardProps {
 }
 
 export function FocusCard({ card }: FocusCardProps) {
-    const { cardColors, cardText, theme, tintColor } = useSettingsStore();
+    const { cardColors, themeName, theme, tintColor, accentColor } = useSettingsStore();
     const { heldCards, releaseCard, holdCard } = useGameStore();
 
     const successRef = useRef<CardTagRef>(null);
@@ -25,6 +25,9 @@ export function FocusCard({ card }: FocusCardProps) {
 
     const cardHeight = (WIDTH - 48) * 1.4;
     const cardWidth = WIDTH - 48;
+
+    const tagColor = themeName === "light" ? accentColor : tintColor;
+    const tagTextColor = themeName === "light" ? tintColor : accentColor;
 
     const isItLightColor = isLightColor(cardColors.background);
     const backgroundColor = mixColors(cardColors.background, theme.select, isHeld ? (isItLightColor ? 0.8 : 0.2) : 0);
@@ -82,13 +85,17 @@ export function FocusCard({ card }: FocusCardProps) {
             <CardTag
                 ref={successRef}
                 tag={isHeld ? "Held" : "unHeld"}
-                color={tintColor}
+                color={tagColor}
+                textColor={tagTextColor}
+                top={16}
             />
 
             <CardTag
                 ref={failRef}
                 tag="X"
-                color={theme.error}
+                color={theme.darkSurface}
+                textColor={theme.lightSurface}
+                top={16}
             />
         </View>
     );
